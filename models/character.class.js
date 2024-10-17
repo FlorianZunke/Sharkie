@@ -1,6 +1,6 @@
-class Character extends MovableObject{
+class Character extends MovableObject {
     world;
-    speed = 5;
+    speed = 10;
     IMAGES_SWIM = [
         'img/1.Sharkie/1.IDLE/1.png',
         'img/1.Sharkie/1.IDLE/2.png',
@@ -24,7 +24,7 @@ class Character extends MovableObject{
 
     constructor() {
         super().loadImage('img/1.Sharkie/1.IDLE/1.png'),
-        this.loadImages(this.IMAGES_SWIM);
+            this.loadImages(this.IMAGES_SWIM);
 
         this.animate();
     }
@@ -42,21 +42,26 @@ class Character extends MovableObject{
 
         setInterval(() => {
 
-            if (this.world.keyboard.RIGHT) {
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.x += this.speed;
                 this.otherDirection = false;
+
             }
 
-            if (this.world.keyboard.LEFT) {
+            if (this.world.keyboard.LEFT && this.x > 0) {
                 this.x -= this.speed;
                 this.otherDirection = true;
             }
 
-            if (this.world.keyboard.UP) {
+            this.world.camera_x = -this.x + 100;
+        }, 1000 / 60);
+
+        setInterval(() => {
+            if (this.world.keyboard.UP && this.y > -150) {
                 this.y -= this.speed;
             }
 
-            if (this.world.keyboard.DOWN) {
+            if (this.world.keyboard.DOWN && this.y < 215) {
                 this.y += this.speed;
             }
         }, 1000 / 60);
