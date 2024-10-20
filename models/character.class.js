@@ -33,10 +33,7 @@ class Character extends MovableObject {
         setInterval(() => {
 
             if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP) {
-                let i = this.currentImage % this.IMAGES_SWIM.length;
-                let path = this.IMAGES_SWIM[i];
-                this.img = this.imageCache[path];
-                this.currentImage++;
+                this.playAnimation(this.IMAGES_SWIM);
             }
         }, 150);
 
