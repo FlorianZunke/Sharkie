@@ -25,16 +25,12 @@ class Character extends MovableObject {
     constructor() {
         super().loadImage('img/1.Sharkie/1.IDLE/1.png'),
             this.loadImages(this.IMAGES_SWIM);
-
         this.animate();
     }
 
     animate() {
         setInterval(() => {
-
-            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP) {
-                this.playAnimation(this.IMAGES_SWIM);
-            }
+            this.playAnimation(this.IMAGES_SWIM);
         }, 150);
 
         setInterval(() => {

@@ -22,7 +22,7 @@ class Endboss extends MovableObject {
     constructor() {
         super().loadImage(this.IMAGES_SWIM[0]);
         this.loadImages(this.IMAGES_SWIM);
-        this.x = 700;
+        this.x = 3800;
 
         setInterval(() => {
             this.playAnimation(this.IMAGES_SWIM)
