@@ -48,13 +48,17 @@ class Character extends MovableObject {
         'img/1.Sharkie/5.Hurt/1.Poisoned/5.png'
     ];
     IMAGES_ELECTRIC_HURT = [
-        'img/1.Sharkie/5.Hurt/2.ElectricShock/.o1.png',
-        'img/1.Sharkie/5.Hurt/2.ElectricShock/.o2.png',
+        'img/1.Sharkie/5.Hurt/2.ElectricShock/1.png',
+        'img/1.Sharkie/5.Hurt/2.ElectricShock/3.png',
+        'img/1.Sharkie/5.Hurt/2.ElectricShock/1.png',
+        'img/1.Sharkie/5.Hurt/2.ElectricShock/3.png',
+        'img/1.Sharkie/5.Hurt/2.ElectricShock/1.png',
+        'img/1.Sharkie/5.Hurt/2.ElectricShock/3.png'
     ];
 
     constructor() {
         super().loadImage('img/1.Sharkie/1.IDLE/1.png'),
-            this.loadImages(this.IMAGES_SWIM);
+        this.loadImages(this.IMAGES_SWIM);
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_POISON_HURT);

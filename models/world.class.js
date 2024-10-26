@@ -28,6 +28,7 @@ class World {
            this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
+                this.statusBar.setPercentage(this.character.energy)
             }
            });
         }, 500);
@@ -38,15 +39,16 @@ class World {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.ctx.translate(this.camera_x, 0);
-
         this.addObjectsToMap(this.level.backgroundObjects);
-        this.addToMap(this.statusBar);
         this.addObjectsToMap(this.level.coins);
 
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.barriar);
 
+        this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.statusBar);
+        this.ctx.translate(this.camera_x, 0);
 
         this.ctx.translate(-this.camera_x, 0);
 

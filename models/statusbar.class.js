@@ -3,18 +3,20 @@ class Statusbar extends DrawableObject {
     percentage = 100;
     IMAGES_HEALTH = [
         'img/4. Marcadores/green/Life/0_  copia 3.png',
-        'img/4. Marcadores/green/Life/20_  copia 3.png',
+        'img/4. Marcadores/green/Life/20_ copia 4.png',
         'img/4. Marcadores/green/Life/40_  copia 3.png',
         'img/4. Marcadores/green/Life/60_  copia 3.png',
         'img/4. Marcadores/green/Life/80_  copia 3.png',
-        'img/4. Marcadores/green/Life/100_  copia 3.png',
+        'img/4. Marcadores/green/Life/100_  copia 2.png'
     ]
 
     constructor() {
         super();
         this.loadImages(this.IMAGES_HEALTH);
-        this.x = 100;
-        this.y = 100;
+        this.x = 20;
+        this.y = 0;
+        this.height = 70;
+        this.width = 200;
         this.setPercentage(100);
     }
 
