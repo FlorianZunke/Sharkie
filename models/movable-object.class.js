@@ -4,7 +4,9 @@ class MovableObject extends DrawableObject {
     speedY = 0;
     acceleration = 1.75;
     energy = 100;
+    itemPercentage = 0;
     lastHit = 0;
+    lastCollect = 0;
 
 
     playAnimation(images) {
@@ -37,6 +39,16 @@ class MovableObject extends DrawableObject {
             this.energy = 0;
         } else {
             this.lastHit = new Date().getTime();
+        }
+    }
+
+
+    collectItems() {
+        this.itemPercentage += 20;
+        if (this.itemPercentage >= 100) {
+            this.itemPercentage = 100;
+        } else {
+            this.lastCollect = new Date().getTime();
         }
     }
 

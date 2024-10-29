@@ -17,6 +17,7 @@ class World {
         this.draw();
         this.setWorld();
         this.checkCollisions();
+        this.checkItemCollions();
     }
 
 
@@ -35,6 +36,18 @@ class World {
            });
         }, 500);
     };
+
+
+    checkItemCollions() {
+        setInterval(() => {
+            this.level.coins.forEach((coin) => {
+             if (this.character.isColliding(coin)) {
+                 this.character.collectItems();
+                 this.coinBar.setPercentage(this.character.itemPercentage)
+             }
+            });
+         }, 500);
+    }
 
     
     draw() {
