@@ -12,7 +12,7 @@ class Poisionbar extends DrawableObject {
         super();
         this.loadImages(this.IMAGES_POISON);
         this.x = 20;
-        this.y = 80;
+        this.y = 80;  
         this.height = 50;
         this.width = 200;
         this.setPercentage(0);
@@ -27,13 +27,13 @@ class Poisionbar extends DrawableObject {
     resolveImageIndex() {
         if (this.percentage == 0) {
             return 0;
-        } else if (this.percentage >= 20) {
+        } else if (this.percentage <= 20) {
             return 1;
-        } else if (this.percentage >= 40) {
+        } else if (this.percentage <= 40) {
             return 2;
-        } else if (this.percentage >= 60) {
+        } else if (this.percentage <= 60) {
             return 3;
-        } else if (this.percentage >= 80) {
+        } else if (this.percentage <= 80) {
             return 4;
         } else {
             return 5

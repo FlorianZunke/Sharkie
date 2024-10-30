@@ -27,13 +27,13 @@ class CoinBar extends DrawableObject {
     resolveImageIndex() {
         if (this.percentage == 0) {
             return 0;
-        } else if (this.percentage >= 19) {
+        } else if (this.percentage <= 20) {
             return 1;
-        } else if (this.percentage >= 39) {
+        } else if (this.percentage <= 40) {
             return 2;
-        } else if (this.percentage >= 59) {
+        } else if (this.percentage <= 60) {
             return 3;
-        } else if (this.percentage >= 79) {
+        } else if (this.percentage <= 80) {
             return 4;
         } else {
             return 5
