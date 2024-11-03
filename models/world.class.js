@@ -17,7 +17,8 @@ class World {
         this.draw();
         this.setWorld();
         this.checkCollisions();
-        this.checkItemCollions();
+        this.checkCoinCollions();
+        this.checkPoisionBottleCollions();
     }
 
 
@@ -28,34 +29,50 @@ class World {
 
     checkCollisions() {
         setInterval(() => {
-           this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
-                this.character.hit();
-                this.healthBar.setPercentage(this.character.energy)
-            }
-           });
+            this.level.enemies.forEach((enemy) => {
+                if (this.character.isColliding(enemy)) {
+                    this.character.hit();
+                    this.healthBar.setPercentage(this.character.energy)
+                }
+            });
         }, 500);
     };
 
 
-    checkItemCollions() {
+    //Spliced noch die Falschen Flaschen bzw Coins wenn man eine nicht eingesammelt hat
+    checkCoinCollions() {
         setInterval(() => {
             this.level.coins.forEach((coin) => {
-             if (this.character.isColliding(coin)) {
-                 this.character.collectItems();
-                 this.coinBar.setPercentage(this.character.itemPercentage)
-             }
+                if (this.character.isColliding(coin)) {
+                    this.character.collectCoins();
+                    this.level.coins.splice(coin, 1);
+                    this.coinBar.setPercentage(this.character.coinPercentage);
+                }
             });
-         }, 500);
+        }, 500);
     }
 
-    
+
+    checkPoisionBottleCollions() {
+        setInterval(() => {
+            this.level.poision_bottles.forEach((bottle) => {
+                if (this.character.isColliding(bottle)) {
+                    this.character.collectBottles();
+                    this.level.poision_bottles.splice(bottle, 1);
+                    this.poisionBar.setPercentage(this.character.bottlePercentage);
+                }
+            });
+        }, 500);
+    }
+
+
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.poision_bottles);
 
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);

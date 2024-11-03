@@ -4,7 +4,8 @@ class MovableObject extends DrawableObject {
     speedY = 0;
     acceleration = 1.75;
     energy = 100;
-    itemPercentage = 0;
+    coinPercentage = 0;
+    bottlePercentage = 0;
     lastHit = 0;
     lastCollect = 0;
 
@@ -15,7 +16,7 @@ class MovableObject extends DrawableObject {
         this.img = this.imageCache[path];
         this.currentImage++;
     }
-    
+
 
     isColliding(mo) {
         return this.x + this.width > mo.x &&
@@ -43,16 +44,6 @@ class MovableObject extends DrawableObject {
     }
 
 
-    collectItems() {
-        this.itemPercentage += 20;
-        if (this.itemPercentage >= 100) {
-            this.itemPercentage = 100;
-        } else {
-            this.lastCollect = new Date().getTime();
-        }
-    }
-
-
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000;
@@ -62,6 +53,53 @@ class MovableObject extends DrawableObject {
 
     isDead() {
         return this.energy == 0;
+    }
+
+
+    collectCoins() {
+        this.coinPercentage += 20;
+        if (this.coinPercentage >= 100) {
+            this.coinPercentage = 100;
+        }
+    }
+
+
+    collectBottles() {
+        this.bottlePercentage += 20;
+        if (this.bottlePercentage >= 100) {
+            this.bottlePercentage = 100;
+        }
+    }
+
+    moveHorizontal() {
+        // Check if we should switch direction
+        if (this.x <= this.minX) {
+            this.otherDirection = true; // Move right
+        } else if (this.x >= this.maxX) {
+            this.otherDirection = false; // Move left
+        }
+
+        // Move the PufferFish based on direction
+        if (this.otherDirection) {
+            this.x += this.speed;
+        } else {
+            this.x -= this.speed;
+        }
+    }
+
+
+    moveVertical() {
+        if (this.y <= this.minY) {
+            this.otherDirection = false;
+        } else if (this.y >= this.maxY) {
+            this.otherDirection = true;
+        }
+
+        if (this.otherDirection) {
+            this.y -= this.speed;
+        } else {
+            this.y += this.speed;
+        }
     }
 
 
@@ -77,12 +115,5 @@ class MovableObject extends DrawableObject {
 
     isAboveGround() {
         return this.y < 195
-    }
-
-
-    moveLeft() {
-        setInterval(() => {
-            this.x -= this.speed;
-        }, 1000 / 60);
     }
 }

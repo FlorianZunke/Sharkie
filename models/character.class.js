@@ -1,7 +1,7 @@
 class Character extends MovableObject {
     world;
     y = 100;
-    speed = 10;
+    speed = 11;
     IMAGES_IDLE = [
         'img/1.Sharkie/1.IDLE/1.png',
         'img/1.Sharkie/1.IDLE/2.png',

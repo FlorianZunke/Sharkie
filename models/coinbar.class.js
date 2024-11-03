@@ -18,22 +18,22 @@ class CoinBar extends DrawableObject {
         this.setPercentage(0);
     }
 
-    setPercentage(percentage) {
-        this.percentage = percentage;
+    setPercentage(coinPercentage) {
+        this.coinPercentage = coinPercentage;
         let path = this.IMAGES_COIN[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
     resolveImageIndex() {
-        if (this.percentage == 0) {
+        if (this.coinPercentage == 0) {
             return 0;
-        } else if (this.percentage <= 20) {
+        } else if (this.coinPercentage <= 20) {
             return 1;
-        } else if (this.percentage <= 40) {
+        } else if (this.coinPercentage <= 40) {
             return 2;
-        } else if (this.percentage <= 60) {
+        } else if (this.coinPercentage <= 60) {
             return 3;
-        } else if (this.percentage <= 80) {
+        } else if (this.coinPercentage <= 80) {
             return 4;
         } else {
             return 5
