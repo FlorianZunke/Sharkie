@@ -2,6 +2,7 @@ class MovableObject extends DrawableObject {
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
+    speedX = 0;
     acceleration = 1.75;
     energy = 100;
     coinPercentage = 0;
@@ -108,6 +109,16 @@ class MovableObject extends DrawableObject {
             if (this.isAboveGround()) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
+            }
+        }, 1000 / 25);
+    }
+
+
+    shotBubbles() {
+        setInterval(() => {
+            if (world.keyboard.ATTACK_BUBBLE) {
+                this.x += this.speedX;
+                this.speedX += this.acceleration;
             }
         }, 1000 / 25);
     }

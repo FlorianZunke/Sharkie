@@ -8,6 +8,7 @@ class World {
     healthBar = new HealthBar();
     poisionBar = new Poisionbar();
     coinBar = new CoinBar();
+    throwableObjects = [new ThrowableObject()];
 
 
     constructor(canvas, keyboard) {
@@ -39,7 +40,7 @@ class World {
     };
 
 
-    //Spliced noch die Falschen Flaschen bzw Coins wenn man eine nicht eingesammelt hat
+    //Spliced noch die falschen Flaschen bzw Coins wenn man eine nicht eingesammelt hat
     checkCoinCollions() {
         setInterval(() => {
             this.level.coins.forEach((coin) => {
@@ -76,6 +77,7 @@ class World {
 
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.barriar);
 
         this.ctx.translate(-this.camera_x, 0);

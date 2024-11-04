@@ -8,6 +8,7 @@ function init() {
     world = new World(canvas, keyboard);
     
     window.addEventListener('keydown', (event) => {
+        
         if (event.keyCode == 32) {
             keyboard.UP = true;
         }
@@ -18,6 +19,14 @@ function init() {
 
         if (event.keyCode == 68) {
             keyboard.RIGHT = true;
+        }
+
+        if (event.keyCode == 69) {
+            keyboard.ATTACK_SLAP = true;
+        }
+
+        if (event.keyCode == 81) {
+            keyboard.ATTACK_BUBBLE = true;
         }
 
         if (event.keyCode == 83) {
@@ -36,6 +45,14 @@ function init() {
 
         if (event.keyCode == 68) {
             keyboard.RIGHT = false;
+        }
+
+        if (event.keyCode == 69) {
+            keyboard.ATTACK_SLAP = false;
+        }
+
+        if (event.keyCode == 81) {
+            keyboard.ATTACK_BUBBLE = false;
         }
 
         if (event.keyCode == 83) {
