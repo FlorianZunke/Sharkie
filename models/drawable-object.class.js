@@ -28,7 +28,7 @@ class DrawableObject {
 
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof PufferFish) {
+        if (this instanceof Character || this instanceof PufferFish || this instanceof JellyFish || this instanceof Endboss || this instanceof Coin || this instanceof PoisionBottle) {
             ctx.beginPath();
             ctx.lineWidth = '3';
             ctx.strokeStyle = 'blue';
@@ -36,4 +36,15 @@ class DrawableObject {
             ctx.stroke();
         }
     }
+
+
+    // drawFrame(ctx) {
+    //     if (this instanceof Character || this instanceof PufferFish || this instanceof JellyFish || this instanceof Endboss || this instanceof Coin || this instanceof PoisionBottle) {
+    //         ctx.beginPath();
+    //         ctx.lineWidth = '3';
+    //         ctx.strokeStyle = 'red';
+    //         ctx.rect(this.x - offsetX, this.y  - offsetY, this.width, this.height);
+    //         ctx.stroke();
+    //     }
+    // }
 }

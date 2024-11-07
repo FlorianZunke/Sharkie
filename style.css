@@ -3,8 +3,32 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    min-height: 100vh;
+    width: 100%;
+    background-image: url('img/Background_Image/underwater-8732344_1280.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
 }
 
 canvas {
     background-color: black;
+    display: block;
+}
+
+
+/* Smartphones */
+@media only screen and (max-width: 720px){
+    canvas {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-height: 480px){
+    canvas {
+        height: 100vh;
+        position: absolute;
+        top: 0;
+    }
 }

@@ -20,6 +20,7 @@ class World {
         this.checkCollisions();
         this.checkCoinCollions();
         this.checkPoisionBottleCollions();
+        // this.checkTime();
     }
 
 
@@ -129,4 +130,25 @@ class World {
         mo.x = mo.x * -1;
         this.ctx.restore();
     }
+
+
+    // checkTime() {
+    //     let time = 0;
+        
+    //     setInterval(() => {
+    //         if (!this.keyboard) {
+    //             time = time + 1;
+    //             console.log(time);
+    //         } else {
+    //             time = 0;
+    //             console.log(time);
+    //         } 
+    //     }, 200); 
+
+    //     setInterval(() => {
+    //         if(!this.keyboard && time > 20) {
+    //             console.log('5 seconds passed with no Input');
+    //         }
+    //     }, 200);
+    // }
 }

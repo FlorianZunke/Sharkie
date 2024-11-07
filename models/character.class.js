@@ -22,6 +22,22 @@ class Character extends MovableObject {
         'img/1.Sharkie/1.IDLE/17.png',
         'img/1.Sharkie/1.IDLE/18.png'
     ];
+    IMAGES_SLEEP = [
+        'img/1.Sharkie/2.Long_IDLE/i1.png',
+        'img/1.Sharkie/2.Long_IDLE/i2.png',
+        'img/1.Sharkie/2.Long_IDLE/i3.png',
+        'img/1.Sharkie/2.Long_IDLE/i4.png',
+        'img/1.Sharkie/2.Long_IDLE/i5.png',
+        'img/1.Sharkie/2.Long_IDLE/i6.png',
+        'img/1.Sharkie/2.Long_IDLE/i7.png',
+        'img/1.Sharkie/2.Long_IDLE/i8.png',
+        'img/1.Sharkie/2.Long_IDLE/i9.png',
+        'img/1.Sharkie/2.Long_IDLE/i10.png',
+        'img/1.Sharkie/2.Long_IDLE/i11.png',
+        'img/1.Sharkie/2.Long_IDLE/i12.png',
+        'img/1.Sharkie/2.Long_IDLE/i13.png',
+        'img/1.Sharkie/2.Long_IDLE/i14.png',
+    ];
     IMAGES_SWIM = [
         'img/1.Sharkie/3.Swim/1.png',
         'img/1.Sharkie/3.Swim/2.png',
@@ -76,8 +92,9 @@ class Character extends MovableObject {
 
     constructor() {
         super().loadImage('img/1.Sharkie/1.IDLE/1.png'),
-            this.loadImages(this.IMAGES_SWIM);
+        this.loadImages(this.IMAGES_SWIM);
         this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_SLEEP);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_POISON_HURT);
         this.loadImages(this.IMAGES_ELECTRIC_HURT);
@@ -96,6 +113,9 @@ class Character extends MovableObject {
             } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
                     this.playAnimation(this.IMAGES_SWIM);
+                    //Bedingung stimmt noch nicht, ist aber denke ich der richtige ansatz
+                } if (new Date().getTime() > 2000000000000000000000000000) {
+                    this.playAnimation(this.IMAGES_SLEEP);
                 } else {
                     this.playAnimation(this.IMAGES_IDLE);
                 }
