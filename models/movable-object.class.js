@@ -20,19 +20,10 @@ class MovableObject extends DrawableObject {
 
 
     isColliding(mo) {
-        return this.x + this.width > mo.x &&
-            this.y + this.height > mo.y &&
-            this.x < mo.x &&
-            this.y < mo.y + mo.height
+        return (this.x  + this.offsetX + this.width - 2*(this.offsetX)) >= mo.x && this.x <= (mo.x + mo.width) &&
+            (this.y + 2*(this.offsetY) + this.height - 3*(this.offsetY)) >= mo.y &&
+            (this.y + 2*(this.offsetY)) <= (mo.y + mo.height);
     }
-
-
-    // isColliding(mo) {
-    //     return (this.x + this.width) >= mo.x && this.x <= (mo.x + mo.width) &&
-    //         (this.y + this.offsetY + this.height) >= mo.y &&
-    //         (this.y + this.offsetY) <= (mo.y + mo.height) &&
-    //         mo.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
-    // }
 
 
     hit() {
@@ -47,7 +38,7 @@ class MovableObject extends DrawableObject {
 
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
-        timepassed = timepassed / 1000;
+        timepassed = timepassed / 1000
         return timepassed < 1;
     }
 
@@ -114,17 +105,11 @@ class MovableObject extends DrawableObject {
     }
 
 
-    shotBubbles() {
-        setInterval(() => {
-            if (world.keyboard.ATTACK_BUBBLE) {
-                this.x += this.speedX;
-                this.speedX += this.acceleration;
-            }
-        }, 1000 / 25);
-    }
-
-
     isAboveGround() {
-        return this.y < 195
+        if (this instanceof ThrowableObject) {
+            return true;
+        } else {
+            return this.y < 195
+        }
     }
 }

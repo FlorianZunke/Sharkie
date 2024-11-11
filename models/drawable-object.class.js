@@ -3,6 +3,8 @@ class DrawableObject {
     y = 150;
     height = 325;
     width = 300;
+    offsetX = 0;
+    offsetY = 0;
     img;
     currentImage = 0;
     imageCache = {};
@@ -28,23 +30,20 @@ class DrawableObject {
 
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof PufferFish || this instanceof JellyFish || this instanceof Endboss || this instanceof Coin || this instanceof PoisionBottle) {
+        if (this instanceof Character) {
             ctx.beginPath();
             ctx.lineWidth = '3';
             ctx.strokeStyle = 'blue';
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
         }
+
+        if (this instanceof Character || this instanceof PufferFish || this instanceof JellyFish || this instanceof Endboss || this instanceof Coin || this instanceof PoisionBottle) {
+            ctx.beginPath();
+            ctx.lineWidth = '3';
+            ctx.strokeStyle = 'red';
+            ctx.rect(this.x + this.offsetX, this.y + 2*(this.offsetY), this.width - 2*(this.offsetX), this.height - 3*(this.offsetY));
+            ctx.stroke();
+        }
     }
-
-
-    // drawFrame(ctx) {
-    //     if (this instanceof Character || this instanceof PufferFish || this instanceof JellyFish || this instanceof Endboss || this instanceof Coin || this instanceof PoisionBottle) {
-    //         ctx.beginPath();
-    //         ctx.lineWidth = '3';
-    //         ctx.strokeStyle = 'red';
-    //         ctx.rect(this.x - offsetX, this.y  - offsetY, this.width, this.height);
-    //         ctx.stroke();
-    //     }
-    // }
-}
+} 

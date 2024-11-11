@@ -2,6 +2,8 @@ class Character extends MovableObject {
     world;
     y = 100;
     speed = 11;
+    poisionHurt = false;
+    electricHurt = false;
     IMAGES_IDLE = [
         'img/1.Sharkie/1.IDLE/1.png',
         'img/1.Sharkie/1.IDLE/2.png',
@@ -92,7 +94,7 @@ class Character extends MovableObject {
 
     constructor() {
         super().loadImage('img/1.Sharkie/1.IDLE/1.png'),
-        this.loadImages(this.IMAGES_SWIM);
+            this.loadImages(this.IMAGES_SWIM);
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_SLEEP);
         this.loadImages(this.IMAGES_DEAD);
@@ -100,6 +102,8 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_ELECTRIC_HURT);
         this.loadImages(this.IMAGES_ATTACK_SLAP);
         this.loadImages(this.IMAGES_ATTACK_BUBBLE);
+        this.offsetX = 50;
+        this.offsetY = 60;
         this.animate();
         this.applyGravity();
     }
@@ -107,14 +111,18 @@ class Character extends MovableObject {
     animate() {
         setInterval(() => {
             if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD)
+                this.playAnimation(this.IMAGES_DEAD);
+            } else if (this.isHurt() && this.poisionHurt) {
+                this.playAnimation(this.IMAGES_POISON_HURT);
+            } else if (this.isHurt() && this.electricHurt) {
+                this.playAnimation(this.IMAGES_ELECTRIC_HURT);
             } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_POISON_HURT)
+                this.playAnimation(this.IMAGES_POISON_HURT);
             } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
                     this.playAnimation(this.IMAGES_SWIM);
                     //Bedingung stimmt noch nicht, ist aber denke ich der richtige ansatz
-                } if (new Date().getTime() > 2000000000000000000000000000) {
+                } else if (new Date().getTime() > 20000000000000000000000000) {
                     this.playAnimation(this.IMAGES_SLEEP);
                 } else {
                     this.playAnimation(this.IMAGES_IDLE);

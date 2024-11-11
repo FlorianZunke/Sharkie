@@ -1,5 +1,4 @@
 class Coin extends MovableObject {
-
     height = 75;
     width = 75;
     
@@ -7,5 +6,7 @@ class Coin extends MovableObject {
         super().loadImage(path);
         this.x = x;
         this.y = y;
+        this.offsetX = 10;
+        this.offsetY = 6;
     }
 }

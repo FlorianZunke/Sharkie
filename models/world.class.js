@@ -8,7 +8,7 @@ class World {
     healthBar = new HealthBar();
     poisionBar = new Poisionbar();
     coinBar = new CoinBar();
-    throwableObjects = [new ThrowableObject()];
+    throwableObjects = [];
 
 
     constructor(canvas, keyboard) {
@@ -18,8 +18,7 @@ class World {
         this.draw();
         this.setWorld();
         this.checkCollisions();
-        this.checkCoinCollions();
-        this.checkPoisionBottleCollions();
+        this.run();
         // this.checkTime();
     }
 
@@ -31,10 +30,30 @@ class World {
 
     checkCollisions() {
         setInterval(() => {
+            this.poisionHurt = false;
+            this.electricHurt = false;
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
-                    this.character.hit();
-                    this.healthBar.setPercentage(this.character.energy)
+                    if (enemy instanceof PufferFish) {
+                        this.character.hit();
+                        this.character.poisionHurt = true;
+                        this.character.electricHurt = false;
+                        this.healthBar.setPercentage(this.character.energy);
+                    }
+
+                    if (enemy instanceof JellyFish) {
+                        this.character.hit();
+                        this.character.poisionHurt = false;
+                        this.character.electricHurt = true;
+                        this.healthBar.setPercentage(this.character.energy);
+                    }
+
+                    if (enemy instanceof Endboss) {
+                        this.character.hit();
+                        this.character.poisionHurt = false;
+                        this.character.electricHurt = false;
+                        this.healthBar.setPercentage(this.character.energy);
+                    }
                 }
             });
         }, 500);
@@ -51,7 +70,7 @@ class World {
                     this.coinBar.setPercentage(this.character.coinPercentage);
                 }
             });
-        }, 500);
+        }, 1000);
     }
 
 
@@ -64,7 +83,24 @@ class World {
                     this.poisionBar.setPercentage(this.character.bottlePercentage);
                 }
             });
-        }, 500);
+        }, 1000);
+    }
+
+
+    checkThrowObjects() {
+        if (this.keyboard.ATTACK_BUBBLE) {
+            let bubble = new ThrowableObject(this.character.x + 250, this.character.y + 160);
+            this.throwableObjects.push(bubble);
+        }
+    }
+
+
+    run() {
+        setInterval(() => {
+            this.checkCoinCollions();
+            this.checkPoisionBottleCollions();
+            this.checkThrowObjects();
+        }, 400);
     }
 
 
@@ -75,6 +111,7 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.poision_bottles);
+        
 
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);

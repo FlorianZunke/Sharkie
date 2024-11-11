@@ -24,8 +24,9 @@ class PufferFish extends MovableObject {
         this.y = y;
         this.minX = minX;
         this.maxX = maxX;
+        this.offsetX = 0;
+        this.offsetY = 0;
         this.speed = 2.5 + Math.random() * 0.7;
-
         this.animate();
     }
 

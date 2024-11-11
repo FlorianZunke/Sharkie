@@ -38,6 +38,8 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_SPAWN);
         this.animate();
         this.x = 6400;
+        this.offsetX = 10;
+        this.offsetY = 50;
     }
 
     animate() {
@@ -50,11 +52,12 @@ class Endboss extends MovableObject {
             } else {
                 this.playAnimation(this.IMAGES_SWIM);
             }
+            i++;
 
-            if (this.world.character.x < 6200 && !hadFirstContact) {
-                i = 0;
-                hadFirstContact = true;
-            }
+            // if (this.world.character.x > 6000 && !hadFirstContact) {
+            //     i = 0;
+            //     hadFirstContact = true;
+            // }
         }, 175);
     }
 }
