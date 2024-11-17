@@ -106,6 +106,7 @@ class Character extends MovableObject {
         this.offsetY = 60;
         this.animate();
         this.applyGravity();
+        this.checkXCoord()
     }
 
     animate() {
@@ -132,11 +133,15 @@ class Character extends MovableObject {
 
         setInterval(() => {
             if (this.world.keyboard.ATTACK_SLAP) {
+                this.world.invincible = true;
                 this.playAnimation(this.IMAGES_ATTACK_SLAP);
+                this.world.invincible = false;
             }
 
             if (this.world.keyboard.ATTACK_BUBBLE) {
+                this.world.invincible = true;
                 this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
+                this.world.invincible = false;
             }
         }, 50);
 
@@ -167,5 +172,14 @@ class Character extends MovableObject {
                 this.y += this.speed;
             }
         }, 1000 / 60);
+    }
+
+
+    checkXCoord() {
+        setInterval(() => {
+            if (this.x > 5800) {
+                this.world.level.enemies[0].reachedXCoords = true;
+            }
+        }, 1000/60);
     }
 }

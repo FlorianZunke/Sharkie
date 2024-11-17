@@ -9,6 +9,8 @@ class World {
     poisionBar = new Poisionbar();
     coinBar = new CoinBar();
     throwableObjects = [];
+    reachedXCoords = false;
+    invincible = false;
 
 
     constructor(canvas, keyboard) {
@@ -18,6 +20,7 @@ class World {
         this.draw();
         this.setWorld();
         this.checkCollisions();
+        this.checkAttackCollisions();
         this.run();
         // this.checkTime();
     }
@@ -34,21 +37,21 @@ class World {
             this.electricHurt = false;
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
-                    if (enemy instanceof PufferFish) {
+                    if (enemy instanceof PufferFish && !this.invincible) {
                         this.character.hit();
                         this.character.poisionHurt = true;
                         this.character.electricHurt = false;
                         this.healthBar.setPercentage(this.character.energy);
                     }
 
-                    if (enemy instanceof JellyFish) {
+                    if (enemy instanceof JellyFish && !this.invincible) {
                         this.character.hit();
                         this.character.poisionHurt = false;
                         this.character.electricHurt = true;
                         this.healthBar.setPercentage(this.character.energy);
                     }
 
-                    if (enemy instanceof Endboss) {
+                    if (enemy instanceof Endboss && !invincible) {
                         this.character.hit();
                         this.character.poisionHurt = false;
                         this.character.electricHurt = false;
@@ -60,13 +63,39 @@ class World {
     };
 
 
-    //Spliced noch die falschen Flaschen bzw Coins wenn man eine nicht eingesammelt hat
+    checkAttackCollisions() {
+        setInterval(() => {
+            this.level.enemies.forEach((enemy, index) => {
+                if (this.character.isColliding(enemy)) {
+                    if (this.keyboard.ATTACK_SLAP && this.invincible) {
+                        this.enemies.splice(index, 1);
+                    }
+
+                    if (enemy instanceof JellyFish && !this.invincible) {
+                        this.character.hit();
+                        this.character.poisionHurt = false;
+                        this.character.electricHurt = true;
+                        this.healthBar.setPercentage(this.character.energy);
+                    }
+
+                    if (enemy instanceof Endboss && !invincible) {
+                        this.character.hit();
+                        this.character.poisionHurt = false;
+                        this.character.electricHurt = false;
+                        this.healthBar.setPercentage(this.character.energy);
+                    }
+                }
+            });
+        }, 500);
+    };
+
+
     checkCoinCollions() {
         setInterval(() => {
-            this.level.coins.forEach((coin) => {
+            this.level.coins.forEach((coin, index) => {
                 if (this.character.isColliding(coin)) {
                     this.character.collectCoins();
-                    this.level.coins.splice(coin, 1);
+                    this.level.coins.splice(index, 1);
                     this.coinBar.setPercentage(this.character.coinPercentage);
                 }
             });
@@ -76,10 +105,10 @@ class World {
 
     checkPoisionBottleCollions() {
         setInterval(() => {
-            this.level.poision_bottles.forEach((bottle) => {
+            this.level.poision_bottles.forEach((bottle, index) => {
                 if (this.character.isColliding(bottle)) {
                     this.character.collectBottles();
-                    this.level.poision_bottles.splice(bottle, 1);
+                    this.level.poision_bottles.splice(index, 1);
                     this.poisionBar.setPercentage(this.character.bottlePercentage);
                 }
             });
@@ -100,6 +129,10 @@ class World {
             this.checkCoinCollions();
             this.checkPoisionBottleCollions();
             this.checkThrowObjects();
+
+            if (this.reachedXCoords == true) {
+                this.endboss.reachedXCoords = true;
+            }
         }, 400);
     }
 

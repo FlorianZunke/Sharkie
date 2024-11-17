@@ -2,6 +2,7 @@ class Endboss extends MovableObject {
     world;
     height = 350;
     width = 300;
+    reachedXCoords=false;
     
 
     IMAGES_SPAWN = [
@@ -54,10 +55,10 @@ class Endboss extends MovableObject {
             }
             i++;
 
-            // if (this.world.character.x > 6000 && !hadFirstContact) {
-            //     i = 0;
-            //     hadFirstContact = true;
-            // }
-        }, 175);
+            if (this.reachedXCoords && !hadFirstContact) {
+                i = 0;
+                hadFirstContact = true;
+            }
+        }, 170);
     }
 }
