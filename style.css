@@ -17,6 +17,37 @@ canvas {
     display: block;
 }
 
+.title_screen {
+    background-image: url('img/3. Background/Legacy/Dark/2.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgb(34,27,94);
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+/* .button {
+    width:200px;
+    background-color: #9FC805;
+    border-radius: 10px;
+    height: 45px;
+    font-size: 20px;
+    box-shadow: 0px 4px #718E04;
+    text-shadow: 0px 2px 2px #718E04;
+    position: relative;
+    bottom: 0;
+    transition: .1s;
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.button:hover {
+    bottom: -4px;
+    box-shadow: none;
+} */
 
 /* Smartphones */
 @media only screen and (max-width: 720px){

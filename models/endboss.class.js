@@ -2,6 +2,7 @@ class Endboss extends MovableObject {
     world;
     height = 350;
     width = 300;
+    health = 100;
     reachedXCoords=false;
     
 
@@ -59,6 +60,6 @@ class Endboss extends MovableObject {
                 i = 0;
                 hadFirstContact = true;
             }
-        }, 170);
+        }, 200);
     }
 }

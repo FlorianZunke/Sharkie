@@ -106,7 +106,7 @@ class Character extends MovableObject {
         this.offsetY = 60;
         this.animate();
         this.applyGravity();
-        this.checkXCoord()
+        this.checkXCoord();
     }
 
     animate() {
@@ -122,8 +122,7 @@ class Character extends MovableObject {
             } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
                     this.playAnimation(this.IMAGES_SWIM);
-                    //Bedingung stimmt noch nicht, ist aber denke ich der richtige ansatz
-                } else if (new Date().getTime() > 20000000000000000000000000) {
+                } else if (this.world.timePassed()) {
                     this.playAnimation(this.IMAGES_SLEEP);
                 } else {
                     this.playAnimation(this.IMAGES_IDLE);
@@ -133,20 +132,17 @@ class Character extends MovableObject {
 
         setInterval(() => {
             if (this.world.keyboard.ATTACK_SLAP) {
-                this.world.invincible = true;
                 this.playAnimation(this.IMAGES_ATTACK_SLAP);
-                this.world.invincible = false;
             }
 
             if (this.world.keyboard.ATTACK_BUBBLE) {
-                this.world.invincible = true;
                 this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
-                this.world.invincible = false;
+
             }
         }, 50);
 
         setInterval(() => {
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.world.checkBarriarCollisions()) {
                 this.x += this.speed;
                 this.otherDirection = false;
             }
@@ -177,9 +173,9 @@ class Character extends MovableObject {
 
     checkXCoord() {
         setInterval(() => {
-            if (this.x > 5800) {
+            if (this.x > 5700) {
                 this.world.level.enemies[0].reachedXCoords = true;
             }
-        }, 1000/60);
+        }, 1000 / 60);
     }
 }

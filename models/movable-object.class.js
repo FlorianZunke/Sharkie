@@ -11,6 +11,7 @@ class MovableObject extends DrawableObject {
     lastCollect = 0;
 
 
+
     playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];
@@ -71,7 +72,6 @@ class MovableObject extends DrawableObject {
             this.otherDirection = false; // Move left
         }
 
-        // Move the PufferFish based on direction
         if (this.otherDirection) {
             this.x += this.speed;
         } else {

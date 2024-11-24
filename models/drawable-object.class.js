@@ -38,7 +38,7 @@ class DrawableObject {
             ctx.stroke();
         }
 
-        if (this instanceof Character || this instanceof PufferFish || this instanceof JellyFish || this instanceof Endboss || this instanceof Coin || this instanceof PoisionBottle) {
+        if (this instanceof Character || this instanceof PufferFish || this instanceof JellyFish || this instanceof Endboss || this instanceof Coin || this instanceof PoisionBottle || this instanceof Barriar) {
             ctx.beginPath();
             ctx.lineWidth = '3';
             ctx.strokeStyle = 'red';

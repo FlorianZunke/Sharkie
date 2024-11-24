@@ -15,7 +15,7 @@ class ThrowableObject extends MovableObject {
         this.speedX = 15;
 
         setInterval(() => {
-            if (world.character.otherDirection) {
+            if (world.character.otherDirection && world.keyboard.ATTACK_BUBBLE) {
                 this.x -= this.speedX;
             } else {
                 this.x += this.speedX;

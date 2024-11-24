@@ -1,8 +1,8 @@
 level1 = new Level(
     [
-        new PufferFish(701, 150, 500, 1050),
+        new PufferFish(701, 120, 500, 1050),
         new JellyFish(1500, 200, 50, 300),
-        new JellyFish(1975, 200, 50, 360),
+        // new JellyFish(1975, 200, 50, 360),
         // new PufferFish(2300, 20, 2000, 2600),
         // new JellyFish(2950, 50, 20, 200),
         // new JellyFish(3150, 200, 20, 250),
@@ -96,13 +96,13 @@ level1 = new Level(
         new PoisionBottle('img/4. Marcadores/Posión/Dark - Left.png', 5700, 110)
     ],
     [
-        new Barriar('img/3. Background/Barrier/1.png', 500, -20, 500, 950),
-        new Barriar('img/3. Background/Barrier/3.png', 1650, -50, 375, 300),
+        new Barriar('img/3. Background/Barrier/0.png', 400, 400, 100, 1050),
+        new Barriar('img/3. Background/Barrier/1.png', 500, -60, 200, 950),
+        new Barriar('img/3. Background/Barrier/3.png', 1650, -80, 375, 300),
         new Barriar('img/3. Background/Barrier/2.png', 2250, 265, 225, 800),
         new Barriar('img/3. Background/Barrier/3.png', 3700, -50, 375, 300),
         new Barriar('img/3. Background/Barrier/2.png', 4250, 265, 225, 800),
         new Barriar('img/3. Background/Barrier/3.png', 5300, 130, 375, 250),
     ]
-
 );
 

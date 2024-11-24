@@ -22,7 +22,7 @@ class World {
         this.checkCollisions();
         this.checkAttackCollisions();
         this.run();
-        // this.checkTime();
+        this.timePassed();
     }
 
 
@@ -51,7 +51,7 @@ class World {
                         this.healthBar.setPercentage(this.character.energy);
                     }
 
-                    if (enemy instanceof Endboss && !invincible) {
+                    if (enemy instanceof Endboss && !this.invincible) {
                         this.character.hit();
                         this.character.poisionHurt = false;
                         this.character.electricHurt = false;
@@ -67,27 +67,31 @@ class World {
         setInterval(() => {
             this.level.enemies.forEach((enemy, index) => {
                 if (this.character.isColliding(enemy)) {
-                    if (this.keyboard.ATTACK_SLAP && this.invincible) {
-                        this.enemies.splice(index, 1);
-                    }
-
-                    if (enemy instanceof JellyFish && !this.invincible) {
-                        this.character.hit();
-                        this.character.poisionHurt = false;
-                        this.character.electricHurt = true;
-                        this.healthBar.setPercentage(this.character.energy);
-                    }
-
-                    if (enemy instanceof Endboss && !invincible) {
-                        this.character.hit();
-                        this.character.poisionHurt = false;
-                        this.character.electricHurt = false;
-                        this.healthBar.setPercentage(this.character.energy);
+                    if (this.keyboard.ATTACK_SLAP) {
+                        this.invincible = true;
+                        if (enemy instanceof PufferFish && this.invincible) {
+                            this.level.enemies.splice(index, 1);
+                        }
+                        if (enemy instanceof JellyFish && this.invincible) {
+                            this.level.enemies.splice(index, 1);
+                        }
+                        // if (enemy instanceof Endboss && this.invincible) {
+                        //     this.level.enemies.index.health -= 20;
+                        // }
                     }
                 }
             });
-        }, 500);
+        }, 50);
     };
+
+
+    checkBarriarCollisions() {
+        this.level.barriar.forEach(barriar => {
+            if (this.character.isColliding(barriar)) {
+                return true;
+            }
+        });
+    }
 
 
     checkCoinCollions() {
@@ -117,10 +121,23 @@ class World {
 
 
     checkThrowObjects() {
-        if (this.keyboard.ATTACK_BUBBLE) {
+        if (this.character.otherDirection && this.keyboard.ATTACK_BUBBLE) {
+            let bubble = new ThrowableObject(this.character.x, this.character.y + 160);
+            this.throwableObjects.push(bubble);
+        }
+        if (!this.character.otherDirection && this.keyboard.ATTACK_BUBBLE) {
             let bubble = new ThrowableObject(this.character.x + 250, this.character.y + 160);
             this.throwableObjects.push(bubble);
         }
+    }
+
+
+    timePassed() {
+        let startTime = Date.now();
+        return () => {
+            let currentTime = Date.now();
+            return currentTime - startTime >= 5000;
+        };
     }
 
 
@@ -129,8 +146,10 @@ class World {
             this.checkCoinCollions();
             this.checkPoisionBottleCollions();
             this.checkThrowObjects();
+            this.checkBarriarCollisions();
+            this.timePassed();
 
-            if (this.reachedXCoords == true) {
+            if (this.reachedXCoords) {
                 this.endboss.reachedXCoords = true;
             }
         }, 400);
@@ -144,7 +163,7 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.poision_bottles);
-        
+
 
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
@@ -202,23 +221,5 @@ class World {
     }
 
 
-    // checkTime() {
-    //     let time = 0;
-        
-    //     setInterval(() => {
-    //         if (!this.keyboard) {
-    //             time = time + 1;
-    //             console.log(time);
-    //         } else {
-    //             time = 0;
-    //             console.log(time);
-    //         } 
-    //     }, 200); 
 
-    //     setInterval(() => {
-    //         if(!this.keyboard && time > 20) {
-    //             console.log('5 seconds passed with no Input');
-    //         }
-    //     }, 200);
-    // }
 }
