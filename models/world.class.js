@@ -19,7 +19,7 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        // this.checkCollisions();
         this.checkAttackCollisions();
         this.run();
         this.timePassed();
@@ -31,40 +31,27 @@ class World {
     }
 
 
-    checkCollisions() {
-        setInterval(() => {
-            this.poisionHurt = false;
-            this.electricHurt = false;
-            this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)) {
-                    if (enemy instanceof PufferFish && !this.invincible) {
-                        this.character.hit();
-                        this.character.poisionHurt = true;
-                        this.character.electricHurt = false;
-                        this.healthBar.setPercentage(this.character.energy);
-                    }
-
-                    if (enemy instanceof JellyFish && !this.invincible) {
-                        this.character.hit();
-                        this.character.poisionHurt = false;
-                        this.character.electricHurt = true;
-                        this.healthBar.setPercentage(this.character.energy);
-                    }
-
-                    if (enemy instanceof Endboss && !this.invincible) {
-                        this.character.hit();
-                        this.character.poisionHurt = false;
-                        this.character.electricHurt = false;
-                        this.healthBar.setPercentage(this.character.energy);
-                    }
-                }
-            });
-        }, 500);
-    };
+    // checkCollisions() {
+    //     setInterval(() => {
+            
+    //         this.level.enemies.forEach((enemy) => {
+    //             if (this.character.isColliding(enemy)) {
+    //                 if (enemy instanceof Endboss && !this.invincible) {
+    //                     this.character.hit();
+    //                     this.character.poisionHurt = false;
+    //                     this.character.electricHurt = false;
+    //                     this.healthBar.setPercentage(this.character.energy);
+    //                 }
+    //             }
+    //         });
+    //     }, 500);
+    // };
 
 
     checkAttackCollisions() {
         setInterval(() => {
+            this.poisionHurt = false;
+            this.electricHurt = false;
             this.level.enemies.forEach((enemy, index) => {
                 if (this.character.isColliding(enemy)) {
                     this.invincible = false;
@@ -72,18 +59,38 @@ class World {
                         this.invincible = true;
                         if (enemy instanceof PufferFish && this.invincible) {
                             this.level.enemies.splice(index, 1);
+                        } else {
+                            this.character.hit();
+                            this.character.poisionHurt = true;
+                            this.character.electricHurt = false;
+                            this.healthBar.setPercentage(this.character.energy);
                         }
-                        if (enemy instanceof JellyFish && this.invincible) {
+                    }
+                    if (this.throwableObjects) {
+                        if (enemy instanceof JellyFish) {
                             this.level.enemies.splice(index, 1);
+                        } else {
+                            this.character.hit();
+                            this.character.poisionHurt = true;
+                            this.character.electricHurt = false;
+                            this.healthBar.setPercentage(this.character.energy);
                         }
-                        // if (enemy instanceof Endboss && this.invincible) {
-                        //     this.level.enemies.index.health -= 20;
-                        // }
                     }
                 }
             });
-        }, 50);
+        }, 200);
     };
+
+
+    checkBubbleCollision() {
+        setInterval(() => {
+            this.throwableObjects.forEach((bubble, index) => {
+                if (bubble.isColliding(this.level.enemies)) {
+                    console.log('Gegner getroffen');
+                }
+            });
+        }, 50);
+    }
 
 
     checkBarriarCollisions() {
@@ -104,7 +111,7 @@ class World {
                     this.coinBar.setPercentage(this.character.coinPercentage);
                 }
             });
-        }, 1000);
+        }, 800);
     }
 
 
@@ -117,7 +124,7 @@ class World {
                     this.poisionBar.setPercentage(this.character.bottlePercentage);
                 }
             });
-        }, 1000);
+        }, 800);
     }
 
 
@@ -148,6 +155,7 @@ class World {
             this.checkPoisionBottleCollions();
             this.checkThrowObjects();
             this.checkGameOver();
+            this.checkBubbleCollision();
             this.checkBarriarCollisions();
             this.timePassed();
 

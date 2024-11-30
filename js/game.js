@@ -16,6 +16,9 @@ function startGame() {
     let tutorialPage = document.getElementById('tutorial_container');
     tutorialPage.classList.add('d-none');
 
+    let game = document.getElementById('fullscreen');
+    game.classList.remove('d-none')
+
     canvas = document.getElementById('canvas');
     canvas.classList.add('d-block');
 
