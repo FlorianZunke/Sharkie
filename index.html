@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,15 +29,44 @@
 
     <link rel="stylesheet" href="style.css">
 </head>
-<body onload="init()">
-    <h1>Sharkie</h1>
 
-    <div id="title_screen" class="title_screen"></div>
-    <div id="win_screen"></div>
-    <div id="lose_screen"></div>
+<body>
+    <div id="start_screen" class="start_screen">
+        <h1>Sharkie</h1>
+        <div>
+            <img onclick="init()" src="img/6.Botones/Start/1.png" alt="">
+        </div>
+    </div>
 
     <div id="fullscreen">
+        <img id="lose_container" class="d-none lose_container flex-c-c" src="img/6.Botones/Tittles/Game Over/Recurso 12.png" alt="Game Over">
+        <img id="win_container" class="d-none win_container flex-c-c" src="img/6.Botones/Tittles/You win/Mesa de trabajo 1.png" alt="You Win">
         <canvas id="canvas" width="720" height="480"></canvas>
     </div>
+
+    <div id="key_container" class="d-none">
+        <div id="tutorial_container" class="d-clm-center">
+            <div class="flex-c-c gap70">
+                <div class="key-move-container">
+                    <img class="move-keys" src="img/6.Botones/Key/arrow keys.png" alt="">
+                    <h2>Move</h2>
+                </div>
+                <div class="attack-container">
+                    <div class="flex-clm-center">
+                        <img class="key-bubble-shot" src="img/6.Botones/Key/D key.png" alt="">
+                        <h2>Throw Bubble</h2>
+                    </div>
+                    <div class="flex-clm-center">
+                        <img class="key-slap" src="img/6.Botones/Key/Space Bar key.png" alt="">
+                        <h2>Slap</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-c-c">
+                <button onclick="startGame()">Start</button>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>

@@ -9,6 +9,10 @@ class MovableObject extends DrawableObject {
     bottlePercentage = 0;
     lastHit = 0;
     lastCollect = 0;
+    poisionBubble = false;
+    endbossHealth = 100;
+    endbossDeath = false;
+    gameOver = false; 
 
 
 
@@ -37,6 +41,23 @@ class MovableObject extends DrawableObject {
     }
 
 
+    hitEndboss() {
+        this.endbossHealth -= 20;
+        if (this.endbossHealth < 0) {
+            this.endbossHealth = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+
+
+    checkEndbossDead() {
+        if (this.endbossHealth == 0) {
+            return true
+        }
+    }
+
+
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000
@@ -61,6 +82,7 @@ class MovableObject extends DrawableObject {
         this.bottlePercentage += 20;
         if (this.bottlePercentage >= 100) {
             this.bottlePercentage = 100;
+            this.poisionBubble = true;
         }
     }
 

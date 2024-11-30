@@ -13,21 +13,66 @@ body {
 }
 
 canvas {
-    background-color: black;
-    display: block;
+    display: none;
 }
 
-.title_screen {
+.start_screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     background-image: url('img/3. Background/Legacy/Dark/2.png');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    min-height: 100vh;
+    width: 100%;
     background-color: rgb(34,27,94);
     margin-left: 20px;
     margin-right: 20px;
 }
 
-/* .button {
+.lose_container {
+    width: 100%;
+}
+
+h1 {
+    font-size: 64px;
+    color: white;
+}
+
+h2 {
+    font-size: 24px;
+    text-align: center;
+    color: white;
+}
+
+.gap70 {
+    gap: 70px;
+}
+
+.flex-clm-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-c-c {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.d-none {
+    display: none;
+}
+
+.d-block {
+    display: block;
+}
+
+button {
     width:200px;
     background-color: #9FC805;
     border-radius: 10px;
@@ -44,10 +89,39 @@ canvas {
     text-align: center;
 }
 
-.button:hover {
+button:hover {
     bottom: -4px;
     box-shadow: none;
-} */
+}
+
+.key-containers {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 70px;
+}
+
+.attack-container {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 70px;
+}
+
+.move-keys {
+    height: 80px;
+    width: 100px;
+}
+
+.key-bubble-shot {
+    height: 50px;
+    width: 50px;
+}
+
+.key-slap {
+    height: 50px;
+    width: 150px;
+}
 
 /* Smartphones */
 @media only screen and (max-width: 720px){

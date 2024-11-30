@@ -67,6 +67,7 @@ class World {
         setInterval(() => {
             this.level.enemies.forEach((enemy, index) => {
                 if (this.character.isColliding(enemy)) {
+                    this.invincible = false;
                     if (this.keyboard.ATTACK_SLAP) {
                         this.invincible = true;
                         if (enemy instanceof PufferFish && this.invincible) {
@@ -146,6 +147,7 @@ class World {
             this.checkCoinCollions();
             this.checkPoisionBottleCollions();
             this.checkThrowObjects();
+            this.checkGameOver();
             this.checkBarriarCollisions();
             this.timePassed();
 
@@ -153,6 +155,21 @@ class World {
                 this.endboss.reachedXCoords = true;
             }
         }, 400);
+    }
+
+
+    checkGameOver() {
+        setInterval(() => {
+            if (this.character.isDead() && this.character.gameOver == true) {
+                let overlayLose = document.getElementById('lose_container');
+                overlayLose.classList.remove('d-none');
+            }
+
+            // if (this.checkEndbossDead() && this.character.gameOver == true) {
+            //     let overlayWin = document.getElementById('win_container');
+            //     overlayWin.classList.remove('d_none');
+            // }
+        }, 100);
     }
 
 
