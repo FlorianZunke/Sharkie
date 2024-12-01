@@ -59,29 +59,28 @@ class World {
                         this.invincible = true;
                         if (enemy instanceof PufferFish && this.invincible) {
                             this.level.enemies.splice(index, 1);
-                        } else {
-                            this.character.hit();
-                            this.character.poisionHurt = true;
-                            this.character.electricHurt = false;
-                            this.healthBar.setPercentage(this.character.energy);
                         }
+                        if (enemy instanceof Endboss && this.invincible) {
+                            this.endbossHealth -= 20;
+                        }
+                    } else {
+                        this.character.hit();
+                        this.character.poisionHurt = true;
+                        this.character.electricHurt = false;
+                        this.healthBar.setPercentage(this.character.energy);
                     }
-                    if (this.throwableObjects) {
-                        if (enemy instanceof JellyFish) {
+                    // if Bedingung stimmt noch nicht ganz, muss gefragt werden ob die geschossen Bubble mit JellyFish kolliediert
+                    if (enemy instanceof JellyFish) {
+                        if (enemy instanceof JellyFish ) {
                             this.level.enemies.splice(index, 1);
-                        } else {
-                            this.character.hit();
-                            this.character.poisionHurt = true;
-                            this.character.electricHurt = false;
-                            this.healthBar.setPercentage(this.character.energy);
                         }
                     }
                 }
             });
-        }, 200);
+        }, 500);
     };
 
-
+    // Muss noch überarbeitet werden, funktioniert noch nicht richtig
     checkBubbleCollision() {
         setInterval(() => {
             this.throwableObjects.forEach((bubble, index) => {
@@ -92,7 +91,7 @@ class World {
         }, 50);
     }
 
-
+    
     checkBarriarCollisions() {
         this.level.barriar.forEach(barriar => {
             if (this.character.isColliding(barriar)) {
@@ -139,12 +138,12 @@ class World {
         }
     }
 
-
+    // Muss auch nochmal angeguckt werden, die Zeit abfrage passt noch nicht ganz
     timePassed() {
         let startTime = Date.now();
         return () => {
             let currentTime = Date.now();
-            return currentTime - startTime >= 5000;
+            return startTime - currentTime >= 5000;
         };
     }
 

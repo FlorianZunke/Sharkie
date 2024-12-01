@@ -142,22 +142,23 @@ class Character extends MovableObject {
             }
         }, 50);
 
+        // Die CheckBarriarCollisions einbauen
         setInterval(() => {
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.world.checkBarriarCollisions()) {
-                this.x += this.speed;
-                this.otherDirection = false;
-            }
-
-            if (this.world.keyboard.LEFT && this.x > 0) {
-                this.x -= this.speed;
-                this.otherDirection = true;
-            }
-
-            if (this.world.keyboard.UP && this.speedY < 0) {
-                this.speedY = 5;
-            }
-
-            this.world.camera_x = -this.x + 100;
+                if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+                    this.x += this.speed;
+                    this.otherDirection = false;
+                }
+    
+                if (this.world.keyboard.LEFT && this.x > 0) {
+                    this.x -= this.speed;
+                    this.otherDirection = true;
+                }
+    
+                if (this.world.keyboard.UP && this.speedY < 0) {
+                    this.speedY = 5;
+                }
+    
+                this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
 
         setInterval(() => {
