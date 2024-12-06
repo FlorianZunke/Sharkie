@@ -11,6 +11,7 @@ class World {
     throwableObjects = [];
     reachedXCoords = false;
     invincible = false;
+    time = Date.now();
 
 
     constructor(canvas, keyboard) {
@@ -23,17 +24,32 @@ class World {
         this.checkAttackCollisions();
         this.run();
         this.timePassed();
-    }
+    };
 
 
     setWorld() {
         this.character.world = this;
-    }
+    };
+
+
+    run() {
+        setInterval(() => {
+            this.checkCoinCollions();
+            this.checkPoisionBottleCollions();
+            this.checkThrowObjects();
+            this.checkBubbleCollision();
+            this.checkBarriarCollisions();
+            this.checkGameOver();
+            if (this.reachedXCoords) {
+                this.endboss.reachedXCoords = true;
+            }
+        }, 400);
+    };
 
 
     // checkCollisions() {
     //     setInterval(() => {
-            
+
     //         this.level.enemies.forEach((enemy) => {
     //             if (this.character.isColliding(enemy)) {
     //                 if (enemy instanceof Endboss && !this.invincible) {
@@ -64,69 +80,92 @@ class World {
                             this.endbossHealth -= 20;
                         }
                     } else {
-                        this.character.hit();
-                        this.character.poisionHurt = true;
-                        this.character.electricHurt = false;
-                        this.healthBar.setPercentage(this.character.energy);
-                    }
-                    // if Bedingung stimmt noch nicht ganz, muss gefragt werden ob die geschossen Bubble mit JellyFish kolliediert
-                    if (enemy instanceof JellyFish) {
-                        if (enemy instanceof JellyFish ) {
-                            this.level.enemies.splice(index, 1);
+                        if (enemy instanceof PufferFish || enemy instanceof Endboss) {
+                            this.character.hit();
+                            this.character.poisionHurt = true;
+                            this.character.electricHurt = false;
+                            this.healthBar.setPercentage(this.character.energy);
+                        }
+                        if (enemy instanceof JellyFish) {
+                            this.character.hit();
+                            this.character.poisionHurt = false;
+                            this.character.electricHurt = true;
+                            this.healthBar.setPercentage(this.character.energy);
                         }
                     }
-                }
-            });
+                };
+            })
         }, 500);
     };
 
-    // Muss noch überarbeitet werden, funktioniert noch nicht richtig
-    checkBubbleCollision() {
-        setInterval(() => {
-            this.throwableObjects.forEach((bubble, index) => {
-                if (bubble.isColliding(this.level.enemies)) {
-                    console.log('Gegner getroffen');
-                }
-            });
-        }, 50);
-    }
 
+
+    //checkBubbleCollision() {
+    //     this.throwableObjects.forEach((bubble, index) => {
+    //         level1.enemies.forEach((enemy, bubbleIndex) => {
+    //             // Hier die Logik
+    //             if(bubble.isColliding(enemy)) {
+    //                 // Hier findet die Kollision statt
+    //                 // Enemy löschen
+    //             } 
+    //         });
+    //     });
+    // };
     
+    checkBubbleCollision() {
+        this.throwableObjects.forEach((bubble, index) => {
+            if (bubble.isColliding(this instanceof JellyFish)) {
+                this.level.enemies.splice(index, 1);
+            } else
+                if (this.timePassed()) {
+                    this.throwableObjects.splice(index, 1);
+                }
+        });
+    };
+
+
     checkBarriarCollisions() {
         this.level.barriar.forEach(barriar => {
             if (this.character.isColliding(barriar)) {
                 return true;
             }
         });
-    }
+    };
 
 
     checkCoinCollions() {
-        setInterval(() => {
-            this.level.coins.forEach((coin, index) => {
-                if (this.character.isColliding(coin)) {
-                    this.character.collectCoins();
-                    this.level.coins.splice(index, 1);
-                    this.coinBar.setPercentage(this.character.coinPercentage);
-                }
-            });
-        }, 800);
-    }
+        this.level.coins.forEach((coin, index) => {
+            if (this.character.isColliding(coin)) {
+                this.character.collectCoins();
+                this.level.coins.splice(index, 1);
+                this.coinBar.setPercentage(this.character.coinPercentage);
+            }
+        });
+    };
 
 
     checkPoisionBottleCollions() {
-        setInterval(() => {
-            this.level.poision_bottles.forEach((bottle, index) => {
-                if (this.character.isColliding(bottle)) {
-                    this.character.collectBottles();
-                    this.level.poision_bottles.splice(index, 1);
-                    this.poisionBar.setPercentage(this.character.bottlePercentage);
-                }
-            });
-        }, 800);
-    }
+        this.level.poision_bottles.forEach((bottle, index) => {
+            if (this.character.isColliding(bottle)) {
+                this.character.collectBottles();
+                this.level.poision_bottles.splice(index, 1);
+                this.poisionBar.setPercentage(this.character.bottlePercentage);
+            }
+        });
+    };
 
 
+    //checkThrowObjects() {
+    //     if (this.keyboard.D && this.ammoStatusBar.itemCount > 0) {
+    //         let ammo = new ThrowableObject(this.character.x + 160, this.character.y + 30);
+    //         this.throwableObjects.push(ammo);
+    //         this.ammoStatusBar.itemCount--;
+    //         this.character.shoot_sound.play();
+    //         setTimeout(() => {
+    //             this.throwableObjects.splice(0, 1);
+    //         }, 300)
+    //     }
+    // }
     checkThrowObjects() {
         if (this.character.otherDirection && this.keyboard.ATTACK_BUBBLE) {
             let bubble = new ThrowableObject(this.character.x, this.character.y + 160);
@@ -136,48 +175,32 @@ class World {
             let bubble = new ThrowableObject(this.character.x + 250, this.character.y + 160);
             this.throwableObjects.push(bubble);
         }
-    }
+    };
 
-    // Muss auch nochmal angeguckt werden, die Zeit abfrage passt noch nicht ganz
+    // Zeit wird muss weiter auf true bleiben bis ein Input passiert
     timePassed() {
-        let startTime = Date.now();
-        return () => {
-            let currentTime = Date.now();
-            return startTime - currentTime >= 5000;
-        };
-    }
+        let timeNow = Date.now();
 
+        if ((timeNow - this.time) >= 3000) {
+            this.time = timeNow;
+            return true;
+        }
 
-    run() {
-        setInterval(() => {
-            this.checkCoinCollions();
-            this.checkPoisionBottleCollions();
-            this.checkThrowObjects();
-            this.checkGameOver();
-            this.checkBubbleCollision();
-            this.checkBarriarCollisions();
-            this.timePassed();
-
-            if (this.reachedXCoords) {
-                this.endboss.reachedXCoords = true;
-            }
-        }, 400);
-    }
+        return false;
+    };
 
 
     checkGameOver() {
-        setInterval(() => {
-            if (this.character.isDead() && this.character.gameOver == true) {
-                let overlayLose = document.getElementById('lose_container');
-                overlayLose.classList.remove('d-none');
-            }
+        if (this.character.isDead() && this.character.gameOver == true) {
+            let overlayLose = document.getElementById('lose_container');
+            overlayLose.classList.remove('d-none');
+        }
 
-            // if (this.checkEndbossDead() && this.character.gameOver == true) {
-            //     let overlayWin = document.getElementById('win_container');
-            //     overlayWin.classList.remove('d_none');
-            // }
-        }, 100);
-    }
+        // if (this.checkEndbossDead() && this.character.gameOver == true) {
+        //     let overlayWin = document.getElementById('win_container');
+        //     overlayWin.classList.remove('d_none');
+        // }
+    };
 
 
     draw() {
@@ -207,14 +230,14 @@ class World {
         requestAnimationFrame(function () {
             self.draw();
         });
-    }
+    };
 
 
     addObjectsToMap(objects) {
         objects.forEach(object => {
             this.addToMap(object);
         });
-    }
+    };
 
 
     addToMap(mo) {
@@ -228,7 +251,7 @@ class World {
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
-    }
+    };
 
 
     flipImage(mo) {
@@ -236,14 +259,14 @@ class World {
         this.ctx.translate(mo.width, 0);
         this.ctx.scale(-1, 1);
         mo.x = mo.x * -1;
-    }
+    };
 
 
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
-    }
+    };
 
 
 
-}
+};

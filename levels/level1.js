@@ -2,16 +2,16 @@ const level1 = new Level(
     [
         new PufferFish(701, 120, 500, 1050),
         new JellyFish(1500, 200, 50, 300),
-        // new JellyFish(1975, 200, 50, 360),
-        // new PufferFish(2300, 20, 2000, 2600),
-        // new JellyFish(2950, 50, 20, 200),
-        // new JellyFish(3150, 200, 20, 250),
-        // new JellyFish(3350, 20, 20, 250),
-        // new JellyFish(3550, 200, 20, 350),
-        // new JellyFish(4070, 300, 20, 350),
-        // new PufferFish(4500, 20, 4400, 4800),
-        // new JellyFish(5080, 300, 20, 350),
-        // new PufferFish(5200, 20, 5000, 5900),
+        new JellyFish(1995, 200, 50, 360),
+        new PufferFish(2300, 20, 2000, 2600),
+        new JellyFish(2950, 50, 20, 200),
+        new JellyFish(3150, 200, 20, 250),
+        new JellyFish(3350, 20, 20, 250),
+        new JellyFish(3550, 200, 20, 350),
+        new JellyFish(4070, 300, 20, 350),
+        new PufferFish(4500, 20, 4400, 4800),
+        new JellyFish(5080, 300, 20, 350),
+        new PufferFish(5200, 20, 5000, 5900),
         new Endboss()
     ],
     [
@@ -100,8 +100,8 @@ const level1 = new Level(
         new Barriar('img/3. Background/Barrier/1.png', 500, -60, 200, 950),
         new Barriar('img/3. Background/Barrier/3.png', 1690, -80, 375, 300),
         new Barriar('img/3. Background/Barrier/2.png', 2250, 265, 225, 800),
-        new Barriar('img/3. Background/Barrier/3.png', 3700, -50, 375, 300),
+        new Barriar('img/3. Background/Barrier/3.png', 3700, -80, 375, 300),
         new Barriar('img/3. Background/Barrier/2.png', 4250, 265, 225, 800),
-        new Barriar('img/3. Background/Barrier/3.png', 5300, 130, 375, 250),
+        new Barriar('img/3. Background/Barrier/3.png', 5320, 160, 345, 250),
     ]
 );

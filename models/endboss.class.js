@@ -3,7 +3,7 @@ class Endboss extends MovableObject {
     height = 350;
     width = 300;
     health = 100;
-    reachedXCoords=false;
+    reachedXCoords = false;
     
 
     IMAGES_SPAWN = [
@@ -60,6 +60,6 @@ class Endboss extends MovableObject {
                 i = 0;
                 hadFirstContact = true;
             }
-        }, 200);
-    }
-}
+        }, 150);
+    };
+};

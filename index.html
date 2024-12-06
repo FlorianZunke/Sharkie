@@ -34,14 +34,38 @@
     <div id="start_screen" class="start_screen">
         <h1>Sharkie</h1>
         <div>
-            <img onclick="init()" src="img/6.Botones/Start/1.png" alt="">
+            <button class="play-button" onclick="init()">Start</button>
         </div>
     </div>
 
-    <div id="fullscreen" class="game-container d-none">
-        <img id="lose_container" class="d-none lose_container flex-c-c" src="img/6.Botones/Tittles/Game Over/Recurso 12.png" alt="Game Over">
-        <img id="win_container" class="d-none win_container flex-c-c" src="img/6.Botones/Tittles/You win/Mesa de trabajo 1.png" alt="You Win">
-        <canvas id="canvas" width="720" height="480"></canvas>
+    <div id="fullscreen" class="d-none">
+        <img id="lose_container" class="d-none lose_container flex-c-c"
+            src="img/6.Botones/Tittles/Game Over/Recurso 12.png" alt="Game Over">
+        <img id="win_container" class="d-none win_container flex-c-c"
+            src="img/6.Botones/Tittles/You win/Mesa de trabajo 1.png" alt="You Win">
+        <canvas id="canvas" width="720" height="480">
+            <div class="panel">
+                <div>
+                    <button id="" class="mobile-btns"></button>
+                    <button id="" class="mobile-btns"></button>
+                    <button id="" class="mobile-btns"></button>
+                </div>
+            </div>
+        </canvas>
+        <div class="hud">
+            <div class="panel flex-btw-c">
+                <div>
+                    <button id="btnSlap" class="mobile-btns">S</button>
+                    <button id="btnBubble" class="mobile-btns">B</button>
+                </div>
+                <div>
+                    <button id="btnLeft" class="mobile-btns">L</button>
+                    <button id="btnRight" class="mobile-btns">R</button>
+                    <button id="btnUp" class="mobile-btns">U</button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <div id="key_container" class="d-none">

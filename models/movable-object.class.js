@@ -9,6 +9,7 @@ class MovableObject extends DrawableObject {
     bottlePercentage = 0;
     lastHit = 0;
     lastCollect = 0;
+    bubbleShot = false;
     poisionBubble = false;
     endbossHealth = 100;
     endbossDeath = false;
@@ -21,14 +22,14 @@ class MovableObject extends DrawableObject {
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
-    }
+    };
 
 
     isColliding(mo) {
         return (this.x  + this.offsetX + this.width - 2*(this.offsetX)) >= mo.x && this.x <= (mo.x + mo.width) &&
             (this.y + 2*(this.offsetY) + this.height - 3*(this.offsetY)) >= mo.y &&
             (this.y + 2*(this.offsetY)) <= (mo.y + mo.height);
-    }
+    };
 
 
     hit() {
@@ -38,7 +39,7 @@ class MovableObject extends DrawableObject {
         } else {
             this.lastHit = new Date().getTime();
         }
-    }
+    };
 
 
     hitEndboss() {
@@ -48,26 +49,26 @@ class MovableObject extends DrawableObject {
         } else {
             this.lastHit = new Date().getTime();
         }
-    }
+    };
 
 
     checkEndbossDead() {
         if (this.endbossHealth == 0) {
             return true
         }
-    }
+    };
 
 
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000
         return timepassed < 1;
-    }
+    };
 
 
     isDead() {
         return this.energy == 0;
-    }
+    };
 
 
     collectCoins() {
@@ -75,7 +76,7 @@ class MovableObject extends DrawableObject {
         if (this.coinPercentage >= 100) {
             this.coinPercentage = 100;
         }
-    }
+    };
 
 
     collectBottles() {
@@ -84,7 +85,7 @@ class MovableObject extends DrawableObject {
             this.bottlePercentage = 100;
             this.poisionBubble = true;
         }
-    }
+    };
 
     moveHorizontal() {
         // Check if we should switch direction
@@ -99,7 +100,7 @@ class MovableObject extends DrawableObject {
         } else {
             this.x -= this.speed;
         }
-    }
+    };
 
 
     moveVertical() {
@@ -114,17 +115,17 @@ class MovableObject extends DrawableObject {
         } else {
             this.y += this.speed;
         }
-    }
+    };
 
 
     applyGravity() {
         setInterval(() => {
-            if (this.isAboveGround()) {
+            if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
-        }, 1000 / 25);
-    }
+        },25);
+    };
 
 
     isAboveGround() {
@@ -133,5 +134,12 @@ class MovableObject extends DrawableObject {
         } else {
             return this.y < 195
         }
-    }
-}
+    };
+
+
+    isBubbleShot() {
+        if (world.keyboard.ATTACK_BUBBLE) {
+            return this.bubbleShot = true;
+        }
+    };
+};
