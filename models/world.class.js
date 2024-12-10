@@ -20,10 +20,9 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        // this.checkCollisions();
         this.checkAttackCollisions();
+        this.checkBarriarCollisions();
         this.run();
-        this.timePassed();
     };
 
 
@@ -38,30 +37,12 @@ class World {
             this.checkPoisionBottleCollions();
             this.checkThrowObjects();
             this.checkBubbleCollision();
-            this.checkBarriarCollisions();
             this.checkGameOver();
             if (this.reachedXCoords) {
                 this.endboss.reachedXCoords = true;
             }
         }, 400);
     };
-
-
-    // checkCollisions() {
-    //     setInterval(() => {
-
-    //         this.level.enemies.forEach((enemy) => {
-    //             if (this.character.isColliding(enemy)) {
-    //                 if (enemy instanceof Endboss && !this.invincible) {
-    //                     this.character.hit();
-    //                     this.character.poisionHurt = false;
-    //                     this.character.electricHurt = false;
-    //                     this.healthBar.setPercentage(this.character.energy);
-    //                 }
-    //             }
-    //         });
-    //     }, 500);
-    // };
 
 
     checkAttackCollisions() {
@@ -75,9 +56,6 @@ class World {
                         this.invincible = true;
                         if (enemy instanceof PufferFish && this.invincible) {
                             this.level.enemies.splice(index, 1);
-                        }
-                        if (enemy instanceof Endboss && this.invincible) {
-                            this.endbossHealth -= 20;
                         }
                     } else {
                         if (enemy instanceof PufferFish || enemy instanceof Endboss) {
@@ -99,38 +77,51 @@ class World {
     };
 
 
-
-    //checkBubbleCollision() {
-    //     this.throwableObjects.forEach((bubble, index) => {
-    //         level1.enemies.forEach((enemy, bubbleIndex) => {
-    //             // Hier die Logik
-    //             if(bubble.isColliding(enemy)) {
-    //                 // Hier findet die Kollision statt
-    //                 // Enemy löschen
-    //             } 
-    //         });
-    //     });
-    // };
-    
     checkBubbleCollision() {
-        this.throwableObjects.forEach((bubble, index) => {
-            if (bubble.isColliding(this instanceof JellyFish)) {
-                this.level.enemies.splice(index, 1);
-            } else
-                if (this.timePassed()) {
-                    this.throwableObjects.splice(index, 1);
+        this.throwableObjects.forEach((bubble) => {
+            level1.enemies.forEach((enemy, enemyIndex) => {
+                if (bubble.isColliding(enemy) && enemy instanceof JellyFish) {
+                    this.level.enemies.splice(enemyIndex, 1);
+                    this.throwableObjects.splice(0, 1);
                 }
+                if (bubble.isColliding(enemy) && enemy instanceof Endboss && this.character.poisionBubble) {
+                    this.character.endbossHealth -= 20;
+                    this.throwableObjects.splice(0, 1);
+                }
+            });
         });
     };
 
 
     checkBarriarCollisions() {
-        this.level.barriar.forEach(barriar => {
-            if (this.character.isColliding(barriar)) {
-                return true;
-            }
-        });
-    };
+        setInterval(() => {
+            let blockedDirections = { left: false, right: false, up: false, down: false };
+
+            this.level.barriar.forEach(barriar => {
+                if (this.character.isColliding(barriar)) {
+                    if (
+                        (this.character.x + this.character.offsetX + this.character.width - 2 * this.character.offsetX) >= (barriar.x + barriar.offsetX) &&
+                        (this.character.x + this.character.offsetX) < (barriar.x + barriar.width - barriar.offsetX)
+                    ) {
+                        // Horizontale Blockaden
+                        blockedDirections.right = this.character.x < barriar.x; // Rechtskollision
+                        blockedDirections.left = this.character.x > barriar.x;  // Linkskollision
+                    }
+
+                    if (
+                        (this.character.y + this.character.offsetY + this.character.height - 3 * this.character.offsetY) >= (barriar.y + barriar.offsetY) &&
+                        (this.character.y + this.character.offsetY) < (barriar.y + barriar.height - 2 * barriar.offsetY)
+                    ) {
+                        // Vertikale Blockaden
+                        blockedDirections.down = this.character.y < barriar.y; // Untenkollision
+                        blockedDirections.up = this.character.y > barriar.y;   // Obenkollision
+                    }
+                }
+            });
+
+            this.character.blockedDirections = blockedDirections;
+        }, 10);
+    }
 
 
     checkCoinCollions() {
@@ -155,52 +146,54 @@ class World {
     };
 
 
-    //checkThrowObjects() {
-    //     if (this.keyboard.D && this.ammoStatusBar.itemCount > 0) {
-    //         let ammo = new ThrowableObject(this.character.x + 160, this.character.y + 30);
-    //         this.throwableObjects.push(ammo);
-    //         this.ammoStatusBar.itemCount--;
-    //         this.character.shoot_sound.play();
-    //         setTimeout(() => {
-    //             this.throwableObjects.splice(0, 1);
-    //         }, 300)
-    //     }
-    // }
     checkThrowObjects() {
         if (this.character.otherDirection && this.keyboard.ATTACK_BUBBLE) {
             let bubble = new ThrowableObject(this.character.x, this.character.y + 160);
             this.throwableObjects.push(bubble);
+            setTimeout(() => {
+                this.throwableObjects.splice(0, 1);
+            }, 1500)
         }
         if (!this.character.otherDirection && this.keyboard.ATTACK_BUBBLE) {
             let bubble = new ThrowableObject(this.character.x + 250, this.character.y + 160);
             this.throwableObjects.push(bubble);
+            setTimeout(() => {
+                this.throwableObjects.splice(0, 1);
+            }, 1500)
         }
-    };
-
-    // Zeit wird muss weiter auf true bleiben bis ein Input passiert
-    timePassed() {
-        let timeNow = Date.now();
-
-        if ((timeNow - this.time) >= 3000) {
-            this.time = timeNow;
-            return true;
-        }
-
-        return false;
     };
 
 
     checkGameOver() {
         if (this.character.isDead() && this.character.gameOver == true) {
             let overlayLose = document.getElementById('lose_container');
-            overlayLose.classList.remove('d-none');
+            let canvas = document.getElementById('canvas');
+            canvas.classList.remove('d-block');
+            overlayLose.classList.add('overlay-container');
+            this.clearAllIntervals();
         }
 
-        // if (this.checkEndbossDead() && this.character.gameOver == true) {
-        //     let overlayWin = document.getElementById('win_container');
-        //     overlayWin.classList.remove('d_none');
-        // }
+        if (this.checkEndbossDead() && this.character.gameOver == false) {
+            let overlayWin = document.getElementById('win_container');
+            let canvas = document.getElementById('canvas');
+            canvas.classList.remove('d-block');
+            overlayWin.classList.add('overlay-container');
+            this.clearAllIntervals();
+        };
     };
+
+
+    checkEndbossDead() {
+        if (this.character.endbossHealth <= 0) {
+            this.character.endbossDead = true;
+            return true;
+        }
+    };
+
+
+    clearAllIntervals() {
+        for (let i = 1; i < 9999; i++) window.clearInterval(i);
+    }
 
 
     draw() {
@@ -266,7 +259,4 @@ class World {
         mo.x = mo.x * -1;
         this.ctx.restore();
     };
-
-
-
 };

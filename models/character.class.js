@@ -4,6 +4,7 @@ class Character extends MovableObject {
     speed = 11;
     poisionHurt = false;
     electricHurt = false;
+    idleCounter = 0;
     IMAGES_IDLE = [
         'img/1.Sharkie/1.IDLE/1.png',
         'img/1.Sharkie/1.IDLE/2.png',
@@ -102,8 +103,8 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_ELECTRIC_HURT);
         this.loadImages(this.IMAGES_ATTACK_SLAP);
         this.loadImages(this.IMAGES_ATTACK_BUBBLE);
-        this.offsetX = 50;
-        this.offsetY = 60;
+        this.offsetX = 55;
+        this.offsetY = 65;
         this.animate();
         this.applyGravity();
         this.checkXCoord();
@@ -115,68 +116,72 @@ class Character extends MovableObject {
                 this.gameOver = true;
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt() && this.poisionHurt) {
+                this.idleCounter = 0;
                 this.playAnimation(this.IMAGES_POISON_HURT);
             } else if (this.isHurt() && this.electricHurt) {
+                this.idleCounter = 0;
                 this.playAnimation(this.IMAGES_ELECTRIC_HURT);
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_POISON_HURT);
-            } else {
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
+            } else
+                if (this.isSwimming()) {
+                    this.idleCounter = 0;
                     this.playAnimation(this.IMAGES_SWIM);
-                } else if (this.world.timePassed()) {
+                } else if (this.idleCounter > 50) {
                     this.playAnimation(this.IMAGES_SLEEP);
                 } else {
+                    this.idleCounter++;
                     this.playAnimation(this.IMAGES_IDLE);
                 }
-            }
         }, 150);
 
         setInterval(() => {
             if (this.world.keyboard.ATTACK_SLAP) {
+                this.idleCounter = 0;
                 this.playAnimation(this.IMAGES_ATTACK_SLAP);
             }
 
             if (this.world.keyboard.ATTACK_BUBBLE) {
+                this.idleCounter = 0;
                 this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
-
             }
         }, 90);
 
-        // Die CheckBarriarCollisions einbauen
-        setInterval(() => {
-                if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                    this.x += this.speed;
-                    this.otherDirection = false;
-                }
-    
-                if (this.world.keyboard.LEFT && this.x > 0) {
-                    this.x -= this.speed;
-                    this.otherDirection = true;
-                }
-    
-                if (this.world.keyboard.UP && this.speedY < 0) {
-                    this.speedY = 5;
-                }
-    
-                this.world.camera_x = -this.x + 100;
-        }, 1000 / 60);
 
         setInterval(() => {
-            if (this.world.keyboard.UP && this.y > -150) {
+            if (this.world.keyboard.RIGHT && !this.blockedDirections.right && this.x < this.world.level.level_end_x) {
+                this.x += this.speed;
+                this.otherDirection = false;
+            }
+
+            if (this.world.keyboard.LEFT && !this.blockedDirections.left && this.x > 0) {
+                this.x -= this.speed;
+                this.otherDirection = true;
+            }
+
+            if (this.world.keyboard.UP && this.speedY < 0) {
+                this.speedY = 4;
+            }
+
+            if (this.world.keyboard.UP && !this.blockedDirections.up && this.y > -150) {
                 this.y -= this.speed;
             }
 
-            if (this.world.keyboard.DOWN && this.y < 215) {
+            if (this.world.keyboard.DOWN && !this.blockedDirections.down && this.y < 215) {
                 this.y += this.speed;
             }
+
+            this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
     };
 
 
+    isSwimming() {
+        return this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN;
+    }
+
     checkXCoord() {
         setInterval(() => {
             if (this.x > 5600) {
-                this.world.level.enemies[2].reachedXCoords = true;
+                this.world.level.enemies[0].reachedXCoords = true;
             }
         }, 100);
     };

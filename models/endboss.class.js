@@ -4,7 +4,7 @@ class Endboss extends MovableObject {
     width = 300;
     health = 100;
     reachedXCoords = false;
-    
+
 
     IMAGES_SPAWN = [
         'img/2.Enemy/3 Final Enemy/1.Introduce/1.png',
@@ -33,11 +33,19 @@ class Endboss extends MovableObject {
         'img/2.Enemy/3 Final Enemy/2.floating/12.png',
         'img/2.Enemy/3 Final Enemy/2.floating/13.png',
     ];
+    IMAGES_DEAD = [
+        'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 6.png',
+        'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 7.png',
+        'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 8.png',
+        'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 9.png',
+        'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 10.png',
+    ];
 
     constructor() {
         super().loadImage(this.IMAGES_SWIM[0]);
         this.loadImages(this.IMAGES_SWIM);
         this.loadImages(this.IMAGES_SPAWN);
+        this.loadImages(this.IMAGES_DEAD);
         this.animate();
         this.x = 6400;
         this.offsetX = 10;
@@ -45,15 +53,18 @@ class Endboss extends MovableObject {
     }
 
     animate() {
-        let i= 0;
+        let i = 0;
         let hadFirstContact = false;
 
         setInterval(() => {
-            if (i < 10) {
-                this.playAnimation(this.IMAGES_SPAWN);
-            } else {
-                this.playAnimation(this.IMAGES_SWIM);
-            }
+            if (this.endbossDead) {
+                this.playAnimation(this.IMAGES_DEAD)
+            } else
+                if (i < 10) {
+                    this.playAnimation(this.IMAGES_SPAWN);
+                } else {
+                    this.playAnimation(this.IMAGES_SWIM);
+                }
             i++;
 
             if (this.reachedXCoords && !hadFirstContact) {

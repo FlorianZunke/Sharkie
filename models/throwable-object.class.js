@@ -1,8 +1,9 @@
 class ThrowableObject extends MovableObject {
     direction;
-    
+
     constructor(x, y) {
-        super().loadImage('img/1.Sharkie/4.Attack/Bubble trap/Bubble.png');
+        super();
+        this.animate();
         this.x = x;
         this.y = y;
         this.height = 50;
@@ -12,7 +13,15 @@ class ThrowableObject extends MovableObject {
         this.throw(x, y);
     }
 
-    throw (x, y) {
+    animate() {
+        if (world.character.poisionBubble) {
+            this.loadImage('img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png');
+        } else {
+            this.loadImage('img/1.Sharkie/4.Attack/Bubble trap/Bubble.png');
+        }
+    }
+
+    throw(x, y) {
         this.direction = world.character.otherDirection;
         this.x = x;
         this.y = y;

@@ -31,6 +31,8 @@
 </head>
 
 <body>
+
+    <!-- Erster Bildschirm -->
     <div id="start_screen" class="start_screen">
         <h1>Sharkie</h1>
         <div>
@@ -38,38 +40,9 @@
         </div>
     </div>
 
-    <div id="fullscreen" class="d-none">
-        <img id="lose_container" class="d-none lose_container flex-c-c"
-            src="img/6.Botones/Tittles/Game Over/Recurso 12.png" alt="Game Over">
-        <img id="win_container" class="d-none win_container flex-c-c"
-            src="img/6.Botones/Tittles/You win/Mesa de trabajo 1.png" alt="You Win">
-        <canvas id="canvas" width="720" height="480">
-            <div class="panel">
-                <div>
-                    <button id="" class="mobile-btns"></button>
-                    <button id="" class="mobile-btns"></button>
-                    <button id="" class="mobile-btns"></button>
-                </div>
-            </div>
-        </canvas>
-        <div class="hud">
-            <div class="panel flex-btw-c">
-                <div>
-                    <button id="btnSlap" class="mobile-btns">S</button>
-                    <button id="btnBubble" class="mobile-btns">B</button>
-                </div>
-                <div>
-                    <button id="btnLeft" class="mobile-btns">L</button>
-                    <button id="btnRight" class="mobile-btns">R</button>
-                    <button id="btnUp" class="mobile-btns">U</button>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
+    <!-- Zweiter Bildschirm bzw Tutorial Container  -->
     <div id="key_container" class="d-none">
-        <div id="tutorial_container" class="d-clm-center">
+        <div id="tutorial_container" class="flex-clm-center height-100 width-100">
             <div class="flex-c-c gap70">
                 <div class="key-move-container">
                     <img class="move-keys" src="img/6.Botones/Key/arrow keys.png" alt="">
@@ -91,6 +64,63 @@
             </div>
         </div>
     </div>
+
+    <!-- Win-Container -->
+    <div id="win_container" class="d-none flex-clm-c-bot">
+        <div class=" flex-clm-c-bot win-img">
+            <button class="margin-b" onclick="playAgain()">Play Again</button>
+        </div>
+        <!-- <img class="flex-c-c win-img" src="img/6.Botones/Tittles/You win/Mesa de trabajo 1.png" alt="You Win"> -->
+
+    </div>
+
+    <!-- Lose-Container -->
+    <div id="lose_container" class="d-none flex-clm-center">
+        <img class="flex-c-c lose-img" src="img/6.Botones/Tittles/Game Over/Recurso 12.png" alt="Game Over">
+        <button onclick="restartGame()">Try Again</button>
+    </div>
+
+    <!-- SpielScreen -->
+    <div id="fullscreen" class="d-none">
+        <canvas id="canvas" width="720" height="480"></canvas>
+        <!-- Mobile Tasten als Bilder -->
+        <div class="flex-end-c">
+            <img class="hud-symbols" src="img/Buttons/mittleres-volumen.png" alt="">
+            <img class="hud-symbols" src="img/Buttons/vollbild.png" alt="">
+        </div>
+    </div>
+
+
+
+    <!-- Die Mobilen Tasten -->
+    <div class="hud d-none">
+        <div class="panel flex-btw-c">
+            <div>
+                <button id="btnSlap" class="mobile-btns">S</button>
+                <button id="btnBubble" class="mobile-btns">B</button>
+            </div>
+            <div>
+                <button id="btnLeft" class="mobile-btns">L</button>
+                <button id="btnRight" class="mobile-btns">R</button>
+                <button id="btnUp" class="mobile-btns">U</button>
+            </div>
+        </div>
+        <div class="panel">
+            <div>
+                <button id="" class="mobile-btns"></button>
+                <button id="" class="mobile-btns"></button>
+                <button id="" class="mobile-btns"></button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Für die Bildnachweise der Symbole
+    <a href="https://www.flaticon.com/de/kostenlose-icons/stumm" title="stumm Icons">Stumm Icons erstellt von Bharat Icons - Flaticon</a> 
+    <a href="https://www.flaticon.com/de/kostenlose-icons/volumen" title="volumen Icons">Volumen Icons erstellt von apien - Flaticon</a>
+    <a href="https://www.flaticon.com/de/kostenlose-icons/vollbildschirm" title="vollbildschirm Icons">Vollbildschirm Icons erstellt von Those Icons - Flaticon</a>
+    <a href="https://www.flaticon.com/de/kostenlose-icons/nachster" title="nächster Icons">Nächster Icons erstellt von Pixel perfect - Flaticon</a>
+    -->
 </body>
 
 </html>

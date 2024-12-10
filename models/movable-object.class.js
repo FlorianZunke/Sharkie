@@ -9,11 +9,11 @@ class MovableObject extends DrawableObject {
     bottlePercentage = 0;
     lastHit = 0;
     lastCollect = 0;
-    bubbleShot = false;
     poisionBubble = false;
     endbossHealth = 100;
-    endbossDeath = false;
-    gameOver = false; 
+    endbossDead = false;
+    jellyFishDead = false;
+    gameOver = false;
 
 
 
@@ -26,9 +26,9 @@ class MovableObject extends DrawableObject {
 
 
     isColliding(mo) {
-        return (this.x  + this.offsetX + this.width - 2*(this.offsetX)) >= mo.x && this.x <= (mo.x + mo.width) &&
-            (this.y + 2*(this.offsetY) + this.height - 3*(this.offsetY)) >= mo.y &&
-            (this.y + 2*(this.offsetY)) <= (mo.y + mo.height);
+        return (this.x + this.offsetX + this.width - 2 * (this.offsetX)) >= mo.x && this.x <= (mo.x + mo.width) &&
+            (this.y + 2 * (this.offsetY) + this.height - 3 * (this.offsetY)) >= mo.y &&
+            (this.y + 2 * (this.offsetY)) <= (mo.y + mo.height);
     };
 
 
@@ -38,23 +38,6 @@ class MovableObject extends DrawableObject {
             this.energy = 0;
         } else {
             this.lastHit = new Date().getTime();
-        }
-    };
-
-
-    hitEndboss() {
-        this.endbossHealth -= 20;
-        if (this.endbossHealth < 0) {
-            this.endbossHealth = 0;
-        } else {
-            this.lastHit = new Date().getTime();
-        }
-    };
-
-
-    checkEndbossDead() {
-        if (this.endbossHealth == 0) {
-            return true
         }
     };
 
@@ -124,7 +107,7 @@ class MovableObject extends DrawableObject {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
-        },25);
+        }, 25);
     };
 
 
@@ -133,13 +116,6 @@ class MovableObject extends DrawableObject {
             return true;
         } else {
             return this.y < 195
-        }
-    };
-
-
-    isBubbleShot() {
-        if (world.keyboard.ATTACK_BUBBLE) {
-            return this.bubbleShot = true;
         }
     };
 };
