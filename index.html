@@ -41,8 +41,8 @@
     </div>
 
     <!-- Zweiter Bildschirm bzw Tutorial Container  -->
-    <div id="key_container" class="d-none">
-        <div id="tutorial_container" class="flex-clm-center height-100 width-100">
+    <div id="key_container" class="tutorial-dialog-container d-none">
+        <div class="flex-clm-center height-100 width-100">
             <div class="flex-c-c gap70">
                 <div class="key-move-container">
                     <img class="move-keys" src="img/6.Botones/Key/arrow keys.png" alt="">
@@ -65,13 +65,36 @@
         </div>
     </div>
 
+    <!-- Tutorial Container -->
+    <div id="tutorial_container" class="tutorial-dialog-container d-none">
+        <div  class="flex-clm-center height-100 width-100">
+            <div class="flex-c-c gap70">
+                <div class="key-move-container">
+                    <img class="move-keys" src="img/6.Botones/Key/arrow keys.png" alt="">
+                    <h2>Move</h2>
+                </div>
+                <div class="attack-container">
+                    <div class="flex-clm-center">
+                        <img class="key-bubble-shot" src="img/6.Botones/Key/D key.png" alt="">
+                        <h2>Throw Bubble</h2>
+                    </div>
+                    <div class="flex-clm-center">
+                        <img class="key-slap" src="img/6.Botones/Key/Space Bar key.png" alt="">
+                        <h2>Slap</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-c-c">
+                <button onclick="closeKeyControlls()">Weiter Spielen</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Win-Container -->
     <div id="win_container" class="d-none flex-clm-c-bot">
         <div class=" flex-clm-c-bot win-img">
             <button class="margin-b" onclick="playAgain()">Play Again</button>
         </div>
-        <!-- <img class="flex-c-c win-img" src="img/6.Botones/Tittles/You win/Mesa de trabajo 1.png" alt="You Win"> -->
-
     </div>
 
     <!-- Lose-Container -->
@@ -84,17 +107,17 @@
     <div id="fullscreen" class="d-none">
         <canvas id="canvas" width="720" height="480"></canvas>
         <!-- Mobile Tasten als Bilder -->
-        <div class="flex-end-c">
+        <div id="hud" class="flex-end-c hud-container">
             <img class="hud-symbols" src="img/Buttons/mittleres-volumen.png" alt="">
-            <img class="hud-symbols" src="img/Buttons/vollbild.png" alt="">
+            <img onclick="showKeyControlls()" class="hud-symbols" src="img/Buttons/game-control.png" alt="">
         </div>
     </div>
 
 
 
     <!-- Die Mobilen Tasten -->
-    <div class="hud d-none">
-        <div class="panel flex-btw-c">
+    <div id="mobile_buttons" class="hud d-none">
+        <div class="panel flex-arr-c">
             <div>
                 <button id="btnSlap" class="mobile-btns">S</button>
                 <button id="btnBubble" class="mobile-btns">B</button>
@@ -105,13 +128,6 @@
                 <button id="btnUp" class="mobile-btns">U</button>
             </div>
         </div>
-        <div class="panel">
-            <div>
-                <button id="" class="mobile-btns"></button>
-                <button id="" class="mobile-btns"></button>
-                <button id="" class="mobile-btns"></button>
-            </div>
-        </div>
     </div>
 
 
@@ -120,6 +136,7 @@
     <a href="https://www.flaticon.com/de/kostenlose-icons/volumen" title="volumen Icons">Volumen Icons erstellt von apien - Flaticon</a>
     <a href="https://www.flaticon.com/de/kostenlose-icons/vollbildschirm" title="vollbildschirm Icons">Vollbildschirm Icons erstellt von Those Icons - Flaticon</a>
     <a href="https://www.flaticon.com/de/kostenlose-icons/nachster" title="nächster Icons">Nächster Icons erstellt von Pixel perfect - Flaticon</a>
+    <a href="https://www.flaticon.com/free-icons/game-boy-advance" title="game boy advance icons">Game boy advance icons created by kliwir art - Flaticon</a>
     -->
 </body>
 

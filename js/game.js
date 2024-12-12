@@ -21,11 +21,43 @@ function startGame() {
     let game = document.getElementById('fullscreen');
     game.classList.remove('d-none');
 
+    let mobileButtons = document.getElementById('mobile_buttons');
+    mobileButtons.classList.remove('d-none');
+
     canvas = document.getElementById('canvas');
     canvas.classList.add('d-block');
 
     world = new World(canvas, keyboard);
 };
+
+
+function showKeyControlls() {
+    let tutorialPage = document.getElementById('tutorial_container');
+    tutorialPage.classList.remove('d-none');
+
+    let canvas = document.getElementById('canvas');
+    canvas.classList.remove('d-block');
+
+    let mobileButtons = document.getElementById('mobile_buttons');
+    mobileButtons.classList.add('d-none');
+
+    let hud = document.getElementById('hud');
+    hud.classList.add('d-none');
+}
+
+function closeKeyControlls() {
+    let tutorialPage = document.getElementById('tutorial_container');
+    tutorialPage.classList.add('d-none');
+
+    let canvas = document.getElementById('canvas');
+    canvas.classList.add('d-block');
+
+    let mobileButtons = document.getElementById('mobile_buttons');
+    mobileButtons.classList.remove('d-none');
+
+    let hud = document.getElementById('hud');
+    hud.classList.remove('d-none');
+}
 
 
 function restartGame() {

@@ -152,14 +152,14 @@ class World {
             this.throwableObjects.push(bubble);
             setTimeout(() => {
                 this.throwableObjects.splice(0, 1);
-            }, 1500)
+            }, 2000)
         }
         if (!this.character.otherDirection && this.keyboard.ATTACK_BUBBLE) {
             let bubble = new ThrowableObject(this.character.x + 250, this.character.y + 160);
             this.throwableObjects.push(bubble);
             setTimeout(() => {
                 this.throwableObjects.splice(0, 1);
-            }, 1500)
+            }, 2000)
         }
     };
 

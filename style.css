@@ -57,6 +57,12 @@ h2 {
     align-items: center;
 }
 
+.flex-arr-c {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
 .flex-clm-center {
     display: flex;
     flex-direction: column;
@@ -120,11 +126,23 @@ button {
     border: 0;
 }
 
+.hud {
+    width: 720px;
+}
+
 .hud-symbols {
     position: relative;
     width: 50px;
     height: 50px;
     z-index: 10;
+    cursor: pointer;
+}
+
+.hud-container {
+    position: relative;
+    top: -475px;
+    right: 5px;
+    gap: 10px;
 }
 
 .play-button {
@@ -174,6 +192,16 @@ button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.tutorial-dialog-container {
+    height: 400px;
+    width: 600px;
+    background: #4335bd;
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    justify-content: space-between;
 }
 
 .attack-container {
@@ -228,6 +256,10 @@ button:hover {
     }
 
     .overlay-container {
+        width: 100%;
+    }
+
+    .hud {
         width: 100%;
     }
 }
