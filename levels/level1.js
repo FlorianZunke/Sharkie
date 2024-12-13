@@ -102,7 +102,7 @@ function startLevel() {
         [
             new Barriar('img/3. Background/Barrier/0.png', 400, 400, 100, 1050),
             new Barriar('img/3. Background/Barrier/1.png', 500, -60, 200, 950),
-            new Barriar('img/3. Background/Barrier/3.png', 1750, -80, 375, 300),
+            new Barriar('img/3. Background/Barrier/3.png', 1750, -80, 375, 275),
             new Barriar('img/3. Background/Barrier/2.png', 2350, 265, 225, 800),
             new Barriar('img/3. Background/Barrier/3.png', 3700, -80, 375, 300),
             new Barriar('img/3. Background/Barrier/2.png', 4250, 265, 225, 800),

@@ -3,8 +3,10 @@ class DrawableObject {
     y = 150;
     height = 325;
     width = 300;
-    offsetX = 0;
-    offsetY = 0;
+    offsetRight = 0;
+    offsetLeft = 0;
+    offsetUp = 0;
+    offsetDown = 0;
     img;
     currentImage = 0;
     imageCache = {};
@@ -30,7 +32,7 @@ class DrawableObject {
 
 
     drawFrame(ctx) {
-        if (this instanceof Character) {
+        if (this instanceof Character || this instanceof Barriar || this instanceof Coin || this instanceof JellyFish || this instanceof Endboss || this instanceof JellyFish ) {
             ctx.beginPath();
             ctx.lineWidth = '3';
             ctx.strokeStyle = 'blue';
@@ -38,7 +40,7 @@ class DrawableObject {
             ctx.stroke();
         }
 
-        if (this instanceof Character || this instanceof JellyFish || this instanceof Endboss || this instanceof Barriar) {
+        if (this instanceof Character || this instanceof JellyFish || this instanceof Endboss || this instanceof Barriar || this instanceof Coin || this instanceof JellyFish || this instanceof PoisionBottle) {
             ctx.beginPath();
             ctx.lineWidth = '3';
             ctx.strokeStyle = 'red';

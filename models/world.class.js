@@ -21,7 +21,7 @@ class World {
         this.draw();
         this.setWorld();
         this.checkAttackCollisions();
-        this.checkBarriarCollisions();
+        // this.checkBarriarCollisions();
         this.run();
     };
 
@@ -91,37 +91,6 @@ class World {
             });
         });
     };
-
-
-    checkBarriarCollisions() {
-        setInterval(() => {
-            let blockedDirections = { left: false, right: false, up: false, down: false };
-
-            this.level.barriar.forEach(barriar => {
-                if (this.character.isColliding(barriar)) {
-                    if (
-                        (this.character.x + this.character.offsetX + this.character.width - 2 * this.character.offsetX) >= (barriar.x + barriar.offsetX) &&
-                        (this.character.x + this.character.offsetX) < (barriar.x + barriar.width - barriar.offsetX)
-                    ) {
-                        // Horizontale Blockaden
-                        blockedDirections.right = this.character.x < barriar.x; // Rechtskollision
-                        blockedDirections.left = this.character.x > barriar.x;  // Linkskollision
-                    }
-
-                    if (
-                        (this.character.y + this.character.offsetY + this.character.height - 3 * this.character.offsetY) >= (barriar.y + barriar.offsetY) &&
-                        (this.character.y + this.character.offsetY) < (barriar.y + barriar.height - 2 * barriar.offsetY)
-                    ) {
-                        // Vertikale Blockaden
-                        blockedDirections.down = this.character.y < barriar.y; // Untenkollision
-                        blockedDirections.up = this.character.y > barriar.y;   // Obenkollision
-                    }
-                }
-            });
-
-            this.character.blockedDirections = blockedDirections;
-        }, 10);
-    }
 
 
     checkCoinCollions() {

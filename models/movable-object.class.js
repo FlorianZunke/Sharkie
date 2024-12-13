@@ -32,6 +32,27 @@ class MovableObject extends DrawableObject {
             (this.y + 2 * (this.offsetY)) <= (mo.y + mo.height);
     };
 
+    
+    // isColliding(mo) {
+    //     return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
+    //            this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
+    //            this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
+    //            this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
+    // }
+
+
+    isCollidingWithBarrier(){
+        let isColliding = false;
+        
+        world.level.barriar.forEach(barriar => {
+            if(world.character.isColliding(barriar)) {
+                isColliding = true;
+            }
+        });
+
+        return isColliding;
+    }
+
 
     hit() {
         this.energy -= 20;
@@ -102,11 +123,23 @@ class MovableObject extends DrawableObject {
     };
 
 
+    // applyGravity() {
+    //     setInterval(() => {
+    //         if (this.isAboveGround() || this.speedY > 0) {
+    //             this.y -= this.speedY;
+    //             this.speedY -= this.acceleration;
+    //         }
+    //     }, 25);
+    // };
+
+    // Die Überarbeitete Funktion mit Collision on Barriar
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
-                this.y -= this.speedY;
-                this.speedY -= this.acceleration;
+                if(!this.isCollidingWithBarrier()) {
+                    this.y -= this.speedY;
+                    this.speedY -= this.acceleration;
+                }
             }
         }, 25);
     };

@@ -76,3 +76,8 @@ function playAgain() {
     overlayWin.classList.remove('overlay-container');
     init();
 }
+
+
+function toogleMusic() {
+    
+}
