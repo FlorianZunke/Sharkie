@@ -1,0 +1,55 @@
+.flex-btw-c {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flex-arr-c {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.flex-clm-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-clm-c-bot {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.flex-c-c {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-st-c {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.flex-end-c {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.d-none {
+    display: none;
+}
+
+.d-none-i {
+    display: none !important;
+}
+
+.d-block {
+    display: block;
+}

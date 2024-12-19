@@ -33,22 +33,6 @@ canvas {
     margin-right: 20px;
 }
 
-h1 {
-    font-size: 64px;
-    color: white;
-}
-
-h2 {
-    font-size: 24px;
-    text-align: center;
-    color: white;
-}
-
-h3 {
-    font-size: 36px;
-    color: black;
-}
-
 .gap70 {
     gap: 70px;
 }
@@ -58,81 +42,6 @@ h3 {
     justify-content: space-around; /* Buttons im Panel verteilen */
     align-items: center;
     width: 100%;
-}
-
-.flex-btw-c {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.flex-arr-c {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.flex-clm-center {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.flex-clm-c-bot {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.flex-c-c {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.flex-st-c {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.flex-end-c {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.d-none {
-    display: none;
-}
-
-.d-none-i {
-    display: none !important;
-}
-
-.d-block {
-    display: block;
-}
-
-button {
-    width: 200px;
-    background-color: rgb(159, 200, 5);
-    border-radius: 10px;
-    height: 45px;
-    font-size: 20px;
-    box-shadow: 0px 4px rgb(113, 142, 4);
-    text-shadow: 0px 2px 2px #718E04;
-    position: relative;
-    bottom: 0;
-    transition: .1s;
-    cursor: pointer;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-align: center;
-    color: white;
-    border: 0;
 }
 
 .hud {
@@ -171,10 +80,6 @@ button {
     box-shadow: 0px 7px #718E04;
 }
 
-button:hover {
-    bottom: -4px;
-    box-shadow: none;
-}
 
 .mobile-btns {
     height: 50px;
@@ -217,6 +122,12 @@ button:hover {
 
 .lose-img {
     height: 50px;
+}
+
+.back-img {
+    height: 75px;
+    width: 100px;
+    cursor: pointer;
 }
 
 .tutorial-container {
@@ -262,18 +173,6 @@ button:hover {
     width: 150px;
 }
 
-.height-100 {
-    height: 100%;
-}
-
-.width-100 {
-    width: 100%;
-}
-
-.margin-b {
-    margin-bottom: 50px;
-}
-
 .fullscreen {
     position: relative; /* Grundlage für absolute Positionierung */
     width: 720px;
@@ -281,7 +180,35 @@ button:hover {
     margin: 0 auto; /* Zentriert den Container */
 }
 
+a {
+    margin-top: 35px;
+    color: white;
+    font-size: 24px;
+}
 
+.impressum {
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    width: 80vw;
+    box-sizing: border-box;
+    background-color: rgba(14, 15, 34, 0.582);
+    padding: 32px;
+    border-radius: 15px;
+    box-shadow: rgba(255, 255, 255, 0.25) 0px 54px 55px, rgba(255, 255, 255, 0.25) 0px -12px 30px, rgba(255, 255, 255, 0.25) 0px 4px 6px, rgba(255, 255, 255, 0.25) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.imprint-links {
+    font-size: 16px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.arrow-wrapper {
+    margin-top: 32px;
+    width: 100%;
+    text-align: center;
+}
 
 
 @keyframes fadeIn {

@@ -9,6 +9,7 @@ function init() {
 
     let tutorialPage = document.getElementById('key_container');
     tutorialPage.classList.add('overlay-container');
+    tutorialPage.classList.remove('d-none');
 
     startLevel();
 };
@@ -79,6 +80,30 @@ function toogleMusic() {
 }
 
 
+function mobilePlay() {
+    const controls = [
+        { id: 'btnUp', key: 'UP' },
+        { id: 'btnLeft', key: 'LEFT' },
+        { id: 'btnRight', key: 'RIGHT' },
+        { id: 'btnBubble', key: 'ATTACK_BUBBLE' },
+        { id: 'btnSlap', key: 'ATTACK_SLAP' },
+    ];
+    controls.forEach(control => {
+        const element = document.getElementById(control.id);
+        if (element) {
+            element.addEventListener('touchstart', (event) => {
+                event.preventDefault();
+                keyboard[control.key] = true;
+            });
+            element.addEventListener('touchend', (event) => {
+                event.preventDefault();
+                keyboard[control.key] = false;
+            });
+        }
+    });
+}
+
+
 function handleOrientationChange() {
     const rotateDiv = document.getElementById('rotate');
     let startPage = document.getElementById('start_screen');
@@ -95,13 +120,16 @@ function handleOrientationChange() {
         startPage.classList.remove('d-none-i');
         tutorialPage.classList.remove('d-none-i');
         keyControlls.classList.remove('overlay-container');
+        keyControlls.classList.remove('d-none');
         game.classList.remove('d-none-i');
+        mobilePlay();
     } else {
         // Portrait-Modus
         rotateDiv.classList.remove('d-none'); // Zeigt den Container
         startPage.classList.add('d-none-i');
         tutorialPage.classList.add('d-none-i');
         keyControlls.classList.add('overlay-container');
+        keyControlls.classList.add('d-none');
         game.classList.add('d-none-i');
     }
 }

@@ -11,59 +11,59 @@ class Keyboard {
         // this.bindBtsPressEvents();
     };
 
-    bindBtsPressEvents() {
-        document.getElementById('btnLeft').addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            this.LEFT = true;
-        });
+    // bindBtsPressEvents() {
+    //     document.getElementById('btnLeft').addEventListener('touchstart', (e) => {
+    //         e.preventDefault();
+    //         this.LEFT = true;
+    //     });
 
-        document.getElementById('btnLeft').addEventListener('touchend', (e) => {
-            e.preventDefault();
-            this.LEFT = false;
-        });
+    //     document.getElementById('btnLeft').addEventListener('touchend', (e) => {
+    //         e.preventDefault();
+    //         this.LEFT = false;
+    //     });
 
-        document.getElementById('btnRight').addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            this.LEFT = true;
-        });
+    //     document.getElementById('btnRight').addEventListener('touchstart', (e) => {
+    //         e.preventDefault();
+    //         this.LEFT = true;
+    //     });
 
-        document.getElementById('btnRight').addEventListener('touchend', (e) => {
-            e.preventDefault();
-            this.LEFT = false;
-        });
+    //     document.getElementById('btnRight').addEventListener('touchend', (e) => {
+    //         e.preventDefault();
+    //         this.LEFT = false;
+    //     });
 
-        document.getElementById('btnUp').addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            this.LEFT = true;
-        });
+    //     document.getElementById('btnUp').addEventListener('touchstart', (e) => {
+    //         e.preventDefault();
+    //         this.LEFT = true;
+    //     });
 
-        document.getElementById('btnUp').addEventListener('touchend', (e) => {
-            e.preventDefault();
-            this.LEFT = false;
-        });
+    //     document.getElementById('btnUp').addEventListener('touchend', (e) => {
+    //         e.preventDefault();
+    //         this.LEFT = false;
+    //     });
 
-        document.getElementById('btnSlap').addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            this.LEFT = true;
-        });
+    //     document.getElementById('btnSlap').addEventListener('touchstart', (e) => {
+    //         e.preventDefault();
+    //         this.LEFT = true;
+    //     });
 
-        document.getElementById('btnSlap').addEventListener('touchend', (e) => {
-            e.preventDefault();
-            this.LEFT = false;
-        });
+    //     document.getElementById('btnSlap').addEventListener('touchend', (e) => {
+    //         e.preventDefault();
+    //         this.LEFT = false;
+    //     });
 
-        document.getElementById('btnBubble').addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            this.LEFT = true;
-        });
+    //     document.getElementById('btnBubble').addEventListener('touchstart', (e) => {
+    //         e.preventDefault();
+    //         this.LEFT = true;
+    //     });
 
-        document.getElementById('btnBubble').addEventListener('touchend', (e) => {
-            e.preventDefault();
-            this.LEFT = false;
-        });
+    //     document.getElementById('btnBubble').addEventListener('touchend', (e) => {
+    //         e.preventDefault();
+    //         this.LEFT = false;
+    //     });
 
         
-    };
+    // };
 
 
     bindKeyPressEvents() {
