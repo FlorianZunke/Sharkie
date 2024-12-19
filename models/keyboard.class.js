@@ -61,7 +61,10 @@ class Keyboard {
             e.preventDefault();
             this.LEFT = false;
         });
+
+        
     };
+
 
     bindKeyPressEvents() {
         window.addEventListener('keydown', (event) => {

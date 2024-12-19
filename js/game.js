@@ -1,7 +1,6 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
-let intervalIds = [];
 
 
 function init() {
@@ -10,6 +9,7 @@ function init() {
 
     let tutorialPage = document.getElementById('key_container');
     tutorialPage.classList.add('overlay-container');
+
     startLevel();
 };
 
@@ -39,10 +39,7 @@ function showKeyControlls() {
     canvas.classList.remove('d-block');
 
     let mobileButtons = document.getElementById('mobile_buttons');
-    mobileButtons.classList.add('d-none');
-
-    let hud = document.getElementById('hud');
-    hud.classList.add('d-none');
+    mobileButtons.classList.add('d-none-i');
 }
 
 function closeKeyControlls() {
@@ -53,16 +50,14 @@ function closeKeyControlls() {
     canvas.classList.add('d-block');
 
     let mobileButtons = document.getElementById('mobile_buttons');
-    mobileButtons.classList.remove('d-none');
-
-    let hud = document.getElementById('hud');
-    hud.classList.remove('d-none');
+    mobileButtons.classList.remove('d-none-i');
 }
 
 
 function restartGame() {
     let overlayLose = document.getElementById('lose_container');
     let tutorialPage = document.getElementById('key_container');
+    
     tutorialPage.classList.remove('d-none-i');
     overlayLose.classList.remove('overlay-container');
     init();
@@ -72,6 +67,7 @@ function restartGame() {
 function playAgain() {
     let overlayWin = document.getElementById('win_container');
     let tutorialPage = document.getElementById('key_container');
+    
     tutorialPage.classList.remove('d-none-i');
     overlayWin.classList.remove('overlay-container');
     init();
@@ -79,5 +75,40 @@ function playAgain() {
 
 
 function toogleMusic() {
-    
+
 }
+
+
+function handleOrientationChange() {
+    const rotateDiv = document.getElementById('rotate');
+    let startPage = document.getElementById('start_screen');
+    let tutorialPage = document.getElementById('tutorial_container');
+    let keyControlls = document.getElementById('key_container');
+    let game = document.getElementById('fullscreen');
+    let loseContainer = document.getElementById('lose_container');
+    let winContainer = document.getElementById('win_container');
+
+
+    if (window.innerWidth > window.innerHeight) {
+        // Landscape-Modus
+        rotateDiv.classList.add('d-none'); // Versteckt den Container
+        startPage.classList.remove('d-none-i');
+        tutorialPage.classList.remove('d-none-i');
+        keyControlls.classList.remove('overlay-container');
+        game.classList.remove('d-none-i');
+    } else {
+        // Portrait-Modus
+        rotateDiv.classList.remove('d-none'); // Zeigt den Container
+        startPage.classList.add('d-none-i');
+        tutorialPage.classList.add('d-none-i');
+        keyControlls.classList.add('overlay-container');
+        game.classList.add('d-none-i');
+    }
+}
+
+// Event-Listener für Änderungen der Bildschirmorientierung
+window.addEventListener('resize', handleOrientationChange);
+window.addEventListener('orientationchange', handleOrientationChange);
+
+// Beim Laden der Seite überprüfen
+document.addEventListener('DOMContentLoaded', handleOrientationChange);

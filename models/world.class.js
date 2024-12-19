@@ -21,7 +21,6 @@ class World {
         this.draw();
         this.setWorld();
         this.checkAttackCollisions();
-        // this.checkBarriarCollisions();
         this.run();
     };
 
@@ -137,16 +136,24 @@ class World {
         if (this.character.isDead() && this.character.gameOver == true) {
             let overlayLose = document.getElementById('lose_container');
             let canvas = document.getElementById('canvas');
+            let mobileButtons = document.getElementById('mobile_buttons');
+
+            mobileButtons.classList.add('d-none-i');
             canvas.classList.remove('d-block');
             overlayLose.classList.add('overlay-container');
+
             this.clearAllIntervals();
         }
 
         if (this.checkEndbossDead() && this.character.gameOver == false) {
             let overlayWin = document.getElementById('win_container');
             let canvas = document.getElementById('canvas');
+            let mobileButtons = document.getElementById('mobile_buttons');
+
+            mobileButtons.classList.add('d-none-i');
             canvas.classList.remove('d-block');
             overlayWin.classList.add('overlay-container');
+
             this.clearAllIntervals();
         };
     };

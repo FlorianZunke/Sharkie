@@ -10,6 +10,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     margin: 0;
+    background-color: black;
 }
 
 canvas {
@@ -27,7 +28,7 @@ canvas {
     background-repeat: no-repeat;
     min-height: 100vh;
     width: 100%;
-    background-color: rgb(34,27,94);
+    background-color: rgb(34, 27, 94);
     margin-left: 20px;
     margin-right: 20px;
 }
@@ -43,11 +44,19 @@ h2 {
     color: white;
 }
 
+h3 {
+    font-size: 36px;
+    color: black;
+}
+
 .gap70 {
     gap: 70px;
 }
 
 .panel {
+    display: flex;
+    justify-content: space-around; /* Buttons im Panel verteilen */
+    align-items: center;
     width: 100%;
 }
 
@@ -108,7 +117,7 @@ h2 {
 }
 
 button {
-    width:200px;
+    width: 200px;
     background-color: rgb(159, 200, 5);
     border-radius: 10px;
     height: 45px;
@@ -127,7 +136,17 @@ button {
 }
 
 .hud {
-    width: 720px;
+    position: absolute;
+    top: 10px; /* Abstand vom oberen Rand */
+    right: 10px; /* Abstand vom rechten Rand */
+    width: auto; /* Breite dynamisch lassen */
+    display: flex;
+    gap: 10px; /* Abstand zwischen Symbolen */
+    z-index: 10;
+}
+
+.hud img {
+    pointer-events: all; /* Für klickbare Elemente wie Buttons */
 }
 
 .hud-symbols {
@@ -163,14 +182,27 @@ button:hover {
     background-color: rgb(159, 200, 5);
 }
 
+.mobile-btns-position {
+    position: absolute;
+    bottom: 20px; /* Abstand vom unteren Rand */
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%; /* Breite über die gesamte Canvas */
+    height: auto;
+}
+
 .overlay-container {
     width: 720px;
     height: 480px;
     background-image: url('img/3. Background/Dark/1.png');
-    background-position: bottom;
+    background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
     display: flex;
+    align-items: center;
     gap: 70px;
 }
 
@@ -184,7 +216,6 @@ button:hover {
 }
 
 .lose-img {
-    width: 100%;
     height: 50px;
 }
 
@@ -201,7 +232,6 @@ button:hover {
     border-radius: 20px;
     padding: 15px;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-    justify-content: space-between;
 }
 
 .attack-container {
@@ -209,6 +239,12 @@ button:hover {
     justify-content: center;
     align-items: baseline;
     gap: 70px;
+}
+
+.rotate-img {
+    animation: rotate-animation 3s linear infinite;
+    height: 225px;
+    width: 125px;
 }
 
 .move-keys {
@@ -238,10 +274,19 @@ button:hover {
     margin-bottom: 50px;
 }
 
+.fullscreen {
+    position: relative; /* Grundlage für absolute Positionierung */
+    width: 720px;
+    height: 480px;
+    margin: 0 auto; /* Zentriert den Container */
+}
+
+
+
 
 @keyframes fadeIn {
     from {
-        opacity:0 ;
+        opacity: 0;
     }
 
     to {
@@ -249,27 +294,54 @@ button:hover {
     }
 }
 
-/* Smartphones */
-@media only screen and (max-width: 720px){
-    canvas {
-        width: 100%;
+@keyframes rotate-animation {
+    from {
+        transform: rotate(0deg);
     }
 
-    .overlay-container {
-        width: 100%;
-    }
-
-    .hud {
-        width: 100%;
+    to {
+        transform: rotate(360deg);
     }
 }
 
-@media only screen and (max-height: 480px){
+/* Smartphones */
+@media only screen and (max-width: 720px) {
+    .fullscreen {
+        width: 100%;
+        height: auto;
+    }
+
+    canvas {
+        width: 100%;
+        height: auto;
+    }
+
+    .tutorial-dialog-container {
+        height: 100%;
+    }
+}
+
+@media only screen and (max-height: 480px) {
     canvas {
         height: 100vh;
     }
 
+    .fullscreen {
+        width: 100%;
+        height: auto;
+    }
+
+    .tutorial-dialog-container {
+        height: 100%;
+        min-width: 350px;
+        max-width: 650px;
+    }
+
     .overlay-container {
-        height: 100vh;
+        max-height: 365px;
+        min-height: 300px;
+        height: auto;
+        min-width: 350px;
+        max-width: 650px;
     }
 }

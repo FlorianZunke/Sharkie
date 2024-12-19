@@ -4,7 +4,7 @@ function startLevel() {
 
     level1 = new Level(
         [
-            //new PufferFish(701, 120, 500, 1050),
+            new PufferFish(701, 120, 500, 1050),
             // new JellyFish(1500, 200, 50, 300),
             // new JellyFish(2115, 200, 50, 360),
             // new PufferFish(2300, 20, 2000, 2600),
