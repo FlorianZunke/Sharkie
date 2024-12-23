@@ -23,8 +23,8 @@
     <script src="models/barriar.class.js"></script>
     <script src="models/endboss.class.js"></script>
     <script src="models/keyboard.class.js"></script>
-    <script src="models/level.class.js"></script>
     <script src="levels/level1.js"></script>
+    <script src="models/level.class.js"></script>
     <script src="models/world.class.js"></script>
     <script src="js/game.js"></script>
     <script src="script.js"></script>
@@ -101,7 +101,7 @@
         <canvas id="canvas" width="720" height="480"></canvas>
         <!-- HUD overlay -->
         <div class="hud">
-            <img class="hud-symbols" src="img/Buttons/mittleres-volumen.png" alt="">
+            <img id="sound_img" onclick="toggleMusic()" class="hud-symbols" src="img/Buttons/mittleres-volumen.png" alt="">
             <img onclick="showKeyControlls()" class="hud-symbols" src="img/Buttons/game-control.png" alt="">
         </div>
 
@@ -113,9 +113,10 @@
                     <button id="btnBubble" class="mobile-btns">B</button>
                 </div>
                 <div>
-                    <button id="btnLeft" class="mobile-btns">L</button>
-                    <button id="btnRight" class="mobile-btns">R</button>
-                    <button id="btnUp" class="mobile-btns">U</button>
+                    <img id="btnUp" src="img/Buttons/up_arrow.png" class="mobile-btns" alt="">
+                    <img id="btnDown" src="img/Buttons/arrow_down.png" class="mobile-btns" alt="">
+                    <img id="btnLeft" src="img/Buttons/left_arrow.png" class="mobile-btns" alt="">
+                    <img id="btnRight" src="img/Buttons/right_arrow.png" class="mobile-btns" alt="">
                 </div>
             </div>
         </div>

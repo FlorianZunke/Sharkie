@@ -1,11 +1,44 @@
+/**
+ * Represents the final boss in the game.
+ * Inherits from the `MovableObject` class.
+ */
 class Endboss extends MovableObject {
-    world;
+    /**
+     * The height of the endboss.
+     * @type {number}
+     * @default 350
+     */
     height = 350;
+
+    /**
+     * The width of the endboss.
+     * @type {number}
+     * @default 300
+     */
     width = 300;
-    health = 100;
+
+    /**
+     * Indicates whether the endboss has reached a certain x-coordinate.
+     * @type {boolean}
+     * @default false
+     */
     reachedXCoords = false;
 
+    /**
+     * Tracks whether the endboss has had its first contact with the player.
+     * @type {boolean}
+     * @default false
+     */
+    hadFirstContact = false;
 
+    /**
+     * Indicates whether the endboss is hurt.
+     * @type {boolean}
+     * @default false
+     */
+    getHurt = false;
+
+    // Image arrays for various endboss states.
     IMAGES_SPAWN = [
         'img/2.Enemy/3 Final Enemy/1.Introduce/1.png',
         'img/2.Enemy/3 Final Enemy/1.Introduce/2.png',
@@ -18,6 +51,7 @@ class Endboss extends MovableObject {
         'img/2.Enemy/3 Final Enemy/1.Introduce/9.png',
         'img/2.Enemy/3 Final Enemy/1.Introduce/10.png',
     ];
+
     IMAGES_SWIM = [
         'img/2.Enemy/3 Final Enemy/2.floating/1.png',
         'img/2.Enemy/3 Final Enemy/2.floating/2.png',
@@ -33,6 +67,14 @@ class Endboss extends MovableObject {
         'img/2.Enemy/3 Final Enemy/2.floating/12.png',
         'img/2.Enemy/3 Final Enemy/2.floating/13.png',
     ];
+
+    IMAGES_DAMAGED = [
+        'img/2.Enemy/3 Final Enemy/Hurt/1.png',
+        'img/2.Enemy/3 Final Enemy/Hurt/2.png',
+        'img/2.Enemy/3 Final Enemy/Hurt/3.png',
+        'img/2.Enemy/3 Final Enemy/Hurt/4.png',
+    ];
+
     IMAGES_DEAD = [
         'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 6.png',
         'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 7.png',
@@ -41,36 +83,87 @@ class Endboss extends MovableObject {
         'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 10.png',
     ];
 
-    constructor() {
+    IMAGES_ATTACK = [
+        'img/2.Enemy/3 Final Enemy/Attack/1.png',
+        'img/2.Enemy/3 Final Enemy/Attack/2.png',
+        'img/2.Enemy/3 Final Enemy/Attack/3.png',
+        'img/2.Enemy/3 Final Enemy/Attack/4.png',
+        'img/2.Enemy/3 Final Enemy/Attack/5.png',
+        'img/2.Enemy/3 Final Enemy/Attack/6.png',
+    ];
+
+    /**
+     * Creates a new Endboss instance.
+     * @param {number} y - The y-coordinate of the endboss.
+     * @param {number} minY - The minimum y-coordinate for movement.
+     * @param {number} maxY - The maximum y-coordinate for movement.
+     */
+    constructor(y, minY, maxY) {
         super().loadImage(this.IMAGES_SWIM[0]);
         this.loadImages(this.IMAGES_SWIM);
         this.loadImages(this.IMAGES_SPAWN);
         this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_DAMAGED);
+        this.loadImages(this.IMAGES_ATTACK);
         this.animate();
+
         this.x = 6400;
+        this.y = y;
+        this.minY = minY;
+        this.maxY = maxY;
+        this.speed = 1.2 + Math.random() * 0.3;
         this.offsetX = 10;
         this.offsetY = 50;
     }
 
+    /**
+     * Handles the animation logic for the endboss.
+     * The animation sequence changes based on the boss's state (e.g., spawn, hurt, dead, etc.).
+     */
     animate() {
         let i = 0;
-        let hadFirstContact = false;
 
         setInterval(() => {
             if (this.endbossDead) {
-                this.playAnimation(this.IMAGES_DEAD)
-            } else
-                if (i < 10) {
+                this.playAnimation(this.IMAGES_DEAD);
+            } else if (this.getHurt) {
+                this.playAnimation(this.IMAGES_DAMAGED);
+                setTimeout(() => {
+                    this.getHurt = false;
+                }, 500);
+            } else {
+                if (i < 14) {
                     this.playAnimation(this.IMAGES_SPAWN);
                 } else {
                     this.playAnimation(this.IMAGES_SWIM);
                 }
+            }
             i++;
 
-            if (this.reachedXCoords && !hadFirstContact) {
+            if (this.reachedXCoords && !this.hadFirstContact) {
                 i = 0;
-                hadFirstContact = true;
+                this.hadFirstContact = true;
+                pauseSound('background_music');
+                playSound('endboss_fight');
+                sounds.endboss_fight.loop = true;
             }
-        }, 150);
-    };
-};
+        }, 100);
+        this.endbossAttack();
+    }
+
+    /**
+     * Handles the endboss's attack logic.
+     * The endboss will attack when the player crosses a certain x-coordinate.
+     */
+    endbossAttack() {
+        setInterval(() => {
+            if (world.character.x > 5650 && this.hadFirstContact) {
+                this.x -= 120;
+                this.playAnimation(this.IMAGES_ATTACK);
+                setTimeout(() => {
+                    this.x += 120;
+                }, 1000);
+            }
+        }, 3000);
+    }
+}

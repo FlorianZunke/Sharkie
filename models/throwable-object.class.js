@@ -1,6 +1,19 @@
+/**
+ * Class representing a throwable object in the game.
+ * Extends the MovableObject class.
+ */
 class ThrowableObject extends MovableObject {
+    /**
+     * Direction of the throwable object (left or right).
+     * @type {boolean}
+     */
     direction;
 
+    /**
+     * Creates a new ThrowableObject instance.
+     * @param {number} x - The initial x-coordinate of the throwable object.
+     * @param {number} y - The initial y-coordinate of the throwable object.
+     */
     constructor(x, y) {
         super();
         this.animate();
@@ -13,6 +26,11 @@ class ThrowableObject extends MovableObject {
         this.throw(x, y);
     }
 
+    /**
+     * Sets the appropriate image for the throwable object based on the character's state.
+     * If the character's bubble is poisoned, a poisoned bubble image is loaded.
+     * Otherwise, a normal bubble image is loaded.
+     */
     animate() {
         if (world.character.poisionBubble) {
             this.loadImage('img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png');
@@ -21,6 +39,12 @@ class ThrowableObject extends MovableObject {
         }
     }
 
+    /**
+     * Initiates the throw action for the throwable object.
+     * The object moves either left or right depending on the character's direction.
+     * @param {number} x - The initial x-coordinate of the throwable object.
+     * @param {number} y - The initial y-coordinate of the throwable object.
+     */
     throw(x, y) {
         this.direction = world.character.otherDirection;
         this.x = x;
@@ -34,5 +58,5 @@ class ThrowableObject extends MovableObject {
                 this.x += this.speedX;
             }
         }, 100);
-    };
-};
+    }
+}

@@ -1,22 +1,42 @@
+/**
+ * Starts the first level of the game by initializing all the required objects such as enemies, background layers, items, and barriers.
+ * It sets up the environment, enemy positions, and interactive elements for the game to be played.
+ *
+ * @function startLevel
+ * @returns {void} This function does not return any value. It initializes the game environment.
+ *
+ * @example
+ * startLevel();
+ */
 let level1;
 
+/**
+ * Initializes the first level of the game by creating a new `Level` object.
+ * This level contains various enemies (PufferFish, JellyFish, Endboss), background objects, collectible items (Coins, Poison Bottles), and barriers.
+ *
+ * The `Level` object is constructed with arrays of the following:
+ * 1. Enemies: Various enemy types, such as PufferFish, JellyFish, and an Endboss, each with specific x and y coordinates and other properties.
+ * 2. Background objects: The background layers (water, floor, and light) are added in multiple copies to create a scrolling effect.
+ * 3. Collectibles: Coins and Poison Bottles placed at specific locations within the level.
+ * 4. Barriers: Obstacles (Barriars) that the player must navigate around or interact with in the level.
+ */
 function startLevel() {
 
     level1 = new Level(
         [
-            new PufferFish(701, 120, 500, 1050),
-            // new JellyFish(1500, 200, 50, 300),
-            // new JellyFish(2115, 200, 50, 360),
-            // new PufferFish(2300, 20, 2000, 2600),
-            // new JellyFish(2950, 50, 20, 200),
-            // new JellyFish(3150, 200, 20, 250),
-            // new JellyFish(3350, 20, 20, 250),
-            // new JellyFish(3550, 200, 20, 350),
-            // new JellyFish(4070, 300, 20, 350),
-            // new PufferFish(4500, 20, 4400, 4800),
-            // new JellyFish(5080, 300, 20, 350),
-            // new PufferFish(5200, 20, 5000, 5900),
-            new Endboss()
+            new PufferFish(701, 120, 500, 1050),  // PufferFish at coordinates (701, 120), with additional range parameters.
+            new JellyFish(1500, 200, 50, 300),    // JellyFish at coordinates (1500, 200) and specific movement limits.
+            new JellyFish(2115, 200, 50, 360),
+            new PufferFish(2300, 20, 2000, 2600),
+            new JellyFish(2950, 50, 20, 200),
+            new JellyFish(3150, 200, 20, 250),
+            new JellyFish(3350, 20, 20, 250),
+            new JellyFish(3550, 200, 20, 350),
+            new JellyFish(4070, 300, 20, 350),
+            new PufferFish(4500, 20, 4400, 4800),
+            new JellyFish(5080, 300, 20, 350),
+            new PufferFish(5200, 20, 5000, 5900),
+            new Endboss(100, 20, 150)  // Endboss placed at coordinates (100, 20) with vertical movement limits.
         ],
         [
             new BackgroundObject('img/3. Background/Layers/5. Water/D2.png', -720),

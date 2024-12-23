@@ -85,6 +85,7 @@ canvas {
     height: 50px;
     width: 50px;
     background-color: rgb(159, 200, 5);
+    border-radius: 8px;
 }
 
 .mobile-btns-position {
