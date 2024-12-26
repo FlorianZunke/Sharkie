@@ -1,3 +1,7 @@
+* {
+    font-family: 'Luckiest Guy', Arial, Helvetica, sans-serif;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -39,23 +43,29 @@ canvas {
 
 .panel {
     display: flex;
-    justify-content: space-around; /* Buttons im Panel verteilen */
+    justify-content: space-around;
+    /* Buttons im Panel verteilen */
     align-items: center;
     width: 100%;
 }
 
 .hud {
     position: absolute;
-    top: 10px; /* Abstand vom oberen Rand */
-    right: 10px; /* Abstand vom rechten Rand */
-    width: auto; /* Breite dynamisch lassen */
+    top: 10px;
+    /* Abstand vom oberen Rand */
+    right: 10px;
+    /* Abstand vom rechten Rand */
+    width: auto;
+    /* Breite dynamisch lassen */
     display: flex;
-    gap: 10px; /* Abstand zwischen Symbolen */
+    gap: 10px;
+    /* Abstand zwischen Symbolen */
     z-index: 10;
 }
 
 .hud img {
-    pointer-events: all; /* Für klickbare Elemente wie Buttons */
+    pointer-events: all;
+    /* Für klickbare Elemente wie Buttons */
 }
 
 .hud-symbols {
@@ -80,25 +90,6 @@ canvas {
     box-shadow: 0px 7px #718E04;
 }
 
-
-.mobile-btns {
-    height: 50px;
-    width: 50px;
-    background-color: rgb(159, 200, 5);
-    border-radius: 8px;
-}
-
-.mobile-btns-position {
-    position: absolute;
-    bottom: 20px; /* Abstand vom unteren Rand */
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%; /* Breite über die gesamte Canvas */
-    height: auto;
-}
 
 .overlay-container {
     width: 720px;
@@ -159,6 +150,10 @@ canvas {
     width: 125px;
 }
 
+.space-btn {
+    width: 90px !important;
+}
+
 .move-keys {
     height: 80px;
     width: 100px;
@@ -175,10 +170,10 @@ canvas {
 }
 
 .fullscreen {
-    position: relative; /* Grundlage für absolute Positionierung */
+    position: relative;
     width: 720px;
     height: 480px;
-    margin: 0 auto; /* Zentriert den Container */
+    margin: 0 auto;
 }
 
 a {
@@ -211,6 +206,17 @@ a {
     text-align: center;
 }
 
+.mobile-btns-position {
+    display: none;
+}
+
+.mobile-btns {
+    height: 50px;
+    width: 50px;
+    background-color: rgb(159, 200, 5);
+    border-radius: 8px;
+}
+
 
 @keyframes fadeIn {
     from {
@@ -229,6 +235,23 @@ a {
 
     to {
         transform: rotate(360deg);
+    }
+}
+
+/* if device has a touch screen */
+@media (any-pointer: coarse) {
+    
+
+    .mobile-btns-position {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        height: auto;
     }
 }
 

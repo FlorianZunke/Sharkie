@@ -38,26 +38,13 @@ function init() {
     let startPage = document.getElementById('start_screen');
     startPage.classList.add('d-none');
 
-    let tutorialPage = document.getElementById('key_container');
-    tutorialPage.classList.add('overlay-container');
-    tutorialPage.classList.remove('d-none');
-
-    startLevel();
-}
-
-/**
- * Start the game by hiding the tutorial, displaying the game canvas, and initializing the game world.
- */
-function startGame() {
-    let tutorialPage = document.getElementById('key_container');
-    tutorialPage.classList.add('d-none-i');
-
     let game = document.getElementById('fullscreen');
     game.classList.remove('d-none');
 
     canvas = document.getElementById('canvas');
     canvas.classList.add('d-block');
 
+    startLevel();
     world = new World(canvas, keyboard);
 }
 
@@ -73,6 +60,9 @@ function showKeyControlls() {
 
     let mobileButtons = document.getElementById('mobile_buttons');
     mobileButtons.classList.add('d-none-i');
+
+    let hud = document.getElementById('hud');
+    hud.classList.add('d-none-i');
 }
 
 /**
@@ -87,6 +77,9 @@ function closeKeyControlls() {
 
     let mobileButtons = document.getElementById('mobile_buttons');
     mobileButtons.classList.remove('d-none-i');
+
+    let hud = document.getElementById('hud');
+    hud.classList.remove('d-none-i');
 }
 
 /**
@@ -94,11 +87,11 @@ function closeKeyControlls() {
  */
 function restartGame() {
     let overlayLose = document.getElementById('lose_container');
-    let tutorialPage = document.getElementById('key_container');
+    let hud = document.getElementById('hud');
 
-    tutorialPage.classList.remove('d-none-i');
     overlayLose.classList.remove('overlay-container');
     overlayLose.classList.add('d-none');
+    hud.classList.remove('d-none-i');
     pauseSound('lose');
     pauseSound('background_music');
     init();
@@ -109,11 +102,11 @@ function restartGame() {
  */
 function playAgain() {
     let overlayWin = document.getElementById('win_container');
-    let tutorialPage = document.getElementById('key_container');
+    let hud = document.getElementById('hud');
 
-    tutorialPage.classList.remove('d-none-i');
     overlayWin.classList.remove('overlay-container');
     overlayWin.classList.add('d-none');
+    hud.classList.remove('d-none-i');
     pauseSound('win');
     pauseSound('background_music');
     init();
@@ -128,11 +121,13 @@ function checkWin() {
             let overlayWin = document.getElementById('win_container');
             let canvas = document.getElementById('canvas');
             let mobileButtons = document.getElementById('mobile_buttons');
-
+            let hud = document.getElementById('hud');
+    
             mobileButtons.classList.add('d-none-i');
             canvas.classList.remove('d-block');
             overlayWin.classList.add('overlay-container');
             overlayWin.classList.remove('d-none');
+            hud.classList.add('d-none-i');
             pauseSound('endboss_fight');
             playSound('win');
             this.clearAllIntervals();
@@ -227,18 +222,13 @@ function handleOrientationChange() {
     const rotateDiv = document.getElementById('rotate');
     let startPage = document.getElementById('start_screen');
     let tutorialPage = document.getElementById('tutorial_container');
-    let keyControlls = document.getElementById('key_container');
     let game = document.getElementById('fullscreen');
-    let loseContainer = document.getElementById('lose_container');
-    let winContainer = document.getElementById('win_container');
 
     if (window.innerWidth > window.innerHeight) {
         // Landscape mode
         rotateDiv.classList.add('d-none');
         startPage.classList.remove('d-none-i');
         tutorialPage.classList.remove('d-none-i');
-        keyControlls.classList.remove('overlay-container');
-        keyControlls.classList.remove('d-none-i');
         game.classList.remove('d-none-i');
         mobilePlay();
     } else {
@@ -246,8 +236,6 @@ function handleOrientationChange() {
         rotateDiv.classList.remove('d-none');
         startPage.classList.add('d-none-i');
         tutorialPage.classList.add('d-none-i');
-        keyControlls.classList.add('overlay-container');
-        keyControlls.classList.add('d-none');
         game.classList.add('d-none-i');
     }
 }

@@ -81,7 +81,7 @@ class Character extends MovableObject {
         'img/1.Sharkie/3.Swim/4.png',
         'img/1.Sharkie/3.Swim/5.png',
         'img/1.Sharkie/3.Swim/6.png'
-    ]; 
+    ];
     IMAGES_DEAD = [ // Dead animation images
         'img/1.Sharkie/6.dead/2.Electro_shock/1.png',
         'img/1.Sharkie/6.dead/2.Electro_shock/2.png',
@@ -91,7 +91,7 @@ class Character extends MovableObject {
         'img/1.Sharkie/6.dead/2.Electro_shock/8.png',
         'img/1.Sharkie/6.dead/2.Electro_shock/9.png',
         'img/1.Sharkie/6.dead/2.Electro_shock/10.png'
-    ]; 
+    ];
     IMAGES_ELECTRIC_HURT = [ // Electric hurt animation images 
         'img/1.Sharkie/5.Hurt/2.ElectricShock/1.png',
         'img/1.Sharkie/5.Hurt/2.ElectricShock/3.png',
@@ -140,8 +140,10 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_ATTACK_BUBBLE);
 
         // Adjustments for collision detection.
-        this.offsetX = 55;
-        this.offsetY = 80;
+        this.hitboxTop = 160;
+        this.hitboxLeft = 45;
+        this.hitboxRight = 100;
+        this.hitboxBottom = 100;
 
         this.animate();
         this.isCollidingWithBarrier();
@@ -177,12 +179,15 @@ class Character extends MovableObject {
                 idleAnimationStarted = true;
                 if (this.currentImage <= 14) {
                     this.playAnimation(this.IMAGES_SLEEP);
+                    playSound('snoring_sound');
                 } else {
                     this.playAnimation(this.IMAGES_SLEEP.slice(11));
+                    playSound('snoring_sound');
                 }
             } else {
                 this.idleCounter++;
                 this.playAnimation(this.IMAGES_IDLE);
+                pauseSound('snoring_sound');
             }
         }, 150);
 
@@ -192,12 +197,14 @@ class Character extends MovableObject {
             if (this.world.keyboard.ATTACK_SLAP) {
                 this.idleCounter = 0;
                 this.playAnimation(this.IMAGES_ATTACK_SLAP);
+                pauseSound('snoring_sound');
                 playSound('slap_sound');
             }
 
             if (this.world.keyboard.ATTACK_BUBBLE) {
                 this.idleCounter = 0;
                 this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
+                pauseSound('snoring_sound');
                 playSound('bubbleshot_sound');
             }
         }, 90);
@@ -205,28 +212,28 @@ class Character extends MovableObject {
         // Movement handling.
         setInterval(() => {
             pauseSound('swim_sound');
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.collisionright) {
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.x += this.speed;
                 this.otherDirection = false;
                 playSound('swim_sound');
             }
 
-            if (this.world.keyboard.LEFT && this.x > 0 && !this.collisionleft && (this.collisionbottom || !this.collisionbottom)) {
+            if (this.world.keyboard.LEFT && this.x > 0) {
                 this.x -= this.speed;
                 this.otherDirection = true;
                 playSound('swim_sound');
             }
 
-            if (this.world.keyboard.UP && this.speedY < 0 && !this.collisiontop) {
+            if (this.world.keyboard.UP && this.speedY < 0) {
                 this.speedY = 4;
             }
 
-            if (this.world.keyboard.UP && this.y > -150 && (this.collisionbottom || !this.collisiontop)) {
+            if (this.world.keyboard.UP && this.y > -150) {
                 this.y -= this.speed;
                 playSound('swim_sound');
             }
 
-            if (this.world.keyboard.DOWN && this.y < 215 && !this.collisionbottom) {
+            if (this.world.keyboard.DOWN && this.y < 215) {
                 this.y += this.speed;
                 playSound('swim_sound');
             }

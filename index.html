@@ -44,31 +44,6 @@
         <a href="./impressum.html">Impressum</a>
     </div>
 
-    <!-- Zweiter Bildschirm bzw Tutorial Container  -->
-    <div id="key_container" class="tutorial-dialog-container d-none">
-        <div class="flex-clm-center height-100 width-100">
-            <div class="flex-c-c gap70">
-                <div class="key-move-container">
-                    <img class="move-keys" src="img/6.Botones/Key/arrow keys.png" alt="">
-                    <h2>Move</h2>
-                </div>
-                <div class="attack-container">
-                    <div class="flex-clm-center">
-                        <img class="key-bubble-shot" src="img/6.Botones/Key/D key.png" alt="">
-                        <h2>Throw Bubble</h2>
-                    </div>
-                    <div class="flex-clm-center">
-                        <img class="key-slap" src="img/6.Botones/Key/Space Bar key.png" alt="">
-                        <h2>Slap</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="flex-c-c">
-                <button onclick="startGame()">Start</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Tutorial Container -->
     <div id="tutorial_container" class="tutorial-dialog-container d-none">
         <div class="flex-clm-center height-100 width-100">
@@ -94,23 +69,21 @@
         </div>
     </div>
 
-
-
     <!-- SpielScreen -->
-    <div id="fullscreen" class="d-none">
+    <div id="fullscreen" class="d-none absolute">
         <canvas id="canvas" width="720" height="480"></canvas>
         <!-- HUD overlay -->
-        <div class="hud">
-            <img id="sound_img" onclick="toggleMusic()" class="hud-symbols" src="img/Buttons/mittleres-volumen.png" alt="">
-            <img onclick="showKeyControlls()" class="hud-symbols" src="img/Buttons/game-control.png" alt="">
+        <div id="hud" class="hud">
+            <img id="sound_img" onclick="toggleMusic()" class="hud-symbols mobile-btns" src="img/Buttons/mittleres-volumen.png" alt="">
+            <img onclick="showKeyControlls()" class="hud-symbols mobile-btns" src="img/Buttons/game-control.png" alt="">
         </div>
 
         <!-- Mobile Tasten -->
         <div id="mobile_buttons" class="mobile-btns-position">
             <div class="panel">
                 <div>
-                    <button id="btnSlap" class="mobile-btns">S</button>
-                    <button id="btnBubble" class="mobile-btns">B</button>
+                    <button id="btnBubble" class="mobile-btns">D</button>
+                    <button id="btnSlap" class="mobile-btns space-btn">Space</button>
                 </div>
                 <div>
                     <img id="btnUp" src="img/Buttons/up_arrow.png" class="mobile-btns" alt="">

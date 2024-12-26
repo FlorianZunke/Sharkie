@@ -8,7 +8,7 @@ class MovableObject extends DrawableObject {
     speedY = 0;
     speedX = 0;
     acceleration = 1.75;
-    energy = 100;
+    energy = 100000000;
     coinPercentage = 0;
     bottlePercentage = 0;
     lastHit = 0;
@@ -40,12 +40,26 @@ class MovableObject extends DrawableObject {
      */
     isColliding(mo) {
         return (
-            (this.x + this.offsetX + this.width - 2 * this.offsetX) >= mo.x &&
-            this.x + this.offsetX <= (mo.x + mo.width) &&
-            (this.y + 2 * this.offsetY + this.height - 3 * this.offsetY) >= mo.y &&
-            (this.y + 2 * this.offsetY) <= (mo.y + mo.height)
+            this.x + this.width - this.hitboxRight > mo.x + mo.hitboxLeft && 
+            this.y + this.height - this.hitboxBottom > mo.y + mo.hitboxTop &&
+            this.x + this.hitboxLeft < mo.x + mo.width - mo.hitboxRight && 
+            this.y + this.hitboxTop < mo.y + mo.height - mo.hitboxBottom
         );
     }
+
+    // /**
+    //  * Checks if this object is colliding with another object.
+    //  * @param {MovableObject} mo - The other movable object to check for collision.
+    //  * @returns {boolean} True if the objects are colliding; otherwise, false.
+    //  */
+    // isColliding(mo) {
+    //     return (
+    //         (this.x + this.offsetX + this.width - 2 * this.offsetX) >= mo.x &&
+    //         this.x + this.offsetX <= (mo.x + mo.width) &&
+    //         (this.y + 2 * this.offsetY + this.height - 3 * this.offsetY) >= mo.y &&
+    //         (this.y + 2 * this.offsetY) <= (mo.y + mo.height)
+    //     );
+    // }
 
     /**
      * Continuously checks if the character is colliding with barriers and updates collision flags.
@@ -59,23 +73,56 @@ class MovableObject extends DrawableObject {
 
             world.level.barriar.forEach(barriar => {
                 if (world.character.isColliding(barriar)) {
-                    if (world.character.y + 2 * this.offsetY + world.character.height -
-                        3 * this.offsetY + world.character.width >= barriar.y) {
+                    if (this.y + this.hitboxTop < barriar.y + barriar.height - barriar.hitboxBottom) {
+                        console.log('top');
                         this.collisiontop = true;
                     }
-                    if (world.character.x + world.character.width <= barriar.x + barriar.width) {
-                        this.collisionright = true;
-                    }
-                    if (world.character.x + world.character.width >= barriar.x + barriar.width) {
+                    if (this.x + this.hitboxLeft < barriar.x + barriar.width - barriar.hitboxRight) {
                         this.collisionleft = true;
+                        console.log('links');
                     }
-                    if (world.character.height <= barriar.y + barriar.height) {
+                    if (this.x + this.width - this.hitboxRight > barriar.x + barriar.hitboxLeft) {
+                        this.collisionright = true;
+                        console.log('rechts');
+                    }
+                    if (this.y + this.height - this.hitboxBottom > barriar.y - barriar.hitboxTop) {
                         this.collisionbottom = true;
+                        console.log('unten');
                     }
                 }
             });
         }, 10);
     }
+
+    // /**
+    //  * Continuously checks if the character is colliding with barriers and updates collision flags.
+    //  */
+    // isCollidingWithBarrier() {
+    //     setInterval(() => {
+    //         this.collisiontop = false;
+    //         this.collisionleft = false;
+    //         this.collisionright = false;
+    //         this.collisionbottom = false;
+
+    //         world.level.barriar.forEach(barriar => {
+    //             if (world.character.isColliding(barriar)) {
+    //                 if (world.character.y + 2 * this.offsetY + world.character.height -
+    //                     3 * this.offsetY + world.character.width >= barriar.y) {
+    //                     this.collisiontop = true;
+    //                 }
+    //                 if (world.character.x + world.character.width <= barriar.x + barriar.width) {
+    //                     this.collisionright = true;
+    //                 }
+    //                 if (world.character.x + world.character.width >= barriar.x + barriar.width) {
+    //                     this.collisionleft = true;
+    //                 }
+    //                 if (world.character.height <= barriar.y + barriar.height) {
+    //                     this.collisionbottom = true;
+    //                 }
+    //             }
+    //         });
+    //     }, 10);
+    // }
 
     /**
      * Reduces the object's energy by 20 and triggers a "hurt" animation.
@@ -179,15 +226,3 @@ class MovableObject extends DrawableObject {
         }
     }
 }
-// applyGravity() {
-//     setInterval(() => {
-//         if (this.isAboveGround() || this.speedY > 0) {
-//             if (!this.isCollidingWithBarrier()) {
-//                 if (!this.collisionbottom) {
-//                     this.y -= this.speedY;
-//                     this.speedY -= this.acceleration;
-//                 }
-//             }
-//         }
-//     }, 25);
-// };

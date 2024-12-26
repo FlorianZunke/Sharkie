@@ -18,6 +18,7 @@ class World {
     reachedXCoords = false;
     invincible = false;
     time = Date.now();
+
     /**
      * Creates an instance of the `World` class.
      * 
@@ -29,6 +30,7 @@ class World {
         this.canvas = canvas;
         this.keyboard = keyboard;
         playSound('background_music');
+        sounds.background_music.loop = true;
         this.draw();
         this.setWorld();
         this.checkAttackCollisions();
@@ -65,9 +67,8 @@ class World {
     }
 
     /**
-     * Checks for collisions between the character and various enemies. Handles both 
-     * attack-based and non-attack-based collisions, updating the character's health.
-     * @method checkAttackCollisions
+     * Checks for collisions between the character and various enemies and handles the appropriate reactions.
+     * @method checkCollisions
      */
     checkAttackCollisions() {
         setInterval(() => {
@@ -75,29 +76,51 @@ class World {
             this.electricHurt = false;
             this.level.enemies.forEach((enemy, index) => {
                 if (this.character.isColliding(enemy)) {
-                    this.invincible = false;
-                    if (this.keyboard.ATTACK_SLAP) {
-                        this.invincible = true;
-                        if (enemy instanceof PufferFish && this.invincible) {
-                            this.level.enemies.splice(index, 1);
-                        }
-                    } else {
-                        if (enemy instanceof PufferFish || enemy instanceof Endboss) {
-                            this.character.hit();
-                            this.character.poisionHurt = true;
-                            this.character.electricHurt = false;
-                            this.healthBar.setPercentage(this.character.energy);
-                        }
-                        if (enemy instanceof JellyFish) {
-                            this.character.hit();
-                            this.character.poisionHurt = false;
-                            this.character.electricHurt = true;
-                            this.healthBar.setPercentage(this.character.energy);
-                        }
-                    }
-                };
-            })
-        }, 500);
+                    this.handleCollision(enemy, index);
+                }
+            });
+        }, 400);
+    }
+
+    /**
+     * Handles the logic for collisions, including attack-based and non-attack-based reactions.
+     * @method handleCollision
+     * @param {Object} enemy - The enemy object that the character collided with.
+     * @param {number} index - The index of the enemy in the enemies array.
+     */
+    handleCollision(enemy, index) {
+        this.invincible = false;
+
+        if (this.keyboard.ATTACK_SLAP) {
+            this.invincible = true;
+
+            if (enemy instanceof PufferFish && this.invincible) {
+                this.level.enemies.splice(index, 1);
+            }
+        } else {
+            this.handleDamage(enemy);
+        }
+    }
+
+    /**
+     * Handles the damage logic for non-attack-based collisions.
+     * @method handleDamage
+     * @param {Object} enemy - The enemy object that caused damage to the character.
+     */
+    handleDamage(enemy) {
+        if (enemy instanceof PufferFish || enemy instanceof Endboss) {
+            this.character.hit();
+            this.character.poisionHurt = true;
+            this.character.electricHurt = false;
+            this.healthBar.setPercentage(this.character.energy);
+        }
+
+        if (enemy instanceof JellyFish) {
+            this.character.hit();
+            this.character.poisionHurt = false;
+            this.character.electricHurt = true;
+            this.healthBar.setPercentage(this.character.energy);
+        }
     }
 
     /**
@@ -182,11 +205,13 @@ class World {
             let overlayLose = document.getElementById('lose_container');
             let canvas = document.getElementById('canvas');
             let mobileButtons = document.getElementById('mobile_buttons');
+            let hud = document.getElementById('hud');
 
             mobileButtons.classList.add('d-none-i');
             canvas.classList.remove('d-block');
             overlayLose.classList.add('overlay-container');
             overlayLose.classList.remove('d-none');
+            hud.classList.add('d-none-i');
             pauseSound('background_music');
             pauseSound('endboss_fight');
             playSound('lose');
@@ -204,11 +229,13 @@ class World {
             let overlayWin = document.getElementById('win_container');
             let canvas = document.getElementById('canvas');
             let mobileButtons = document.getElementById('mobile_buttons');
+            let hud = document.getElementById('hud');
 
             mobileButtons.classList.add('d-none-i');
             canvas.classList.remove('d-block');
             overlayWin.classList.add('overlay-container');
             overlayWin.classList.remove('d-none');
+            hud.classList.add('d-none-i');
             pauseSound('endboss_fight');
             playSound('win');
             this.clearAllIntervals();
@@ -314,6 +341,7 @@ class World {
         }
 
         mo.draw(this.ctx);
+        // mo.drawFrame(this.ctx);
 
         if (mo.otherDirection) {
             this.flipImageBack(mo);

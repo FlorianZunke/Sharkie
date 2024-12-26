@@ -111,9 +111,11 @@ class Endboss extends MovableObject {
         this.y = y;
         this.minY = minY;
         this.maxY = maxY;
-        this.speed = 1.2 + Math.random() * 0.3;
-        this.offsetX = 10;
-        this.offsetY = 50;
+        this.speed = 2.2 + Math.random() * 0.5;
+        this.hitboxTop = 110;
+        this.hitboxLeft = 10;
+        this.hitboxRight = 10;
+        this.hitboxBottom = 10;
     }
 
     /**
@@ -124,6 +126,7 @@ class Endboss extends MovableObject {
         let i = 0;
 
         setInterval(() => {
+            this.moveBossVertical();
             if (this.endbossDead) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.getHurt) {
@@ -158,12 +161,25 @@ class Endboss extends MovableObject {
     endbossAttack() {
         setInterval(() => {
             if (world.character.x > 5650 && this.hadFirstContact) {
-                this.x -= 120;
+                this.x -= 200;
                 this.playAnimation(this.IMAGES_ATTACK);
                 setTimeout(() => {
-                    this.x += 120;
+                    this.x += 200;
                 }, 1000);
             }
         }, 3000);
+    }
+
+    /**
+     * Moves the Endboss vertically, switching direction at boundaries.
+     */
+    moveBossVertical() {
+        setInterval(() => {
+            if (this.y < this.maxY) {
+                this.y += this.speed;
+            } else {
+                this.y -= this.speed;
+            }
+        }, 100);
     }
 }

@@ -30,17 +30,11 @@ class DrawableObject {
      */
     width = 300;
 
-    /**
-     * The offset in the x-direction for drawing the object.
-     * @type {number}
-     */
-    offsetX = 0;
-
-    /**
-     * The offset in the y-direction for drawing the object.
-     * @type {number}
-     */
-    offsetY = 0;
+    // Adjustments for collision detection.
+    hitboxTop = 0;
+    hitboxLeft = 0;
+    hitboxRight = 0;
+    hitboxBottom = 0;
 
     /**
      * The image of the object.
@@ -92,30 +86,23 @@ class DrawableObject {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
-    /**
-     * Draws frames around the object for debugging or visualizing boundaries.
-     * The frame color and size vary depending on the type of the object.
-     * 
-     * @param {CanvasRenderingContext2D} ctx - The 2D context of the canvas to draw on.
-     */
-
     // drawFrame(ctx) {
-        // Draw blue frame for specific object types
-        // if (this instanceof Character || this instanceof Barriar || this instanceof Coin || this instanceof JellyFish || this instanceof Endboss || this instanceof JellyFish) {
-        //     ctx.beginPath();
-        //     ctx.lineWidth = '3';
-        //     ctx.strokeStyle = 'blue';
-        //     ctx.rect(this.x, this.y, this.width, this.height);
-        //     ctx.stroke();
-        // }
+    //     // Draw blue frame for specific object types
+    //     if (this instanceof Character || this instanceof Barriar || this instanceof Coin || this instanceof JellyFish || this instanceof Endboss || this instanceof JellyFish) {
+    //         ctx.beginPath();
+    //         ctx.lineWidth = '3';
+    //         ctx.strokeStyle = 'blue';
+    //         ctx.rect(this.x, this.y, this.width, this.height);
+    //         ctx.stroke();
+    //     }
 
-        // Draw red frame for other object types (e.g., Character, JellyFish, Endboss, etc.)
-        // if (this instanceof Character || this instanceof JellyFish || this instanceof Endboss || this instanceof Barriar || this instanceof Coin || this instanceof JellyFish || this instanceof PoisionBottle) {
-        //     ctx.beginPath();
-        //     ctx.lineWidth = '3';
-        //     ctx.strokeStyle = 'red';
-        //     ctx.rect(this.x + this.offsetX, this.y + 2 * (this.offsetY), this.width - 2 * (this.offsetX), this.height - 3 * (this.offsetY));
-        //     ctx.stroke();
-        // }
+    //     // Draw red frame for other object types (e.g., Character, JellyFish, Endboss, etc.)
+    //     if (this instanceof Character || this instanceof JellyFish || this instanceof Endboss || this instanceof Barriar || this instanceof Coin || this instanceof JellyFish || this instanceof PoisionBottle) {
+    //         ctx.beginPath();
+    //         ctx.lineWidth = '3';
+    //         ctx.strokeStyle = 'red';
+    //         ctx.rect(this.x + this.hitboxLeft, this.y + this.hitboxTop, this.width - this.hitboxRight, this.height - this.hitboxBottom);
+    //         ctx.stroke();
+    //     }
     // }
-}
+}                                                                       

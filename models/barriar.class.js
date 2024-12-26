@@ -3,7 +3,6 @@
  * Inherits properties and methods from the `MovableObject` class.
  */
 class Barriar extends MovableObject {
-
     /**
      * Creates a new Barriar instance.
      * @param {string} path - The path to the image representing the barrier.
@@ -12,11 +11,17 @@ class Barriar extends MovableObject {
      * @param {number} height - The height of the barrier.
      * @param {number} width - The width of the barrier.
      */
-    constructor(path, x, y, height, width) {
+    // Adjustments for collision detection.
+    hitboxTop = 12;
+    hitboxLeft = 15;
+    hitboxRight = 15;
+
+    constructor(path, x, y, height, width, hitboxBottom) {
         super().loadImage(path);
         this.x = x;
         this.y = y;
         this.height = height;
         this.width = width;
+        this.hitboxBottom = hitboxBottom
     }
 }
