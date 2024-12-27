@@ -106,6 +106,8 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_DAMAGED);
         this.loadImages(this.IMAGES_ATTACK);
         this.animate();
+        this.endbossAttack();
+        this.moveBossVertical();
 
         this.x = 6400;
         this.y = y;
@@ -113,8 +115,8 @@ class Endboss extends MovableObject {
         this.maxY = maxY;
         this.speed = 2.2 + Math.random() * 0.5;
         this.hitboxTop = 110;
-        this.hitboxLeft = 10;
-        this.hitboxRight = 10;
+        this.hitboxLeft = 0;
+        this.hitboxRight = 0;
         this.hitboxBottom = 10;
     }
 
@@ -126,7 +128,6 @@ class Endboss extends MovableObject {
         let i = 0;
 
         setInterval(() => {
-            this.moveBossVertical();
             if (this.endbossDead) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.getHurt) {
@@ -135,7 +136,7 @@ class Endboss extends MovableObject {
                     this.getHurt = false;
                 }, 500);
             } else {
-                if (i < 14) {
+                if (i < 10) {
                     this.playAnimation(this.IMAGES_SPAWN);
                 } else {
                     this.playAnimation(this.IMAGES_SWIM);
@@ -151,7 +152,6 @@ class Endboss extends MovableObject {
                 sounds.endboss_fight.loop = true;
             }
         }, 100);
-        this.endbossAttack();
     }
 
     /**
@@ -171,14 +171,22 @@ class Endboss extends MovableObject {
     }
 
     /**
-     * Moves the Endboss vertically, switching direction at boundaries.
-     */
+    * Moves the Endboss vertically, alternating direction when reaching boundaries.
+    */
     moveBossVertical() {
+        let movingDown = true;
+
         setInterval(() => {
-            if (this.y < this.maxY) {
+            if (movingDown) {
                 this.y += this.speed;
+                if (this.y >= this.maxY) {
+                    movingDown = false;
+                }
             } else {
                 this.y -= this.speed;
+                if (this.y <= this.minY) {
+                    movingDown = true;
+                }
             }
         }, 100);
     }

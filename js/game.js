@@ -35,6 +35,7 @@ sounds.endboss_fight.volume = 0.3;
  * Initialize the game by hiding the start screen, showing the tutorial page, and starting the level.
  */
 function init() {
+    loadSoundSettings();
     let startPage = document.getElementById('start_screen');
     startPage.classList.add('d-none');
 
@@ -148,6 +149,36 @@ function toggleMusic() {
         muteSounds();
     }
     soundsMuted = !soundsMuted;
+    saveSoundSettings();
+}
+
+/**
+ * Load the Soundstatus from the LocalStorage
+ */
+function loadSoundSettings() {
+    const storedMutedState = localStorage.getItem('soundsMuted');
+    soundsMuted = storedMutedState === 'true';
+    const storedSoundImgSrc = localStorage.getItem('soundImgSrc');
+    const soundImg = document.getElementById('sound_img');
+
+    if (storedSoundImgSrc) {
+        soundImg.src = storedSoundImgSrc;
+    }
+
+    if (soundsMuted) {
+        muteSounds();
+    } else {
+        unmuteSounds();
+    }
+}
+
+/**
+ * Save the Soundstatus to the LocalStorage
+ */
+function saveSoundSettings() {
+    localStorage.setItem('soundsMuted', soundsMuted);
+    const soundImg = document.getElementById('sound_img');
+    localStorage.setItem('soundImgSrc', soundImg.src);
 }
 
 /**

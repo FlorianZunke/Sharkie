@@ -85,24 +85,4 @@ class DrawableObject {
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
-
-    // drawFrame(ctx) {
-    //     // Draw blue frame for specific object types
-    //     if (this instanceof Character || this instanceof Barriar || this instanceof Coin || this instanceof JellyFish || this instanceof Endboss || this instanceof JellyFish) {
-    //         ctx.beginPath();
-    //         ctx.lineWidth = '3';
-    //         ctx.strokeStyle = 'blue';
-    //         ctx.rect(this.x, this.y, this.width, this.height);
-    //         ctx.stroke();
-    //     }
-
-    //     // Draw red frame for other object types (e.g., Character, JellyFish, Endboss, etc.)
-    //     if (this instanceof Character || this instanceof JellyFish || this instanceof Endboss || this instanceof Barriar || this instanceof Coin || this instanceof JellyFish || this instanceof PoisionBottle) {
-    //         ctx.beginPath();
-    //         ctx.lineWidth = '3';
-    //         ctx.strokeStyle = 'red';
-    //         ctx.rect(this.x + this.hitboxLeft, this.y + this.hitboxTop, this.width - this.hitboxRight, this.height - this.hitboxBottom);
-    //         ctx.stroke();
-    //     }
-    // }
 }                                                                       

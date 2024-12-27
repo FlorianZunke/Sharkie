@@ -12,9 +12,9 @@ class Barriar extends MovableObject {
      * @param {number} width - The width of the barrier.
      */
     // Adjustments for collision detection.
-    hitboxTop = 12;
-    hitboxLeft = 15;
-    hitboxRight = 15;
+    hitboxTop = 15;
+    hitboxLeft = 0;
+    hitboxRight = 20;
 
     constructor(path, x, y, height, width, hitboxBottom) {
         super().loadImage(path);

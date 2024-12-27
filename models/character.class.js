@@ -140,13 +140,12 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_ATTACK_BUBBLE);
 
         // Adjustments for collision detection.
-        this.hitboxTop = 160;
-        this.hitboxLeft = 45;
-        this.hitboxRight = 100;
-        this.hitboxBottom = 100;
+        this.hitboxTop = 190;
+        this.hitboxLeft = 35;
+        this.hitboxRight = 80;
+        this.hitboxBottom = 75;
 
         this.animate();
-        this.isCollidingWithBarrier();
     }
 
     /**
@@ -212,28 +211,29 @@ class Character extends MovableObject {
         // Movement handling.
         setInterval(() => {
             pauseSound('swim_sound');
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+
+            // Update collision state before processing movement
+            this.isCollidingWithBarrier();
+
+            // Check for movements and block them if collisions occur
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.collisionright) {
                 this.x += this.speed;
                 this.otherDirection = false;
                 playSound('swim_sound');
             }
 
-            if (this.world.keyboard.LEFT && this.x > 0) {
+            if (this.world.keyboard.LEFT && this.x > 0 && !this.collisionleft) {
                 this.x -= this.speed;
                 this.otherDirection = true;
                 playSound('swim_sound');
             }
 
-            if (this.world.keyboard.UP && this.speedY < 0) {
-                this.speedY = 4;
-            }
-
-            if (this.world.keyboard.UP && this.y > -150) {
+            if (this.world.keyboard.UP && this.y > -150 && !this.collisiontop) {
                 this.y -= this.speed;
                 playSound('swim_sound');
             }
 
-            if (this.world.keyboard.DOWN && this.y < 215) {
+            if (this.world.keyboard.DOWN && this.y < 215 && !this.collisionbottom) {
                 this.y += this.speed;
                 playSound('swim_sound');
             }

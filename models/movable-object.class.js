@@ -8,7 +8,7 @@ class MovableObject extends DrawableObject {
     speedY = 0;
     speedX = 0;
     acceleration = 1.75;
-    energy = 100000000;
+    energy = 100;
     coinPercentage = 0;
     bottlePercentage = 0;
     lastHit = 0;
@@ -40,89 +40,87 @@ class MovableObject extends DrawableObject {
      */
     isColliding(mo) {
         return (
-            this.x + this.width - this.hitboxRight > mo.x + mo.hitboxLeft && 
+            this.x + this.width - this.hitboxRight > mo.x + mo.hitboxLeft &&
             this.y + this.height - this.hitboxBottom > mo.y + mo.hitboxTop &&
-            this.x + this.hitboxLeft < mo.x + mo.width - mo.hitboxRight && 
+            this.x + this.hitboxLeft < mo.x + mo.width - mo.hitboxRight &&
             this.y + this.hitboxTop < mo.y + mo.height - mo.hitboxBottom
         );
     }
 
-    // /**
-    //  * Checks if this object is colliding with another object.
-    //  * @param {MovableObject} mo - The other movable object to check for collision.
-    //  * @returns {boolean} True if the objects are colliding; otherwise, false.
-    //  */
-    // isColliding(mo) {
-    //     return (
-    //         (this.x + this.offsetX + this.width - 2 * this.offsetX) >= mo.x &&
-    //         this.x + this.offsetX <= (mo.x + mo.width) &&
-    //         (this.y + 2 * this.offsetY + this.height - 3 * this.offsetY) >= mo.y &&
-    //         (this.y + 2 * this.offsetY) <= (mo.y + mo.height)
-    //     );
-    // }
-
     /**
-     * Continuously checks if the character is colliding with barriers and updates collision flags.
-     */
+ * Checks for collisions with barriers and updates the collision states
+ * (top, bottom, left, right) based on the smallest overlap.
+ */
     isCollidingWithBarrier() {
-        setInterval(() => {
-            this.collisiontop = false;
-            this.collisionleft = false;
-            this.collisionright = false;
-            this.collisionbottom = false;
+        this.resetCollisionStates();
 
-            world.level.barriar.forEach(barriar => {
-                if (world.character.isColliding(barriar)) {
-                    if (this.y + this.hitboxTop < barriar.y + barriar.height - barriar.hitboxBottom) {
-                        console.log('top');
-                        this.collisiontop = true;
-                    }
-                    if (this.x + this.hitboxLeft < barriar.x + barriar.width - barriar.hitboxRight) {
-                        this.collisionleft = true;
-                        console.log('links');
-                    }
-                    if (this.x + this.width - this.hitboxRight > barriar.x + barriar.hitboxLeft) {
-                        this.collisionright = true;
-                        console.log('rechts');
-                    }
-                    if (this.y + this.height - this.hitboxBottom > barriar.y - barriar.hitboxTop) {
-                        this.collisionbottom = true;
-                        console.log('unten');
-                    }
-                }
-            });
-        }, 10);
+        world.level.barriar.forEach(barriar => {
+            if (world.character.isColliding(barriar)) {
+                const smallestOverlap = this.calculateSmallestOverlap(barriar);
+
+                this.updateCollisionState(smallestOverlap);
+            }
+        });
     }
 
-    // /**
-    //  * Continuously checks if the character is colliding with barriers and updates collision flags.
-    //  */
-    // isCollidingWithBarrier() {
-    //     setInterval(() => {
-    //         this.collisiontop = false;
-    //         this.collisionleft = false;
-    //         this.collisionright = false;
-    //         this.collisionbottom = false;
+    /**
+     * Resets all collision states to false, indicating no contact with any barrier.
+     */
+    resetCollisionStates() {
+        this.collisiontop = false;
+        this.collisionleft = false;
+        this.collisionright = false;
+        this.collisionbottom = false;
+    }
 
-    //         world.level.barriar.forEach(barriar => {
-    //             if (world.character.isColliding(barriar)) {
-    //                 if (world.character.y + 2 * this.offsetY + world.character.height -
-    //                     3 * this.offsetY + world.character.width >= barriar.y) {
-    //                     this.collisiontop = true;
-    //                 }
-    //                 if (world.character.x + world.character.width <= barriar.x + barriar.width) {
-    //                     this.collisionright = true;
-    //                 }
-    //                 if (world.character.x + world.character.width >= barriar.x + barriar.width) {
-    //                     this.collisionleft = true;
-    //                 }
-    //                 if (world.character.height <= barriar.y + barriar.height) {
-    //                     this.collisionbottom = true;
-    //                 }
-    //             }
-    //         });
-    //     }, 10);
-    // }
+    /**
+     * Calculates the smallest overlap between the current instance and a given barrier.
+     * This is used to determine the direction of the collision.
+     * 
+     * @param {Barriar} barriar - The barrier object being collided with.
+     * @returns {Object} An object containing the collision direction (`top`, `bottom`, `left`, or `right`)
+     * and the corresponding overlap value.
+     */
+    calculateSmallestOverlap(barriar) {
+        const overlapTop = this.y + this.hitboxTop - (barriar.y + barriar.height - barriar.hitboxBottom);
+        const overlapBottom = (this.y + this.height - this.hitboxBottom) - (barriar.y + barriar.hitboxTop);
+        const overlapLeft = this.x + this.hitboxLeft - (barriar.x + barriar.width - barriar.hitboxRight);
+        const overlapRight = (this.x + this.width - this.hitboxRight) - (barriar.x + barriar.hitboxLeft);
+
+        const overlaps = [
+            { direction: 'top', value: overlapTop },
+            { direction: 'bottom', value: overlapBottom },
+            { direction: 'left', value: overlapLeft },
+            { direction: 'right', value: overlapRight }
+        ];
+
+        return overlaps.reduce((min, current) =>
+            Math.abs(current.value) < Math.abs(min.value) ? current : min
+        );
+    }
+
+    /**
+     * Updates the collision state for a specific direction based on the smallest overlap.
+     * 
+     * @param {Object} smallestOverlap - An object containing the direction (`top`, `bottom`, 
+     * `left`, or `right`) and the value of the smallest overlap.
+     */
+    updateCollisionState(smallestOverlap) {
+        switch (smallestOverlap.direction) {
+            case 'top':
+                this.collisiontop = true;
+                break;
+            case 'bottom':
+                this.collisionbottom = true;
+                break;
+            case 'left':
+                this.collisionleft = true;
+                break;
+            case 'right':
+                this.collisionright = true;
+                break;
+        }
+    }
 
     /**
      * Reduces the object's energy by 20 and triggers a "hurt" animation.
