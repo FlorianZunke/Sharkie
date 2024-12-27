@@ -1,44 +1,10 @@
-/**
- * Represents the final boss in the game.
- * Inherits from the `MovableObject` class.
- */
 class Endboss extends MovableObject {
-    /**
-     * The height of the endboss.
-     * @type {number}
-     * @default 350
-     */
     height = 350;
-
-    /**
-     * The width of the endboss.
-     * @type {number}
-     * @default 300
-     */
     width = 300;
-
-    /**
-     * Indicates whether the endboss has reached a certain x-coordinate.
-     * @type {boolean}
-     * @default false
-     */
     reachedXCoords = false;
-
-    /**
-     * Tracks whether the endboss has had its first contact with the player.
-     * @type {boolean}
-     * @default false
-     */
     hadFirstContact = false;
-
-    /**
-     * Indicates whether the endboss is hurt.
-     * @type {boolean}
-     * @default false
-     */
     getHurt = false;
 
-    // Image arrays for various endboss states.
     IMAGES_SPAWN = [
         'img/2.Enemy/3 Final Enemy/1.Introduce/1.png',
         'img/2.Enemy/3 Final Enemy/1.Introduce/2.png',
@@ -51,7 +17,6 @@ class Endboss extends MovableObject {
         'img/2.Enemy/3 Final Enemy/1.Introduce/9.png',
         'img/2.Enemy/3 Final Enemy/1.Introduce/10.png',
     ];
-
     IMAGES_SWIM = [
         'img/2.Enemy/3 Final Enemy/2.floating/1.png',
         'img/2.Enemy/3 Final Enemy/2.floating/2.png',
@@ -67,14 +32,12 @@ class Endboss extends MovableObject {
         'img/2.Enemy/3 Final Enemy/2.floating/12.png',
         'img/2.Enemy/3 Final Enemy/2.floating/13.png',
     ];
-
     IMAGES_DAMAGED = [
         'img/2.Enemy/3 Final Enemy/Hurt/1.png',
         'img/2.Enemy/3 Final Enemy/Hurt/2.png',
         'img/2.Enemy/3 Final Enemy/Hurt/3.png',
         'img/2.Enemy/3 Final Enemy/Hurt/4.png',
     ];
-
     IMAGES_DEAD = [
         'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 6.png',
         'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 7.png',
@@ -82,7 +45,6 @@ class Endboss extends MovableObject {
         'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 9.png',
         'img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 10.png',
     ];
-
     IMAGES_ATTACK = [
         'img/2.Enemy/3 Final Enemy/Attack/1.png',
         'img/2.Enemy/3 Final Enemy/Attack/2.png',
@@ -92,12 +54,6 @@ class Endboss extends MovableObject {
         'img/2.Enemy/3 Final Enemy/Attack/6.png',
     ];
 
-    /**
-     * Creates a new Endboss instance.
-     * @param {number} y - The y-coordinate of the endboss.
-     * @param {number} minY - The minimum y-coordinate for movement.
-     * @param {number} maxY - The maximum y-coordinate for movement.
-     */
     constructor(y, minY, maxY) {
         super().loadImage(this.IMAGES_SWIM[0]);
         this.loadImages(this.IMAGES_SWIM);
@@ -136,7 +92,7 @@ class Endboss extends MovableObject {
                     this.getHurt = false;
                 }, 500);
             } else {
-                if (i < 10) {
+                if (i < 9) {
                     this.playAnimation(this.IMAGES_SPAWN);
                 } else {
                     this.playAnimation(this.IMAGES_SWIM);

@@ -1,57 +1,14 @@
-/**
- * Represents a drawable object in the game, with the ability to load images, draw the object on the canvas,
- * and display frames for debugging or visualizing boundaries.
- * 
- * @class DrawableObject
- */
 class DrawableObject {
-    
-    /**
-     * The x-coordinate of the object on the canvas.
-     * @type {number}
-     */
     x = 100;
-    
-    /**
-     * The y-coordinate of the object on the canvas.
-     * @type {number}
-     */
     y = 150;
-
-    /**
-     * The height of the object.
-     * @type {number}
-     */
     height = 325;
-
-    /**
-     * The width of the object.
-     * @type {number}
-     */
     width = 300;
-
-    // Adjustments for collision detection.
     hitboxTop = 0;
     hitboxLeft = 0;
     hitboxRight = 0;
     hitboxBottom = 0;
-
-    /**
-     * The image of the object.
-     * @type {HTMLImageElement}
-     */
     img;
-
-    /**
-     * The index of the current image in the image array (for animation).
-     * @type {number}
-     */
     currentImage = 0;
-
-    /**
-     * A cache for storing images loaded for the object.
-     * @type {Object}
-     */
     imageCache = {};
 
     /**

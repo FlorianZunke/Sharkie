@@ -1,27 +1,20 @@
-/**
- * Represents a barrier in the game world that can interact with movable objects.
- * Inherits properties and methods from the `MovableObject` class.
- */
 class Barriar extends MovableObject {
-    /**
-     * Creates a new Barriar instance.
-     * @param {string} path - The path to the image representing the barrier.
-     * @param {number} x - The x-coordinate of the barrier.
-     * @param {number} y - The y-coordinate of the barrier.
-     * @param {number} height - The height of the barrier.
-     * @param {number} width - The width of the barrier.
-     */
-    // Adjustments for collision detection.
+    path
+    x
+    y
+    height
+    width
     hitboxTop = 15;
-    hitboxLeft = 0;
+    hitboxLeft = 20;
     hitboxRight = 20;
 
-    constructor(path, x, y, height, width, hitboxBottom) {
+    constructor(path, x, y, height, width, hitboxTop, hitboxBottom) {
         super().loadImage(path);
         this.x = x;
         this.y = y;
         this.height = height;
         this.width = width;
+        this.hitboxTop = hitboxTop
         this.hitboxBottom = hitboxBottom
     }
 }

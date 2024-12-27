@@ -1,16 +1,4 @@
-/**
- * Represents a coin bar that visually indicates the player's coin collection progress.
- * The bar updates its appearance based on the percentage of coins collected.
- * 
- * @class CoinBar
- * @extends DrawableObject
- */
 class CoinBar extends DrawableObject {
-    
-    /**
-     * An array of image paths representing different stages of the coin bar based on the coin percentage.
-     * @type {string[]}
-     */
     IMAGES_COIN = [
         'img/4. Marcadores/green/Coin/0_  copia 4.png',
         'img/4. Marcadores/green/Coin/20_  copia 2.png',
@@ -20,17 +8,14 @@ class CoinBar extends DrawableObject {
         'img/4. Marcadores/green/Coin/100_ copia 4.png'
     ];
 
-    /**
-     * Initializes the CoinBar with default properties and sets the initial coin percentage to 0.
-     */
     constructor() {
         super();
-        this.loadImages(this.IMAGES_COIN); // Load all images for the coin bar
-        this.x = 20;                      // Position the coin bar on the x-axis
-        this.y = 40;                      // Position the coin bar on the y-axis
-        this.height = 50;                 // Set the height of the coin bar
-        this.width = 200;                 // Set the width of the coin bar
-        this.setPercentage(0);            // Set the initial coin percentage to 0
+        this.loadImages(this.IMAGES_COIN);
+        this.x = 20;
+        this.y = 40;
+        this.height = 50;
+        this.width = 200;
+        this.setPercentage(0);
     }
 
     /**

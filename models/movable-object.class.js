@@ -1,7 +1,3 @@
-/**
- * Represents a movable object in the game world, extending the drawable object.
- * Handles movement, collision detection, and game state interactions.
- */
 class MovableObject extends DrawableObject {
     speed = 0.15;
     otherDirection = false;
@@ -48,9 +44,9 @@ class MovableObject extends DrawableObject {
     }
 
     /**
- * Checks for collisions with barriers and updates the collision states
- * (top, bottom, left, right) based on the smallest overlap.
- */
+    * Checks for collisions with barriers and updates the collision states
+    * (top, bottom, left, right) based on the smallest overlap.
+    */
     isCollidingWithBarrier() {
         this.resetCollisionStates();
 

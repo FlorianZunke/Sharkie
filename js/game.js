@@ -1,13 +1,5 @@
-/**
- * Main application variables and functions for game initialization, controls, and sound management.
- * This script manages game states, interactions, and audio settings.
- */
-
-// Canvas and world variables
 let canvas;
 let world;
-
-// Keyboard input
 let keyboard = new Keyboard();
 
 // Sound management
@@ -254,6 +246,8 @@ function handleOrientationChange() {
     let startPage = document.getElementById('start_screen');
     let tutorialPage = document.getElementById('tutorial_container');
     let game = document.getElementById('fullscreen');
+    let loseContainer = document.getElementById('lose_container');
+    let winContainer = document.getElementById('win_container');
 
     if (window.innerWidth > window.innerHeight) {
         // Landscape mode
@@ -261,6 +255,8 @@ function handleOrientationChange() {
         startPage.classList.remove('d-none-i');
         tutorialPage.classList.remove('d-none-i');
         game.classList.remove('d-none-i');
+        winContainer.classList.remove('d-none-i');
+        loseContainer.classList.remove('d-none-i');
         mobilePlay();
     } else {
         // Portrait mode
@@ -268,6 +264,9 @@ function handleOrientationChange() {
         startPage.classList.add('d-none-i');
         tutorialPage.classList.add('d-none-i');
         game.classList.add('d-none-i');
+        winContainer.classList.add('d-none-i');
+        loseContainer.classList.add('d-none-i');
+
     }
 }
 

@@ -1,44 +1,13 @@
-/**
-     * Class representing the main character of the game.
-     * Extends the MovableObject class and handles animations, movement, and interactions with the environment.
-     */
 class Character extends MovableObject {
-    /**
-     * Reference to the game world object.
-     * @type {Object}
-     */
     world;
-
-    /**
-     * The vertical position of the character.
-     * @type {number}
-     */
     y = 100;
-
-    /**
-     * The movement speed of the character.
-     * @type {number}
-     */
     speed = 11;
-
-    /**
-     * Flags indicating if the character is hurt by poison or electricity.
-     * @type {boolean}
-     */
     poisionHurt = false;
     electricHurt = false;
-
-    /**
-     * Counter to track idle time for triggering idle animations.
-     * @type {number}
-     */
     idleCounter = 0;
+    idleAnimationStarted = false;
 
-    /**
-     * Image arrays for various character animations.
-     * @type {string[]}
-     */
-    IMAGES_IDLE = [ // Idle animation images
+    IMAGES_IDLE = [
         'img/1.Sharkie/1.IDLE/1.png',
         'img/1.Sharkie/1.IDLE/2.png',
         'img/1.Sharkie/1.IDLE/3.png',
@@ -58,7 +27,7 @@ class Character extends MovableObject {
         'img/1.Sharkie/1.IDLE/17.png',
         'img/1.Sharkie/1.IDLE/18.png'
     ];
-    IMAGES_SLEEP = [ // Sleep animation images
+    IMAGES_SLEEP = [
         'img/1.Sharkie/2.Long_IDLE/i1.png',
         'img/1.Sharkie/2.Long_IDLE/I2.png',
         'img/1.Sharkie/2.Long_IDLE/I3.png',
@@ -74,7 +43,7 @@ class Character extends MovableObject {
         'img/1.Sharkie/2.Long_IDLE/I13.png',
         'img/1.Sharkie/2.Long_IDLE/I14.png',
     ];
-    IMAGES_SWIM = [ // Swim animation images
+    IMAGES_SWIM = [
         'img/1.Sharkie/3.Swim/1.png',
         'img/1.Sharkie/3.Swim/2.png',
         'img/1.Sharkie/3.Swim/3.png',
@@ -82,7 +51,7 @@ class Character extends MovableObject {
         'img/1.Sharkie/3.Swim/5.png',
         'img/1.Sharkie/3.Swim/6.png'
     ];
-    IMAGES_DEAD = [ // Dead animation images
+    IMAGES_DEAD = [
         'img/1.Sharkie/6.dead/2.Electro_shock/1.png',
         'img/1.Sharkie/6.dead/2.Electro_shock/2.png',
         'img/1.Sharkie/6.dead/2.Electro_shock/4.png',
@@ -92,7 +61,7 @@ class Character extends MovableObject {
         'img/1.Sharkie/6.dead/2.Electro_shock/9.png',
         'img/1.Sharkie/6.dead/2.Electro_shock/10.png'
     ];
-    IMAGES_ELECTRIC_HURT = [ // Electric hurt animation images 
+    IMAGES_ELECTRIC_HURT = [
         'img/1.Sharkie/5.Hurt/2.ElectricShock/1.png',
         'img/1.Sharkie/5.Hurt/2.ElectricShock/3.png',
         'img/1.Sharkie/5.Hurt/2.ElectricShock/1.png',
@@ -100,14 +69,14 @@ class Character extends MovableObject {
         'img/1.Sharkie/5.Hurt/2.ElectricShock/1.png',
         'img/1.Sharkie/5.Hurt/2.ElectricShock/3.png'
     ];
-    IMAGES_POISON_HURT = [ // Poison hurt animation images
+    IMAGES_POISON_HURT = [
         'img/1.Sharkie/5.Hurt/1.Poisoned/1.png',
         'img/1.Sharkie/5.Hurt/1.Poisoned/2.png',
         'img/1.Sharkie/5.Hurt/1.Poisoned/3.png',
         'img/1.Sharkie/5.Hurt/1.Poisoned/4.png',
         'img/1.Sharkie/5.Hurt/1.Poisoned/5.png'
     ];
-    IMAGES_ATTACK_SLAP = [ // Attack slap animation images
+    IMAGES_ATTACK_SLAP = [
         'img/1.Sharkie/4.Attack/Fin slap/1.png',
         'img/1.Sharkie/4.Attack/Fin slap/4.png',
         'img/1.Sharkie/4.Attack/Fin slap/5.png',
@@ -115,7 +84,7 @@ class Character extends MovableObject {
         'img/1.Sharkie/4.Attack/Fin slap/7.png',
         'img/1.Sharkie/4.Attack/Fin slap/8.png',
     ];
-    IMAGES_ATTACK_BUBBLE = [ // Attack bubble animation images
+    IMAGES_ATTACK_BUBBLE = [
         'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/1.png',
         'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/2.png',
         'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/3.png',
@@ -125,9 +94,7 @@ class Character extends MovableObject {
         'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/7.png',
         'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/8.png',
     ];
-    /**
-     * Initializes the character, loads images, and starts animations.
-     */
+
     constructor() {
         super().loadImage('img/1.Sharkie/1.IDLE/1.png');
         this.loadImages(this.IMAGES_SWIM);
@@ -138,13 +105,10 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_ELECTRIC_HURT);
         this.loadImages(this.IMAGES_ATTACK_SLAP);
         this.loadImages(this.IMAGES_ATTACK_BUBBLE);
-
-        // Adjustments for collision detection.
         this.hitboxTop = 190;
         this.hitboxLeft = 35;
         this.hitboxRight = 80;
         this.hitboxBottom = 75;
-
         this.animate();
     }
 
@@ -153,40 +117,20 @@ class Character extends MovableObject {
      * Also manages user inputs for movement and attacks.
      */
     animate() {
-        let idleAnimationStarted = false;
-
-        // Animation and state updates every 150ms.
         setInterval(() => {
             if (this.isDead()) {
                 this.gameOver = true;
-                idleAnimationStarted = false;
+                this.idleAnimationStarted = false;
                 this.playAnimation(this.IMAGES_DEAD);
-            } else if (this.isHurt() && this.poisionHurt) {
-                this.idleCounter = 0;
-                this.playAnimation(this.IMAGES_POISON_HURT);
-            } else if (this.isHurt() && this.electricHurt) {
-                this.idleCounter = 0;
-                this.playAnimation(this.IMAGES_ELECTRIC_HURT);
+            } else if (this.isHurt()) {
+                this.handleHurtAnimations();
             } else if (this.isSwimming()) {
+                console.log('swim triggert');
                 this.idleCounter = 0;
-                idleAnimationStarted = false;
+                this.idleAnimationStarted = false;
                 this.playAnimation(this.IMAGES_SWIM);
-            } else if (this.idleCounter > 35) {
-                if (!idleAnimationStarted) {
-                    this.currentImage = 0;
-                }
-                idleAnimationStarted = true;
-                if (this.currentImage <= 14) {
-                    this.playAnimation(this.IMAGES_SLEEP);
-                    playSound('snoring_sound');
-                } else {
-                    this.playAnimation(this.IMAGES_SLEEP.slice(11));
-                    playSound('snoring_sound');
-                }
             } else {
-                this.idleCounter++;
-                this.playAnimation(this.IMAGES_IDLE);
-                pauseSound('snoring_sound');
+                this.handleIdleBehavior();
             }
         }, 150);
 
@@ -249,5 +193,49 @@ class Character extends MovableObject {
      */
     isSwimming() {
         return this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN;
+    }
+
+    /**
+     * Handles specific hurt animations based on the type of damage.
+     */
+    handleHurtAnimations() {
+        this.idleCounter = 0;
+        if (this.poisionHurt) {
+            console.log('gift DMG triggert');
+            this.playAnimation(this.IMAGES_POISON_HURT);
+        } else if (this.electricHurt) {
+            console.log('electro DMG triggert');
+            this.playAnimation(this.IMAGES_ELECTRIC_HURT);
+        }
+    }
+
+    /**
+     * Manages idle animations and associated sounds.
+     */
+    handleIdleBehavior() {
+        if (this.idleCounter > 35) {
+            this.playIdleAnimation();
+        } else {
+            this.idleCounter++;
+            this.playAnimation(this.IMAGES_IDLE);
+            pauseSound('snoring_sound');
+        }
+    }
+
+    /**
+     * Plays the idle (sleeping) animation and manages snoring sound.
+     */
+    playIdleAnimation() {
+        if (!this.idleAnimationStarted) {
+            this.currentImage = 0;
+        }
+        this.idleAnimationStarted = true;
+
+        if (this.currentImage <= 14) {
+            this.playAnimation(this.IMAGES_SLEEP);
+        } else {
+            this.playAnimation(this.IMAGES_SLEEP.slice(11));
+        }
+        playSound('snoring_sound');
     }
 }

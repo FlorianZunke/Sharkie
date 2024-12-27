@@ -24,8 +24,8 @@ function startLevel() {
 
     level1 = new Level(
         [
-            new PufferFish(701, 120, 500, 1050),  // PufferFish at coordinates (701, 120), with additional range parameters.
-            new JellyFish(1500, 200, 50, 300),    // JellyFish at coordinates (1500, 200) and specific movement limits.
+            new PufferFish(701, 120, 500, 1050),
+            new JellyFish(1500, 200, 50, 300),
             new JellyFish(2115, 200, 50, 360),
             new PufferFish(2300, 20, 2000, 2600),
             new JellyFish(2950, 50, 20, 200),
@@ -36,7 +36,7 @@ function startLevel() {
             new PufferFish(4500, 20, 4400, 4800),
             new JellyFish(5080, 300, 20, 350),
             new PufferFish(5200, 20, 5000, 5900),
-            new Endboss(50, 20, 150)  // Endboss placed at coordinates (50, 20) with vertical movement limits.
+            new Endboss(50, 20, 150)
         ],
         [
             new BackgroundObject('img/3. Background/Layers/5. Water/D2.png', -720),
@@ -120,13 +120,13 @@ function startLevel() {
             new PoisionBottle('img/4. Marcadores/Posión/Dark - Left.png', 5700, 110)
         ],
         [
-            new Barriar('img/3. Background/Barrier/0.png', 400, 400, 100, 1050, 0),
-            new Barriar('img/3. Background/Barrier/1.png', 500, -60, 200, 950, 0),
-            new Barriar('img/3. Background/Barrier/3.png', 1750, -80, 375, 275, -20),
-            new Barriar('img/3. Background/Barrier/2.png', 2350, 265, 225, 800, 0),
-            new Barriar('img/3. Background/Barrier/3.png', 3700, -80, 375, 300, -20),
-            new Barriar('img/3. Background/Barrier/2.png', 4250, 265, 225, 800, 0),
-            new Barriar('img/3. Background/Barrier/3.png', 5320, 160, 345, 250, 0),
+            new Barriar('img/3. Background/Barrier/0.png', 400, 400, 100, 1050, 15, 0),
+            new Barriar('img/3. Background/Barrier/1.png', 500, -60, 200, 950, 15, 0),
+            new Barriar('img/3. Background/Barrier/3.png', 1750, -80, 375, 275, 15, -30),
+            new Barriar('img/3. Background/Barrier/2.png', 2350, 265, 225, 800, 40, 0),
+            new Barriar('img/3. Background/Barrier/3.png', 3700, -80, 375, 300, 15, -30),
+            new Barriar('img/3. Background/Barrier/2.png', 4250, 265, 225, 800, 30, 0),
+            new Barriar('img/3. Background/Barrier/3.png', 5320, 160, 345, 250, 15, 0),
         ]
     );
 }

@@ -37,6 +37,10 @@ canvas {
     margin-right: 20px;
 }
 
+.row-gap16 {
+    row-gap: 16px;
+}
+
 .gap70 {
     gap: 70px;
 }
@@ -241,7 +245,6 @@ a {
 /* if device has a touch screen */
 @media (any-pointer: coarse) {
     
-
     .mobile-btns-position {
         position: absolute;
         bottom: 20px;

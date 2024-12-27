@@ -1,9 +1,3 @@
-/**
- * The `World` class represents the game world, handling the main logic for character movement, interactions,
- * collision detection, and rendering. It also manages game states such as health, coins, and poison bottles.
- * 
- * @class World
- */
 class World {
     character = new Character();
     level = level1;
@@ -19,12 +13,6 @@ class World {
     invincible = false;
     time = Date.now();
 
-    /**
-     * Creates an instance of the `World` class.
-     * 
-     * @param {HTMLCanvasElement} canvas - The canvas element used for rendering the game world.
-     * @param {Object} keyboard - The keyboard input handler for controlling the character.
-     */
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;

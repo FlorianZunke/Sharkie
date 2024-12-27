@@ -1,19 +1,5 @@
-/**
- * Class representing a throwable object in the game.
- * Extends the MovableObject class.
- */
 class ThrowableObject extends MovableObject {
-    /**
-     * Direction of the throwable object (left or right).
-     * @type {boolean}
-     */
     direction;
-
-    /**
-     * Creates a new ThrowableObject instance.
-     * @param {number} x - The initial x-coordinate of the throwable object.
-     * @param {number} y - The initial y-coordinate of the throwable object.
-     */
     constructor(x, y) {
         super();
         this.animate();
