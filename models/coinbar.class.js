@@ -46,7 +46,7 @@ class CoinBar extends DrawableObject {
         } else if (this.coinPercentage <= 80) {
             return 4;
         } else {
-            return 5; // 100% coins
+            return 5;
         }
     }
 }

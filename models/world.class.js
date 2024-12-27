@@ -275,36 +275,62 @@ class World {
     }
 
     /**
-     * Draws all the game objects (character, enemies, coins, etc.) onto the canvas.
-     * This method is recursively called to create the game loop.
-     * @method draw
-     */
+ * Draws all the game objects (character, enemies, coins, etc.) onto the canvas.
+ * This method is recursively called to create the game loop.
+ * It clears the canvas, adds game objects, and repositions the camera as needed.
+ * @method draw
+ */
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.ctx.translate(this.camera_x, 0);
-        this.addObjectsToMap(this.level.backgroundObjects);
-        this.addObjectsToMap(this.level.coins);
-        this.addObjectsToMap(this.level.poision_bottles);
-
-        this.addToMap(this.character);
-        this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.throwableObjects);
-        this.addObjectsToMap(this.level.barriar);
+        this.addBackgroundPlusCollectablesToMap();
+        this.addCharacterPlusEnemiesToMap();
 
         this.ctx.translate(-this.camera_x, 0);
-        this.addToMap(this.healthBar);
-        this.addToMap(this.poisionBar);
-        this.addToMap(this.coinBar);
+        this.addStatusbarsToMap();
         this.ctx.translate(this.camera_x, 0);
 
         this.ctx.translate(-this.camera_x, 0);
 
-        // Recursively calls the draw method to create the game loop
         let self = this;
         requestAnimationFrame(function () {
             self.draw();
         });
+    }
+
+    /**
+     * Adds background elements and collectable items (coins, poison bottles) to the game map.
+     * Translates the canvas for proper positioning.
+     * @method addBackgroundPlusCollectablesToMap
+     */
+    addBackgroundPlusCollectablesToMap() {
+        this.ctx.translate(this.camera_x, 0);
+        this.addObjectsToMap(this.level.backgroundObjects);
+        this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.poision_bottles);
+    }
+
+    /**
+     * Adds the character, enemies, throwable objects, and barriers to the game map.
+     * Ensures all dynamic elements are rendered on the canvas.
+     * @method addCharacterPlusEnemiesToMap
+     */
+    addCharacterPlusEnemiesToMap() {
+        this.addToMap(this.character);
+        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.throwableObjects);
+        this.addObjectsToMap(this.level.barriar);
+    }
+
+    /**
+     * Adds status bars (health bar, poison bar, coin bar) to the game map.
+     * These provide visual feedback to the player.
+     * @method addStatusbarsToMap
+     */
+    addStatusbarsToMap() {
+        this.addToMap(this.healthBar);
+        this.addToMap(this.poisionBar);
+        this.addToMap(this.coinBar);
     }
 
     /**

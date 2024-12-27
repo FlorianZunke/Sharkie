@@ -125,7 +125,6 @@ class Character extends MovableObject {
             } else if (this.isHurt()) {
                 this.handleHurtAnimations();
             } else if (this.isSwimming()) {
-                console.log('swim triggert');
                 this.idleCounter = 0;
                 this.idleAnimationStarted = false;
                 this.playAnimation(this.IMAGES_SWIM);
@@ -152,39 +151,51 @@ class Character extends MovableObject {
             }
         }, 90);
 
-        // Movement handling.
         setInterval(() => {
             pauseSound('swim_sound');
-
-            // Update collision state before processing movement
             this.isCollidingWithBarrier();
 
             // Check for movements and block them if collisions occur
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.collisionright) {
-                this.x += this.speed;
-                this.otherDirection = false;
-                playSound('swim_sound');
+                this.swimRight();
             }
 
             if (this.world.keyboard.LEFT && this.x > 0 && !this.collisionleft) {
-                this.x -= this.speed;
-                this.otherDirection = true;
-                playSound('swim_sound');
+                this.swimLeft();
             }
 
             if (this.world.keyboard.UP && this.y > -150 && !this.collisiontop) {
-                this.y -= this.speed;
-                playSound('swim_sound');
+                this.swimUp();
             }
 
             if (this.world.keyboard.DOWN && this.y < 215 && !this.collisionbottom) {
-                this.y += this.speed;
-                playSound('swim_sound');
+                this.swimDown();
             }
 
-            // Update camera position.
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
+    }
+
+    swimRight() {
+        this.x += this.speed;
+        this.otherDirection = false;
+        playSound('swim_sound');
+    }
+
+    swimLeft() {
+        this.x -= this.speed;
+        this.otherDirection = true;
+        playSound('swim_sound');
+    }
+
+    swimUp() {
+        this.y -= this.speed;
+        playSound('swim_sound');
+    }
+
+    swimDown() {
+        this.y += this.speed;
+        playSound('swim_sound');
     }
 
     /**
@@ -201,10 +212,8 @@ class Character extends MovableObject {
     handleHurtAnimations() {
         this.idleCounter = 0;
         if (this.poisionHurt) {
-            console.log('gift DMG triggert');
             this.playAnimation(this.IMAGES_POISON_HURT);
         } else if (this.electricHurt) {
-            console.log('electro DMG triggert');
             this.playAnimation(this.IMAGES_ELECTRIC_HURT);
         }
     }

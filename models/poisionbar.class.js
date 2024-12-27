@@ -1,11 +1,11 @@
 class Poisionbar extends DrawableObject {
     IMAGES_POISON = [
-        'img/4. Marcadores/green/poisoned bubbles/0_ copia 2.png', // 0%
-        'img/4. Marcadores/green/poisoned bubbles/20_ copia 3.png', // 20%
-        'img/4. Marcadores/green/poisoned bubbles/40_ copia 2.png', // 40%
-        'img/4. Marcadores/green/poisoned bubbles/60_ copia 2.png', // 60%
-        'img/4. Marcadores/green/poisoned bubbles/80_ copia 2.png', // 80%
-        'img/4. Marcadores/green/poisoned bubbles/100_ copia 3.png' // 100%
+        'img/4. Marcadores/green/poisoned bubbles/0_ copia 2.png',
+        'img/4. Marcadores/green/poisoned bubbles/20_ copia 3.png',
+        'img/4. Marcadores/green/poisoned bubbles/40_ copia 2.png',
+        'img/4. Marcadores/green/poisoned bubbles/60_ copia 2.png',
+        'img/4. Marcadores/green/poisoned bubbles/80_ copia 2.png',
+        'img/4. Marcadores/green/poisoned bubbles/100_ copia 3.png'
     ];
 
     constructor() {
@@ -38,17 +38,17 @@ class Poisionbar extends DrawableObject {
      */
     resolveImageIndex() {
         if (this.bottlePercentage == 0) {
-            return 0; // 0% poison
+            return 0;
         } else if (this.bottlePercentage <= 20) {
-            return 1; // 20% poison
+            return 1;
         } else if (this.bottlePercentage <= 40) {
-            return 2; // 40% poison
+            return 2;
         } else if (this.bottlePercentage <= 60) {
-            return 3; // 60% poison
+            return 3;
         } else if (this.bottlePercentage <= 80) {
-            return 4; // 80% poison
+            return 4;
         } else {
-            return 5; // 100% poison
+            return 5;
         }
     }
 }
