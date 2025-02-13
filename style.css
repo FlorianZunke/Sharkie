@@ -3,6 +3,7 @@
 }
 
 body {
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -183,14 +184,17 @@ canvas {
 a {
     margin-top: 35px;
     color: white;
-    font-size: 24px;
+    font-size: clamp(1rem, 0.9146rem + 0.4878vw, 1.5rem);
 }
 
 .impressum {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    width: 100%;
     display: flex;
     flex-direction: column;
     height: 90vh;
-    width: 80vw;
+    max-width: 80vw;
     box-sizing: border-box;
     background-color: rgba(14, 15, 34, 0.582);
     padding: 32px;
@@ -199,7 +203,7 @@ a {
 }
 
 .imprint-links {
-    font-size: 16px;
+    font-size: clamp(1rem, 0.936rem + 0.3659vw, 1.375rem);
     margin-top: 5px;
     margin-bottom: 5px;
 }
@@ -221,6 +225,10 @@ a {
     border-radius: 8px;
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 0px;
+}
 
 @keyframes fadeIn {
     from {

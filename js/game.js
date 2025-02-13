@@ -81,10 +81,12 @@ function closeKeyControlls() {
 function restartGame() {
     let overlayLose = document.getElementById('lose_container');
     let hud = document.getElementById('hud');
+    let mobile_buttons = document.getElementById('mobile_buttons');
 
     overlayLose.classList.remove('overlay-container');
     overlayLose.classList.add('d-none');
     hud.classList.remove('d-none-i');
+    mobile_buttons.classList.remove('d-none-i');
     pauseSound('lose');
     pauseSound('background_music');
     init();
@@ -96,10 +98,12 @@ function restartGame() {
 function playAgain() {
     let overlayWin = document.getElementById('win_container');
     let hud = document.getElementById('hud');
+    let mobile_buttons = document.getElementById('mobile_buttons');
 
     overlayWin.classList.remove('overlay-container');
     overlayWin.classList.add('d-none');
     hud.classList.remove('d-none-i');
+    mobile_buttons.classList.remove('d-none-i');
     pauseSound('win');
     pauseSound('background_music');
     init();
